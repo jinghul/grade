@@ -35,15 +35,17 @@ public class Teacher {
         
         try {
             /* First fetch the teacher's name */
-            String query = "select * from teacher where teacherID=" + teacherID;
+            String query = "select * from teacher where teacherID = '" + teacherID + "'";
             ResultSet result = db.getQuery(query);
             
             if (result.next()) {
                 this.name = result.getString("teacherName");
             }
+
+            // TODO: Move to semester as static method fetch
             
             /* Fetch the existing semesters of the teacher */
-            query = "select * from semester where teacherID=" + teacherID;
+            query = "select * from semester where teacherID = '" + teacherID + "'";
             result = db.getQuery(query);
             
             while (result.next()) {
@@ -60,18 +62,14 @@ public class Teacher {
     }
     
     public static Teacher create(String teacherId, String password, String name) {
-        if (db == null) {
-            db = Database.getDatabase();
-        }
-        
         try {
             String query = "insert into teacher (username, password, name) values (?, ?, ?)";
-            PreparedStatement prpst = db.prepareStatement(query);
+            PreparedStatement prpst = Database.getDatabase().prepareStatement(query);
             prpst.setString(1, teacherId);
             prpst.setString(2, password);
             prpst.setString(3, name);
-            prpst.execute();
-            
+            prpst.executeUpdate();
+
             return new Teacher(teacherId, name);
         } catch (SQLException e) {
             e.printStackTrace(); // DEBUG

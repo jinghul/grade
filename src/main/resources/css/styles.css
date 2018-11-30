@@ -30,3 +30,7 @@
 -fx-border-color : #355ECE;
 -fx-text-fill: #355ECE;
 }
+
+.sidebar {
+-fx-background-color : #4747d1;
+}

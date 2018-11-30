@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import twelve.team.Auth;
+import twelve.team.models.Teacher;
 
 public class Login implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
     public static final String INCORRECT_CREDENTIALS = "Incorrect username or password.";
@@ -57,7 +58,7 @@ public class Login implements Initializable, EventHandler<ActionEvent>, ChangeLi
         if (event.getSource() == btn_login || event.getSource() == tf_password) {
             authenticate();
         } else if (event.getSource() == btn_register) {
-            Controller.load("/fxml/Register.fxml");
+            Controller.getController().navigateToRegistration();
         }
     }
 
@@ -75,7 +76,8 @@ public class Login implements Initializable, EventHandler<ActionEvent>, ChangeLi
 
         if (Auth.authenticate(username, password)) {
             // move to semesters screen
-            displayError("SUCCESS!"); // DEBUG
+            Teacher teacher = new Teacher(username);
+            Controller.getController().navigateToSemesterSelection(teacher);
         } else {
             // Display incorrect entry
             displayError(INCORRECT_CREDENTIALS);

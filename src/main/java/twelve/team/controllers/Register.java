@@ -15,6 +15,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import twelve.team.Database;
 import twelve.team.Utils;
+import twelve.team.models.Teacher;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -92,12 +93,7 @@ public class Register implements Initializable, EventHandler<ActionEvent>, Chang
                 return;
             }
 
-            String insert = "insert into teacher (teacherID, password, teacherName) values (?, ?, ?)";
-            PreparedStatement prpst = Database.getDatabase().prepareStatement(insert);
-            prpst.setString(1, username);
-            prpst.setString(2, password);
-            prpst.setString(3, name);
-            prpst.executeUpdate();
+            Teacher.create(username, password, name);
 
             displaySuccess();
         } catch (SQLException e) {
@@ -107,7 +103,7 @@ public class Register implements Initializable, EventHandler<ActionEvent>, Chang
     }
 
     private void returnToLogin() {
-        Controller.load("/fxml/Login.fxml");
+        Controller.getController().navigateToLogin();
     }
 
     private void displayError(String error) {

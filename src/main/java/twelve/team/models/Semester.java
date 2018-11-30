@@ -13,8 +13,7 @@ public class Semester {
     ArrayList<Course> courses;
     String semesterID;
     String name;
-    Database db;
-    
+
     public Semester(String semesterID, String name) {
         this.semesterID = semesterID;
         this.name = name;

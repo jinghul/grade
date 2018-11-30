@@ -1,0 +1,32 @@
+.button_primary
+{
+-fx-background-insets: 0;
+-fx-background-color : #4747d1;
+-fx-text-fill : #fff;
+}
+.button_primary:hover
+{
+-fx-background-color : #355ECE;
+}
+.button_primary:pressed
+{
+-fx-background-color : #355ECE;
+}
+
+.button_alt
+{
+-fx-background-insets: 0;
+-fx-text-fill : #4747d1;
+-fx-background-color :rgba(255,255,255,0);
+-fx-border-color : #4747d1;
+}
+.button_alt:hover
+{
+-fx-border-color : #355ECE;
+-fx-text-fill: #355ECE;
+}
+.button_alt:pressed
+{
+-fx-border-color : #355ECE;
+-fx-text-fill: #355ECE;
+}

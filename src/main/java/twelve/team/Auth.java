@@ -1,21 +1,20 @@
 package twelve.team;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Auth {
-    public static boolean authenticate(String teacherId, String pass) {
+    public static boolean authenticate(String teacherId, String password) {
         Database db = Database.getDatabase();
-        ResultSet result = db.getQuery("select * from teacher where teacherID=" + teacherId);
-        
         try {
+            PreparedStatement prpst = db.prepareStatement("select * from teacher where teacherID = ? and password = ?");
+            prpst.setString(1, teacherId);
+            prpst.setString(2, password);
+            ResultSet result = prpst.executeQuery();
+        
             if (result.next()) {
-                String verify = result.getString("password");
-                if (verify.equals(pass)) {
-                    return true;
-                } else {
-                    return false;
-                } 
+                return true;
             } else {
                 return false;
             }

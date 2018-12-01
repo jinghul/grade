@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class CoursesController implements Initializable {
 
     @FXML
     private Button btnDashboard;
@@ -37,7 +37,7 @@ public class Controller implements Initializable {
     @FXML
     private void handleButtonClicks(javafx.event.ActionEvent mouseEvent) {
         if (mouseEvent.getSource() == btnDashboard) {
-            loadStage("/home/fxml/Dashboard.fxml");
+            loadStage("/home/fxml/Assignments.fxml");
         } else if (mouseEvent.getSource() == btnStudents) {
             loadStage("/home/fxml/Students.fxml");
         } else if (mouseEvent.getSource() == btn_Timetable) {

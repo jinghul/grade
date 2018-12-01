@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="943.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.home.controllers.StudentsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="943.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.home.controllers.StuDetailController">
     <children>
         <GridPane layoutY="-7.0" prefHeight="618.0" prefWidth="943.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -35,7 +36,7 @@
                         <RowConstraints maxHeight="484.9476013183594" minHeight="10.0" prefHeight="481.62782287597656" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label alignment="BASELINE_CENTER" contentDisplay="CENTER" prefHeight="68.0" prefWidth="415.0" text="CS 591 Students" textFill="#2b2f52" textOverrun="WORD_ELLIPSIS">
+                        <Label alignment="BASELINE_CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="306.0" text="Nina" textFill="#2b2f52" textOverrun="WORD_ELLIPSIS">
                             <font>
                                 <Font name="Chalkboard SE Regular" size="36.0" />
                             </font>
@@ -45,16 +46,17 @@
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="155.00912475585938" minHeight="0.0" prefHeight="52.01829528808594" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="469.7805938720703" minHeight="10.0" prefHeight="429.98170471191406" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="225.07296752929688" minHeight="10.0" prefHeight="153.09007263183594" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="226.04559326171875" minHeight="0.0" prefHeight="68.90992736816406" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="449.8209533691406" minHeight="10.0" prefHeight="264.0558776855469" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <ChoiceBox prefWidth="150.0" GridPane.halignment="RIGHT">
+                                <ChoiceBox prefWidth="150.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets right="40.0" />
                                     </GridPane.margin>
                                 </ChoiceBox>
-                                <TextField prefHeight="27.0" prefWidth="426.0" text="Search..." GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.vgrow="ALWAYS">
+                                <TextField prefHeight="27.0" prefWidth="426.0" text="Search..." GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                     <GridPane.margin>
                                         <Insets left="40.0" right="600.0" />
                                     </GridPane.margin>
@@ -62,24 +64,32 @@
                                         <Insets />
                                     </opaqueInsets>
                                 </TextField>
-                                <Button mnemonicParsing="false" text="Add" GridPane.halignment="RIGHT">
+                                <Button mnemonicParsing="false" text="Add" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets right="230.0" />
                                     </GridPane.margin>
                                 </Button>
-                                <TableView prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                <TableView prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                     <columns>
                                         <TableColumn prefWidth="30.0" text="#" />
-                                        <TableColumn prefWidth="260.0" text="Name" />
-                                        <TableColumn minWidth="0.0" prefWidth="101.98165893554688" text="College" />
-                                        <TableColumn minWidth="0.0" prefWidth="100.013671875" text="Dept" />
-                                        <TableColumn prefWidth="102.986328125" text="Submitted" />
+                                        <TableColumn prefWidth="260.0" text="Title" />
+                                        <TableColumn minWidth="0.0" prefWidth="101.98165893554688" text="Category" />
+                                        <TableColumn minWidth="0.0" prefWidth="100.013671875" text="Released" />
+                                        <TableColumn prefWidth="102.986328125" text="Score" />
                                         <TableColumn prefWidth="158.548095703125" text="AVG" />
                                     </columns>
                                     <GridPane.margin>
                                         <Insets left="40.0" right="40.0" />
                                     </GridPane.margin>
                                 </TableView>
+                                <LineChart>
+                                    <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </LineChart>
                             </children>
                         </GridPane>
                     </children>

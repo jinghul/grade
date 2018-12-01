@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DashboardController implements Initializable {
+public class AssignmentsController implements Initializable {
 
     @FXML
     private TableView<StudentsModel> tbData;

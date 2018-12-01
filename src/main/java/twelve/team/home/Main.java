@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/home/fxml/Home.fxml"));
+        loader.setLocation(getClass().getResource("/home/fxml/Courses.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Grader");
         primaryStage.getIcons().add(new Image("/home/icons/icon.png"));

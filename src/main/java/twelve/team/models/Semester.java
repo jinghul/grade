@@ -1,5 +1,6 @@
 package twelve.team.models;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import twelve.team.Database;
 
@@ -17,6 +18,12 @@ public class Semester {
     public Semester(String semesterID, String name) {
         this.semesterID = semesterID;
         this.name = name;
+    }
+
+    public ArrayList<Semester> getSemesters(Teacher teacher) {
+//        String query = "select * where teacherID = '" + teacher.get
+//        PreparedStatement prpst = Database.getDatabase().prepareStatement()
+        return null;
     }
     
     private void fetch() {

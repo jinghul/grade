@@ -63,7 +63,7 @@ public class Teacher {
     
     public static Teacher create(String teacherId, String password, String name) {
         try {
-            String query = "insert into teacher (username, password, name) values (?, ?, ?)";
+            String query = "insert into teacher (teacherID, password, teacherName) values (?, ?, ?)";
             PreparedStatement prpst = Database.getDatabase().prepareStatement(query);
             prpst.setString(1, teacherId);
             prpst.setString(2, password);

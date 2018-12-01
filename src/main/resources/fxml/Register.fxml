@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.Register">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.RegisterController">
     <children>
         <HBox fx:id="root" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -24,7 +24,7 @@
                     <children>
                         <ImageView fitHeight="77.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../imgs/main_icon.png" />
+                                <Image url="@../imgs/cap_icon.png" />
                             </image>
                             <VBox.margin>
                                 <Insets bottom="20.0" />
@@ -44,7 +44,7 @@
                <children>
                   <Text fill="#4747d1" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" wrappingWidth="400.0">
                      <font>
-                        <Font name="Segoe UI Light" size="40.0" />
+                        <Font name="Segoe UI Semibold" size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
@@ -52,7 +52,7 @@
                   </Text>
                   <Line endX="50.0" startX="-400.0" stroke="#4747d1">
                      <VBox.margin>
-                        <Insets bottom="70.0" />
+                        <Insets bottom="30.0" />
                      </VBox.margin>
                   </Line>
                   <Text fx:id="txt_error" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Error." visible="false">
@@ -66,17 +66,17 @@
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                                  <font>
-                                    <Font name="Segoe UI Light" size="20.0" />
+                                    <Font name="Segoe UI Semibold" size="20.0" />
                                  </font>
                               </Text>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
                                  <font>
-                                    <Font name="Segoe UI Light" size="20.0" />
+                                    <Font name="Segoe UI Semibold" size="20.0" />
                                  </font>
                               </Text>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                                  <font>
-                                    <Font name="Segoe UI Light" size="20.0" />
+                                    <Font name="Segoe UI Semibold" size="20.0" />
                                  </font>
                               </Text>
                            </children>
@@ -107,7 +107,7 @@
                         <Font size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets top="40.0" />
                      </VBox.margin>
                   </Button>
                   <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="200.0" styleClass="button_alt" stylesheets="@../css/styles.css" text="Return to Login">

@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.Login">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.LoginController">
    <children>
       <HBox fx:id="root" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -17,7 +17,7 @@
                <children>
                   <ImageView fitHeight="77.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/main_icon.png" />
+                        <Image url="@../imgs/cap_icon.png" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -37,7 +37,7 @@
                  <children>
                      <ImageView fitHeight="77.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
                          <image>
-                             <Image url="@../imgs/school_icon.png" />
+                             <Image url="@../imgs/main_icon.png" />
                          </image>
                          <viewport>
                              <Rectangle2D />
@@ -48,7 +48,7 @@
                      </ImageView>
                      <Text fill="#4747d1" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #4747d1;" text="Grader" textAlignment="CENTER" wrappingWidth="393.6341857910156">
                          <font>
-                             <Font name="Segoe UI Light" size="60.0" />
+                             <Font name="Segoe UI Semibold" size="60.0" />
                          </font>
                          <VBox.margin>
                              <Insets bottom="70.0" />

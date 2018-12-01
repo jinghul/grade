@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Register implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
+public class RegisterController implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
     public static final String INVALID_INPUT = "Invalid input: All fields are required.";
     public static final String DATABASE_ERROR = "Error saving to MySql database.";
     public static final String CREATION_SUCCESS = "User successfully created! Return to login.";

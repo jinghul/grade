@@ -3,9 +3,10 @@ package twelve.team.controllers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import twelve.team.models.Teacher;
 
 import java.io.IOException;
@@ -17,10 +18,12 @@ import java.util.ArrayList;
  */
 public class Controller {
     public static final String STAGE_NAME = "Grader";
+    public static final String ICON_PATH = "/imgs/main_icon.png";
+
     public static final String FXML_ROOT = "/fxml/";
     public static final String LOGIN_FXML_PATH = "Login.fxml";
     public static final String REGISTER_FXML_PATH = "Register.fxml";
-    public static final String SEMESTER_FXML_PATH = "Semesters.fxml";
+    public static final String SEMESTER_FXML_PATH = "SemesterSelection.fxml";
 
     private static Controller controller;
 
@@ -34,7 +37,6 @@ public class Controller {
     private ArrayList<String> backStack;
 
     public Controller(Application application, Stage appStage) {
-        // TODO: Make singleton instead of static class.
         app = application;
         stage = appStage;
     }
@@ -52,7 +54,7 @@ public class Controller {
     }
 
     public void setStage() {
-        // TODO: setIcon
+        stage.getIcons().add(new Image(ICON_PATH));
         stage.setTitle(STAGE_NAME);
         stage.show();
     }
@@ -88,7 +90,7 @@ public class Controller {
     }
 
     public void navigateToSemesterSelection(Teacher teacher) {
-        Semesters semesterController = (Semesters) load(SEMESTER_FXML_PATH);
+        SemesterController semesterController = (SemesterController) load(SEMESTER_FXML_PATH);
         semesterController.loadFromTeacher(teacher);
     }
 

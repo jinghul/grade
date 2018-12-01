@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
 import twelve.team.Auth;
 import twelve.team.models.Teacher;
 
-public class Login implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
+public class LoginController implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
     public static final String INCORRECT_CREDENTIALS = "Incorrect username or password.";
     public static final String MISSING_PASSWORD = "Please input a password.";
     public static final String MISSING_USERNAME = "Please input a username.";
@@ -41,6 +41,8 @@ public class Login implements Initializable, EventHandler<ActionEvent>, ChangeLi
 
     @FXML
     private Button btn_register;
+
+    // TODO: StackPane transition to registration and back.
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

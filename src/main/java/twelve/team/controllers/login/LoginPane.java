@@ -1,4 +1,4 @@
-package twelve.team.controllers;
+package twelve.team.controllers.login;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import twelve.team.Loader;
+import twelve.team.controllers.MainPane;
 import twelve.team.utils.Animator;
 import twelve.team.Auth;
 import twelve.team.models.Teacher;
@@ -21,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginPane implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
-    public static final String LOGIN_FXML_PATH = "LoginPane.fxml";
+    public static final String LOGIN_FXML_PATH = "login/LoginPane.fxml";
     public static final String INCORRECT_CREDENTIALS = "Incorrect username or password.";
     public static final String MISSING_PASSWORD = "Please input a password.";
     public static final String MISSING_USERNAME = "Please input a username.";

@@ -1,4 +1,4 @@
-package twelve.team.controllers;
+package twelve.team.controllers.login;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import twelve.team.Loader;
+import twelve.team.controllers.login.LoginPane;
 import twelve.team.utils.Animator;
 import twelve.team.Database;
 import twelve.team.utils.StringUtil;
@@ -25,7 +26,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class RegisterPane implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
-    public static final String REGISTER_FXML_PATH = "RegisterPane.fxml";
+    public static final String REGISTER_FXML_PATH = "login/RegisterPane.fxml";
     public static final String INVALID_INPUT = "Invalid input: All fields are required.";
     public static final String DATABASE_ERROR = "Error saving to MySql database.";
     public static final String CREATION_SUCCESS = "User successfully created! Return to login.";

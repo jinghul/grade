@@ -1,3 +1,8 @@
+.theme-main {
+    -fx-background-color: #4747d1;
+}
+
+
 .button_primary {
     -fx-background-insets: 0;
     -fx-background-color: #4747d1;
@@ -11,10 +16,10 @@
     -fx-background-color: #355ece;
 }
 
-.button_alt {
+.button_alt, .tile {
     -fx-background-insets: 0;
     -fx-text-fill: #4747d1;
-    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-color: #fff;
     -fx-border-color: #4747d1;
     -fx-cursor: "HAND";
 }
@@ -48,7 +53,52 @@
     -fx-font-family: "Segoe UI Semilight";
 }
 
+.header-white {
+    -fx-fill: #fff;
+    -fx-font-size: 50;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
 .subheader {
+    -fx-font-size: 35;
+    -fx-fill: #4747d1;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+.tile {
+    -fx-pref-width: 150;
+    -fx-pref-height: 150;
+    -fx-min-width: 150;
+    -fx-min-height: 150;
+    -fx-border-color: #5c5cd6;
+}
+
+.tile:hover, .tile:pressed {
+    -fx-effect: dropshadow( three-pass-box , #c2c2f0 ,10,0,0, 0 );
+}
+
+.tile .header {
+    -fx-font-size: 30;
+    -fx-fill: #5c5cd6;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.tile .subheader {
+    -fx-font-size : 20;
+    -fx-fill: #5c5cd6;
+}
+
+.edit-button {
+    -fx-pref-width: 10;
+    -fx-pref-height: 10;
+    -fx-background-color: #fff;
+}
+
+.pane {
+-fx-background-color: #fff;
+}
+
+.pane-header {
 }
 
 .table-view .column-header,

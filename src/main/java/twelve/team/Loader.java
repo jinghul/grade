@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import twelve.team.controllers.LoginPane;
+import twelve.team.controllers.login.LoginPane;
 
 import java.io.IOException;
 
@@ -25,7 +25,17 @@ public class Loader {
     private static Stage stage;
 
     public static FXMLLoader getLoader(String fxml_file) {
-        return new FXMLLoader(app.getClass().getResource(FXML_ROOT + fxml_file));
+        return new FXMLLoader(App.class.getResource(FXML_ROOT + fxml_file));
+    }
+
+    public static void init(Application application, Stage appStage) {
+        app = application;
+        stage = appStage;
+
+        // Initial load of login page.
+        loadToScene(LoginPane.LOGIN_FXML_PATH);
+        stage.getIcons().add(new Image(ICON_PATH));
+        stage.show();
     }
 
     public static void load(String fxml_file, Node pane) {
@@ -40,45 +50,12 @@ public class Loader {
         }
     }
 
-    public static void init(Application application, Stage appStage) {
-            app = application;
-            stage = appStage;
-
-            // Initial load of login page.
-            loadToScene(LoginPane.LOGIN_FXML_PATH);
-            stage.getIcons().add(new Image(ICON_PATH));
-            stage.show();
-    }
-
-
-    public static Node loadFile(String fxml_path) {
-        if (app == null) {
-            return null;
-        }
-
-        try {
-            System.out.println("Loading: " + FXML_ROOT + fxml_path);
-
-            // Set the new location of the loader
-            FXMLLoader fxmlLoader = new FXMLLoader(app.getClass().getResource(FXML_ROOT + fxml_path));
-            return fxmlLoader.load();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static Initializable loadToScene(String fxml_path) {
-        if (app == null) {
-            return null;
-        }
-
         try {
             System.out.println("Loading: " + FXML_ROOT + fxml_path);
 
             // Set the new location of the loader
-            FXMLLoader fxmlLoader = new FXMLLoader(app.getClass().getResource(FXML_ROOT + fxml_path));
+            FXMLLoader fxmlLoader = getLoader(fxml_path);
 
             if (stage.getScene() != null) {
                 stage.getScene().setRoot(fxmlLoader.load());

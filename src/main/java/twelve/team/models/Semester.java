@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import twelve.team.Database;
+import twelve.team.controllers.tiles.TileButton;
 
 /**
  * The container for courses.
@@ -16,6 +17,7 @@ public class Semester {
     ArrayList<Course> courses;
     String semesterID;
     String name;
+    TileButton tile;
 
     public Semester(String semesterID, String name) {
         this.semesterID = semesterID;
@@ -41,9 +43,9 @@ public class Semester {
         }
     }
     
-    private void fetch() {
-        
-    }
+//    public void getTile() {
+//        if (Tile)
+//    }
     
     public ArrayList<Course> getCourses() {
         return null;

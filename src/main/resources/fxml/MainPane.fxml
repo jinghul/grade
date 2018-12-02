@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import twelve.team.controllers.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -8,86 +9,97 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import twelve.team.controllers.HomePane?>
-<GridPane fx:id="root" opacity="0" stylesheets="@../css/styles.css" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
+
+<GridPane fx:id="root" minHeight="600.0" minWidth="800.0" opacity="0.0" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
    <columnConstraints>
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" />
+      <ColumnConstraints hgrow="NEVER" minWidth="210.0" prefWidth="210.0" />
+      <ColumnConstraints hgrow="SOMETIMES" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="600.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <AnchorPane>
+      <AnchorPane minHeight="600.0" minWidth="210.0" prefWidth="210.0" styleClass="sidebar" stylesheets="@../css/styles.css">
          <children>
-            <VBox styleClass="sidebar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello,">
-                           <font>
-                              <Font name="Segoe UI Semibold" size="15.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="txt_name" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                           <font>
-                              <Font name="Segoe UI Semibold" size="30.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="40.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <Button fx:id="btn_home" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Home">
-                     <graphic>
-                        <ImageView fitHeight="25.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/home_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="btn_semester" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Semester">
-                     <graphic>
-                        <ImageView fitHeight="25.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/semester_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="btn_course" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Courses">
-                     <graphic>
-                        <ImageView fitHeight="25.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/course_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="btn_grade" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Grade">
-                     <graphic>
-                        <ImageView fitHeight="25.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/report_card_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello,">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="txt_name" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="40.0" />
+                     </VBox.margin>
+                  </Text>
                </children>
             </VBox>
-            <Button fx:id="btn_logout" mnemonicParsing="false" styleClass="sidebar_button" text="Log Out" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0">
+            <VBox alignment="CENTER" minWidth="210.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Button fx:id="btn_home" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Home">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imgs/home_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="btn_semester" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Semester">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imgs/semester_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="btn_course" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Courses">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imgs/course_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btn_grade" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Grade">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imgs/report_card_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button fx:id="btn_logout" mnemonicParsing="false" styleClass="sidebar_button" text="Log Out" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
                <graphic>
                   <ImageView fitHeight="25.0" preserveRatio="true">
                      <image>
@@ -98,6 +110,6 @@
             </Button>
          </children>
       </AnchorPane>
-    <HomePane GridPane.columnIndex="1"/>
+    <HomePane minHeight="0.0" GridPane.columnIndex="1" />
    </children>
 </GridPane>

@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<GridPane opacity="0" fx:id="root" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.RegisterPane">
+<GridPane opacity="0" fx:id="root" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.login.RegisterPane">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -61,7 +61,7 @@
                   <Font size="15.0" />
                </font>
             </PasswordField>
-            <Button fx:id="btn_confirm" mnemonicParsing="false" prefWidth="250.0" styleClass="button_primary" stylesheets="@../css/styles.css" text="Confirm">
+            <Button fx:id="btn_confirm" mnemonicParsing="false" prefWidth="250.0" styleClass="button_primary" stylesheets="@../../css/styles.css" text="Confirm">
                <font>
                   <Font size="15.0" />
                </font>
@@ -69,7 +69,7 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="250.0" styleClass="button_alt" stylesheets="@../css/styles.css" text="Return to Login">
+            <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="250.0" styleClass="button_alt" stylesheets="@../../css/styles.css" text="Return to Login">
                <font>
                   <Font size="15.0" />
                </font>

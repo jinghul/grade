@@ -1,4 +1,4 @@
-package twelve.team.controllers;
+package twelve.team.controllers.semester;
 
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;

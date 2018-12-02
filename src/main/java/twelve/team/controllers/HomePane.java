@@ -1,13 +1,11 @@
 package twelve.team.controllers;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import twelve.team.Loader;
-import twelve.team.utils.Animator;
 import twelve.team.models.Teacher;
+import twelve.team.utils.Animator;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

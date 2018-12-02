@@ -4,12 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import twelve.team.Loader;
 import twelve.team.Router;
+import twelve.team.controllers.login.LoginPane;
+import twelve.team.controllers.semester.SemesterPane;
 import twelve.team.utils.Animator;
 import twelve.team.models.Teacher;
 

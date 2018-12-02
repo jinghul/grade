@@ -10,22 +10,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import twelve.team.Loader;
+import twelve.team.utils.Animator;
+import twelve.team.Auth;
+import twelve.team.models.Teacher;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-import twelve.team.Auth;
-import twelve.team.models.Teacher;
-
-public class LoginController implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
+public class LoginPane implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
+    public static final String LOGIN_FXML_PATH = "LoginPane.fxml";
     public static final String INCORRECT_CREDENTIALS = "Incorrect username or password.";
     public static final String MISSING_PASSWORD = "Please input a password.";
     public static final String MISSING_USERNAME = "Please input a username.";
 
     @FXML
-    private HBox root;
+    private GridPane root;
 
     @FXML
     private TextField tf_username;
@@ -44,6 +46,10 @@ public class LoginController implements Initializable, EventHandler<ActionEvent>
 
     // TODO: StackPane transition to registration and back.
 
+    public static void load() {
+        Loader.loadToScene(LOGIN_FXML_PATH);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater( () -> root.requestFocus() );
@@ -53,6 +59,8 @@ public class LoginController implements Initializable, EventHandler<ActionEvent>
         tf_username.textProperty().addListener(this);
         tf_password.textProperty().addListener(this);
         tf_password.setOnAction(this);
+
+        Animator.fadeIn(root, null);
     }
 
     @Override
@@ -60,7 +68,7 @@ public class LoginController implements Initializable, EventHandler<ActionEvent>
         if (event.getSource() == btn_login || event.getSource() == tf_password) {
             authenticate();
         } else if (event.getSource() == btn_register) {
-            Controller.getController().navigateToRegistration();
+            Animator.fadeOut(root, (e) -> RegisterPane.load());
         }
     }
 
@@ -79,7 +87,7 @@ public class LoginController implements Initializable, EventHandler<ActionEvent>
         if (Auth.authenticate(username, password)) {
             // move to semesters screen
             Teacher teacher = new Teacher(username);
-            Controller.getController().navigateToSemesterSelection(teacher);
+            Animator.fadeOut(root, (e) -> MainPane.load(teacher));
         } else {
             // Display incorrect entry
             displayError(INCORRECT_CREDENTIALS);

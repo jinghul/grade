@@ -8,7 +8,8 @@ public class Auth {
     public static boolean authenticate(String teacherId, String password) {
         Database db = Database.getDatabase();
         try {
-            PreparedStatement prpst = db.prepareStatement("select * from teacher where teacherID = ? and password = ?");
+            PreparedStatement prpst = db.prepareStatement("select * from teacher where teacherID = ? COLLATE utf8mb4_bin " +
+                    "and password = ? COLLATE utf8mb4_bin");
             prpst.setString(1, teacherId);
             prpst.setString(2, password);
             ResultSet result = prpst.executeQuery();

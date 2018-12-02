@@ -1,6 +1,8 @@
 package twelve.team.models;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import twelve.team.Database;
 
@@ -20,10 +22,23 @@ public class Semester {
         this.name = name;
     }
 
-    public ArrayList<Semester> getSemesters(Teacher teacher) {
-//        String query = "select * where teacherID = '" + teacher.get
-//        PreparedStatement prpst = Database.getDatabase().prepareStatement()
-        return null;
+    public static ArrayList<Semester> getSemesters(String teacherID) {
+        try {
+            /* Fetch the existing semesters of the teacher */
+            String query = "select * from semester where teacherID = '" + teacherID + "'";
+            ResultSet result = Database.getDatabase().getQuery(query);
+
+            ArrayList<Semester> semesters = new ArrayList<>();
+            while (result.next()) {
+                semesters.add(new Semester(result.getString("semesterID"),
+                        result.getString("semesterName")));
+            }
+
+            return semesters;
+        } catch(SQLException e) {
+            e.printStackTrace(); // DEBUG
+            return null;
+        }
     }
     
     private void fetch() {

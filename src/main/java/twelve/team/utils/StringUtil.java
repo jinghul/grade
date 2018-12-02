@@ -1,6 +1,6 @@
-package twelve.team;
+package twelve.team.utils;
 
-public class Utils {
+public class StringUtil {
 
     public static boolean isNullOrEmpty(String s) {
         return s == null || s.length() == 0;

@@ -97,7 +97,9 @@ public class Database {
                     + "courseID int NOT NULL,\n"
                     + "courseName varchar(20) NOT NULL,\n"
                     + "semesterID int NOT NULL,\n"
+                    + "teacherID int NOT NULL,\n"
                     + "PRIMARY KEY (courseID),\n"
+                    + "FOREIGN KEY (teacherID) references teacher(teacherID),\n"
                     + "FOREIGN KEY (semesterID) references semester(semesterID)\n"
                     + ");");
             statement.execute(sql);
@@ -207,7 +209,7 @@ public class Database {
 
     private void close() {
         try {
-            System.out.println("Closing database server connection...");
+            System.out.println("\nClosing database server connection...");
             if (connection != null) {
                 connection.close();
             }

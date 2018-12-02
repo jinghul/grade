@@ -10,26 +10,28 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import twelve.team.Loader;
+import twelve.team.utils.Animator;
 import twelve.team.Database;
-import twelve.team.Utils;
+import twelve.team.utils.StringUtil;
 import twelve.team.models.Teacher;
 
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class RegisterController implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
+public class RegisterPane implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
+    public static final String REGISTER_FXML_PATH = "RegisterPane.fxml";
     public static final String INVALID_INPUT = "Invalid input: All fields are required.";
     public static final String DATABASE_ERROR = "Error saving to MySql database.";
     public static final String CREATION_SUCCESS = "User successfully created! Return to login.";
     public static final String ALREADY_EXISTS = "Username is taken. Please try again.";
     @FXML
-    private HBox root;
+    private GridPane root;
 
     @FXML
     private TextField tf_name;
@@ -49,6 +51,10 @@ public class RegisterController implements Initializable, EventHandler<ActionEve
     @FXML
     private Text txt_error;
 
+    public static void load() {
+        Loader.loadToScene(REGISTER_FXML_PATH);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater( () -> root.requestFocus() );
@@ -61,6 +67,8 @@ public class RegisterController implements Initializable, EventHandler<ActionEve
         tf_username.textProperty().addListener(this);
         tf_password.textProperty().addListener(this);
         tf_name.textProperty().addListener(this);
+
+        Animator.fadeIn(root, null);
     }
 
     @Override
@@ -70,7 +78,7 @@ public class RegisterController implements Initializable, EventHandler<ActionEve
             register_user();
 
         } else if (event.getSource() == btn_cancel) {
-            returnToLogin();
+            Animator.fadeOut(root, (e) -> returnToLogin());
         }
     }
 
@@ -79,7 +87,7 @@ public class RegisterController implements Initializable, EventHandler<ActionEve
         String username = tf_username.getText();
         String password = tf_password.getText();
 
-        if (Utils.isNullOrWhitespace(name) || Utils.isNullOrWhitespace(username) || Utils.isNullOrWhitespace(password)) {
+        if (StringUtil.isNullOrWhitespace(name) || StringUtil.isNullOrWhitespace(username) || StringUtil.isNullOrWhitespace(password)) {
             // Display incorrect input;
             displayError(INVALID_INPUT);
             return;
@@ -103,7 +111,7 @@ public class RegisterController implements Initializable, EventHandler<ActionEve
     }
 
     private void returnToLogin() {
-        Controller.getController().navigateToLogin();
+        LoginPane.load();
     }
 
     private void displayError(String error) {

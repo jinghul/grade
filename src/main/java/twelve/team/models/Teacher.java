@@ -12,8 +12,6 @@ import twelve.team.Database;
  * screen as a reference to CRUD semesters.
  */
 public class Teacher {
-    public static Database db;
-    
     /* Teacher Variables */
     String name;
     String teacherID;
@@ -21,6 +19,17 @@ public class Teacher {
 
     public Teacher(String teacherID) {
         this.teacherID = teacherID;
+        try {
+            /* First fetch the teacher's name */
+            String query = "select * from teacher where teacherID = '" + teacherID + "'";
+            ResultSet result = Database.getDatabase().getQuery(query);
+
+            if (result.next()) {
+                this.name = result.getString("teacherName");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     public Teacher(String teacherID, String name) {
@@ -28,39 +37,6 @@ public class Teacher {
         this.name = name;
     }
 
-    private boolean fetch(String teacherID) {
-        if (db == null) {
-            db = Database.getDatabase();
-        }
-        
-        try {
-            /* First fetch the teacher's name */
-            String query = "select * from teacher where teacherID = '" + teacherID + "'";
-            ResultSet result = db.getQuery(query);
-            
-            if (result.next()) {
-                this.name = result.getString("teacherName");
-            }
-
-            // TODO: Move to semester as static method fetch
-            
-            /* Fetch the existing semesters of the teacher */
-            query = "select * from semester where teacherID = '" + teacherID + "'";
-            result = db.getQuery(query);
-            
-            while (result.next()) {
-                Semester semester = new Semester(result.getString("semesterID"),
-                    result.getString("semesterName"));
-                semesters.add(semester);
-            }
-        } catch(SQLException e) {
-            e.printStackTrace(); // DEBUG
-            return false;
-        }
-
-        return false;
-    }
-    
     public static Teacher create(String teacherId, String password, String name) {
         try {
             String query = "insert into teacher (teacherID, password, teacherName) values (?, ?, ?)";
@@ -77,10 +53,13 @@ public class Teacher {
         }
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public ArrayList<Semester> getSemesters() {
         if (semesters == null) {
-            semesters = new ArrayList<Semester>();
-            fetch(teacherID);
+            semesters = Semester.getSemesters(teacherID);
         }
         
         return semesters;

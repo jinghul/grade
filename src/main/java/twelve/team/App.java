@@ -6,11 +6,7 @@
 package twelve.team;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import twelve.team.controllers.Controller;
 
 /**
  *
@@ -19,7 +15,7 @@ import twelve.team.controllers.Controller;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Controller.init(this, stage);
+        Loader.init(this, stage);
     }
 
     /**

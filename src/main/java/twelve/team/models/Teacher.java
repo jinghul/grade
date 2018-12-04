@@ -3,6 +3,7 @@ package twelve.team.models;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import twelve.team.Database;
 
@@ -13,43 +14,43 @@ import twelve.team.Database;
  */
 public class Teacher {
     /* Teacher Variables */
-    String name;
-    String teacherID;
-    ArrayList<Semester> semesters;
+    private int teacherID;
+    private String name;
+    private String username;
+    private ArrayList<Semester> semesters;
 
-    public Teacher(String teacherID) {
-        this.teacherID = teacherID;
-        try {
-            /* First fetch the teacher's name */
-            String query = "select * from teacher where teacherID = '" + teacherID + "'";
-            ResultSet result = Database.getDatabase().getQuery(query);
+    public Teacher(String username) {
+        /* First fetch the teacher's name */
+        String query = "select * from teacher where username = '" + username + "'";
 
-            if (result.next()) {
-                this.name = result.getString("teacherName");
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            try (ResultSet result = statement.executeQuery(query)){
+                if (result.next()) {
+                    this.username = username;
+                    this.teacherID = result.getInt("teacherID");
+                    this.name = result.getString("teacherName").split(" ")[0];
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     
-    public Teacher(String teacherID, String name) {
+    private Teacher(int teacherID, String username, String name) {
         this.teacherID = teacherID;
+        this.username = username;
         this.name = name;
     }
 
-    public static Teacher create(String teacherId, String password, String name) {
-        try {
-            String query = "insert into teacher (teacherID, password, teacherName) values (?, ?, ?)";
-            PreparedStatement prpst = Database.getDatabase().prepareStatement(query);
-            prpst.setString(1, teacherId);
+    public static void create(String username, String password, String name) {
+        String query = "insert into teacher (username, password, teacherName) values (?, ?, ?)";
+        try (PreparedStatement prpst = Database.getDatabase().prepareStatement(query)) {
+            prpst.setString(1, username);
             prpst.setString(2, password);
             prpst.setString(3, name);
             prpst.executeUpdate();
-
-            return new Teacher(teacherId, name);
         } catch (SQLException e) {
-            e.printStackTrace(); // DEBUG
-            return null;
+            e.printStackTrace();
         }
     }
 
@@ -65,15 +66,17 @@ public class Teacher {
         return semesters;
     }
 
-    public boolean editSemester(String name) {
-        return false;
+    public void deleteSemester(int index) {
+        Semester.delete(semesters.remove(index));
     }
 
-    public boolean removeSemester(String name, long semesterId) {
-        return false;
+    public void deleteSemester(Semester semester) {
+        deleteSemester(semesters.indexOf(semester));
     }
 
-    public boolean addSemester(Semester semester) {
-        return false;
+    public Semester addSemester(String semesterName, int semesterYear) {
+        Semester semester = Semester.create(semesterName, semesterYear, teacherID);
+        semesters.add(semester);
+        return semester;
     }
 }

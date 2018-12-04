@@ -4,7 +4,10 @@
 
 
 .button_primary {
+-fx-font-size: 15;
     -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
     -fx-background-color: #4747d1;
     -fx-text-fill: #fff;
     -fx-cursor: "HAND";
@@ -17,6 +20,7 @@
 }
 
 .button_alt, .tile {
+-fx-font-size: 15;
     -fx-background-insets: 0;
     -fx-text-fill: #4747d1;
     -fx-background-color: #fff;
@@ -55,7 +59,13 @@
 
 .header-white {
     -fx-fill: #fff;
-    -fx-font-size: 50;
+    -fx-font-size: 60;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+.edit-header {
+    -fx-fill: #fff;
+    -fx-font-size: 40;
     -fx-font-family: "Segoe UI Semilight";
 }
 
@@ -66,10 +76,8 @@
 }
 
 .tile {
-    -fx-pref-width: 150;
-    -fx-pref-height: 150;
-    -fx-min-width: 150;
-    -fx-min-height: 150;
+    -fx-pref-width: 185;
+    -fx-pref-height: 185;
     -fx-border-color: #5c5cd6;
 }
 
@@ -78,19 +86,21 @@
 }
 
 .tile .header {
-    -fx-font-size: 30;
+    -fx-font-size: 35;
     -fx-fill: #5c5cd6;
     -fx-font-family: "Segoe UI Semibold";
 }
 
 .tile .subheader {
-    -fx-font-size : 20;
+    -fx-font-size : 25;
     -fx-fill: #5c5cd6;
 }
 
 .edit-button {
-    -fx-pref-width: 10;
-    -fx-pref-height: 10;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-max-width: 30;
+    -fx-max-height: 30;
     -fx-background-color: #fff;
 }
 
@@ -99,6 +109,53 @@
 }
 
 .pane-header {
+-fx-background-color: #c2c2f0;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: #fff;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
+
+.tile-pane {
+-fx-background-color: #fff;
+}
+
+.search-bar {
+-fx-background-color: #fff;
+-fx-background-radius: 5;
+}
+
+.search-bar Button {
+-fx-background-color: #fff;
+-fx-background-insets: 0;
+}
+
+.search-bar TextField {
+-fx-background-color: #fff;
+-fx-font-size: 15;
+    -fx-fill: #c2c2f0;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+
+.edit-text, .choice-box {
+-fx-font-size: 15;
+-fx-background-color: #fff;
+-fx-border-color: #4747d1;
 }
 
 .table-view .column-header,

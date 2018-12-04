@@ -23,9 +23,9 @@ import java.util.ResourceBundle;
 
 public class LoginPane implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
     public static final String LOGIN_FXML_PATH = "login/LoginPane.fxml";
-    public static final String INCORRECT_CREDENTIALS = "Incorrect username or password.";
-    public static final String MISSING_PASSWORD = "Please input a password.";
-    public static final String MISSING_USERNAME = "Please input a username.";
+    private static final String INCORRECT_CREDENTIALS = "Incorrect username or password.";
+    private static final String MISSING_PASSWORD = "Please input a password.";
+    private static final String MISSING_USERNAME = "Please input a username.";
 
     @FXML
     private GridPane root;
@@ -44,8 +44,6 @@ public class LoginPane implements Initializable, EventHandler<ActionEvent>, Chan
 
     @FXML
     private Button btn_register;
-
-    // TODO: StackPane transition to registration and back.
 
     public static void load() {
         Loader.loadToScene(LOGIN_FXML_PATH);

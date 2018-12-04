@@ -14,23 +14,24 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import twelve.team.Loader;
-import twelve.team.controllers.login.LoginPane;
 import twelve.team.utils.Animator;
 import twelve.team.Database;
 import twelve.team.utils.StringUtil;
 import twelve.team.models.Teacher;
 
+import javax.xml.crypto.Data;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class RegisterPane implements Initializable, EventHandler<ActionEvent>, ChangeListener<String> {
     public static final String REGISTER_FXML_PATH = "login/RegisterPane.fxml";
-    public static final String INVALID_INPUT = "Invalid input: All fields are required.";
-    public static final String DATABASE_ERROR = "Error saving to MySql database.";
-    public static final String CREATION_SUCCESS = "User successfully created! Return to login.";
-    public static final String ALREADY_EXISTS = "Username is taken. Please try again.";
+    private static final String INVALID_INPUT = "Invalid input: All fields are required.";
+    private static final String DATABASE_ERROR = "Error saving to MySql database.";
+    private static final String CREATION_SUCCESS = "User successfully created! Return to login.";
+    private static final String ALREADY_EXISTS = "Username is taken. Please try again.";
     @FXML
     private GridPane root;
 
@@ -76,14 +77,14 @@ public class RegisterPane implements Initializable, EventHandler<ActionEvent>, C
     public void handle(ActionEvent event) {
         if (event.getSource() == btn_confirm) {
             // Insert new teacher
-            register_user();
+            registerUser();
 
         } else if (event.getSource() == btn_cancel) {
             Animator.fadeOut(root, (e) -> returnToLogin());
         }
     }
 
-    private void register_user() {
+    private void registerUser() {
         String name = tf_name.getText();
         String username = tf_username.getText();
         String password = tf_password.getText();
@@ -94,18 +95,20 @@ public class RegisterPane implements Initializable, EventHandler<ActionEvent>, C
             return;
         }
 
-        try {
-            String query = "select * from teacher where teacherID = '" + username + "'";
-            ResultSet exists = Database.getDatabase().getQuery(query);
-            if (exists.next()) {
-                displayError(ALREADY_EXISTS);
-                return;
+        String query = "select * from teacher where username = '" + username + "'";
+        try (Statement statement = Database.getDatabase().getStatement()){
+            try (ResultSet exists = statement.executeQuery(query)) {
+                if (exists.next()) {
+                    displayError(ALREADY_EXISTS);
+                    return;
+                }
+
+                Teacher.create(username, password, name);
+
+                displaySuccess();
             }
-
-            Teacher.create(username, password, name);
-
-            displaySuccess();
         } catch (SQLException e) {
+            e.printStackTrace();
             displayError(DATABASE_ERROR);
         }
 

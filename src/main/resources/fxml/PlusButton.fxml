@@ -7,9 +7,7 @@
 <fx:root minHeight="150.0" minWidth="150.0" styleClass="tile" stylesheets="@../css/styles.css" type="javafx.scene.control.Button" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <graphic>
       <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imgs/plus_icon.png" />
-         </image>
+         <Image url="@../imgs/plus_icon.png"/>
       </ImageView>
    </graphic>
 </fx:root>

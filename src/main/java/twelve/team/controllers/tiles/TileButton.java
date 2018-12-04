@@ -15,9 +15,6 @@ public class TileButton extends Button implements Initializable {
     public static final String TILE_FXML_PATH = "TileButton.fxml";
 
     @FXML
-    private Button root;
-
-    @FXML
     private Text txt_title;
 
     @FXML
@@ -26,16 +23,24 @@ public class TileButton extends Button implements Initializable {
     @FXML
     private Button btn_edit;
 
+    @FXML
+    private Button btn_delete;
+
 
     public TileButton() {
         Loader.load(TILE_FXML_PATH, this);
     }
 
-    public void init(String title, String subtitle, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> editHandler) {
-        setTitle(title);
-        setSubtitle(subtitle);
+    public void init(String title, String subtitle, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> editHandler, EventHandler<ActionEvent> deleteHandler) {
+        update(title, subtitle);
         setButtonClick(buttonHandler);
         setEditClick(editHandler);
+        setDeleteClick(deleteHandler);
+    }
+
+    public void update(String title, String subtitle) {
+        setTitle(title);
+        setSubtitle(subtitle);
     }
 
     public void setTitle(String title) {
@@ -47,11 +52,15 @@ public class TileButton extends Button implements Initializable {
     }
 
     public void setButtonClick(EventHandler<ActionEvent> handler) {
-        root.setOnAction(handler);
+        setOnAction(handler);
     }
 
     public void setEditClick(EventHandler<ActionEvent> handler) {
         btn_edit.setOnAction(handler);
+    }
+
+    public void setDeleteClick(EventHandler<ActionEvent> handler) {
+        btn_delete.setOnAction(handler);
     }
 
     @Override

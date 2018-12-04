@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import twelve.team.controllers.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import twelve.team.controllers.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <?import twelve.team.controllers.HomePane?>
 
-<GridPane fx:id="root" minHeight="600.0" minWidth="800.0" opacity="0.0" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
+<GridPane fx:id="root" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1050.0" styleClass="pane" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
    <columnConstraints>
       <ColumnConstraints hgrow="NEVER" minWidth="210.0" prefWidth="210.0" />
       <ColumnConstraints hgrow="SOMETIMES" />
@@ -20,7 +20,7 @@
       <RowConstraints minHeight="600.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <AnchorPane minHeight="600.0" minWidth="210.0" prefWidth="210.0" styleClass="sidebar" stylesheets="@../css/styles.css">
+      <AnchorPane minHeight="400.0" minWidth="210.0" prefWidth="210.0" styleClass="sidebar" stylesheets="@../css/styles.css">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -44,9 +44,12 @@
             </VBox>
             <VBox alignment="CENTER" minWidth="210.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER">
                      <children>
-                        <VBox>
+                        <VBox spacing="10.0">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
                            <children>
                               <Button fx:id="btn_home" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Home">
                                  <graphic>
@@ -91,9 +94,6 @@
                                  </graphic>
                               </Button>
                            </children>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
                         </VBox>
                      </children>
                   </HBox>
@@ -110,6 +110,6 @@
             </Button>
          </children>
       </AnchorPane>
-    <HomePane minHeight="0.0" GridPane.columnIndex="1" />
+      <HomePane GridPane.columnIndex="1" />
    </children>
 </GridPane>

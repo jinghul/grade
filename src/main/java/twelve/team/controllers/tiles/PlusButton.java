@@ -1,5 +1,7 @@
 package twelve.team.controllers.tiles;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import twelve.team.Loader;
@@ -13,6 +15,10 @@ public class PlusButton extends Button implements Initializable {
 
     public PlusButton() {
         Loader.load(PLUS_FXML_PATH, this);
+    }
+
+    public void init(EventHandler<ActionEvent> handler) {
+        setOnAction(handler);
     }
 
     @Override

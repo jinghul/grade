@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 public class Animator {
 
-    public static final int DEFAULT_FADE_TIME = 300;
+    private static final int DEFAULT_FADE_TIME = 300;
 
     public static void fadeIn(Node root, EventHandler<ActionEvent> handler) {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(DEFAULT_FADE_TIME), root);

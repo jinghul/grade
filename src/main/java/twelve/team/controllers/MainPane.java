@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 import twelve.team.Loader;
 import twelve.team.Router;
 import twelve.team.controllers.login.LoginPane;
-import twelve.team.controllers.semester.SemesterPane;
+import twelve.team.controllers.semester.SemesterSelectionPane;
 import twelve.team.utils.Animator;
 import twelve.team.models.Teacher;
 
@@ -42,10 +42,14 @@ public class MainPane implements Initializable, EventHandler<ActionEvent> {
     @FXML
     private Button btn_logout;
 
-    private Teacher teacher;
+    public static Teacher teacher;
 
     public static void load(Teacher teacher) {
         MainPane mainPane = (MainPane) Loader.loadToScene(MAIN_FXML_PATH);
+
+        // Make sure the pane is loaded correctly
+        assert mainPane != null;
+
         mainPane.setTeacher(teacher);
         Router.create(mainPane);
     }
@@ -59,8 +63,8 @@ public class MainPane implements Initializable, EventHandler<ActionEvent> {
     }
 
 
-    private void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    private void setTeacher(Teacher teacherRef) {
+        teacher = teacherRef;
         txt_name.setText(teacher.getName());
     }
 
@@ -81,8 +85,9 @@ public class MainPane implements Initializable, EventHandler<ActionEvent> {
             HomePane homePane = new HomePane();
             router.addPane(homePane, true);
         } else if (request == btn_semester) {
-            SemesterPane semesterPane = new SemesterPane();
-            router.addPane(semesterPane, true);
+            SemesterSelectionPane semesterSelectionPane = new SemesterSelectionPane();
+            semesterSelectionPane.load();
+            router.addPane(semesterSelectionPane, true);
         } else if (request == btn_course) {
 
         } else if (request == btn_grade) {

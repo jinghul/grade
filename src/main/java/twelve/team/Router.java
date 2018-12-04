@@ -8,8 +8,8 @@ import twelve.team.controllers.MainPane;
 import java.util.Stack;
 
 public class Router {
-    public static final int DEFAULT_ROW = 0;
-    public static final int DEFAULT_COL = 1;
+    private static final int DEFAULT_ROW = 0;
+    private static final int DEFAULT_COL = 1;
 
     private MainPane main;
     private Node current;
@@ -34,6 +34,10 @@ public class Router {
         router.current = main.getRoot().getChildren().get(DEFAULT_COL);
         router.clearStacks();
         return router;
+    }
+
+    public MainPane getMainPane() {
+        return main;
     }
 
     public static Router getRouter() {

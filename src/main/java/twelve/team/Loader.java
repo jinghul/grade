@@ -7,7 +7,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import twelve.team.controllers.MainPane;
 import twelve.team.controllers.login.LoginPane;
+import twelve.team.models.Teacher;
 
 import java.io.IOException;
 
@@ -20,20 +22,22 @@ public class Loader {
     public static final String ICON_PATH = "/imgs/main_icon.png";
     public static final String FXML_ROOT = "/fxml/";
 
-    /* FXML Rendering - Constant for whole App duration */
-    private static Application app;
     private static Stage stage;
 
     public static FXMLLoader getLoader(String fxml_file) {
         return new FXMLLoader(App.class.getResource(FXML_ROOT + fxml_file));
     }
 
-    public static void init(Application application, Stage appStage) {
-        app = application;
+    public static void init(Stage appStage) {
+        /* FXML Rendering - Constant for whole App duration */
         stage = appStage;
 
         // Initial load of login page.
         loadToScene(LoginPane.LOGIN_FXML_PATH);
+//        TODO: Replace this on production
+
+//        MainPane.load(new Teacher("jing"));
+
         stage.getIcons().add(new Image(ICON_PATH));
         stage.show();
     }
@@ -65,6 +69,7 @@ public class Loader {
 
             return fxmlLoader.getController();
         } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
     }

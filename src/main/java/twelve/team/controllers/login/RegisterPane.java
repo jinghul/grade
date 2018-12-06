@@ -69,6 +69,7 @@ public class RegisterPane implements Initializable, EventHandler<ActionEvent>, C
         tf_username.textProperty().addListener(this);
         tf_password.textProperty().addListener(this);
         tf_name.textProperty().addListener(this);
+        tf_password.setOnAction(this);
 
         Animator.fadeIn(root, null);
     }
@@ -81,6 +82,8 @@ public class RegisterPane implements Initializable, EventHandler<ActionEvent>, C
 
         } else if (event.getSource() == btn_cancel) {
             Animator.fadeOut(root, (e) -> returnToLogin());
+        } else if (event.getSource() == tf_password) {
+            registerUser();
         }
     }
 

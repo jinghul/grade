@@ -73,20 +73,27 @@ public class SemesterSelectionPane extends VBox implements Initializable {
                     // Click on semester edit button
                     Semester updatedSemester = new SemesterEditPane().load(semester);
                     tile.update(updatedSemester.getName(), getNumCoursesDisplay(updatedSemester.getNumCourses()));
+                    e.consume();
                 },
                 e -> {
-                    deleteSemester(semester);
+                    deleteSemester(tile, semester);
+                    e.consume();
                 });
 
+        tile.setOpacity(0);
         if (index == -1) {
             tilePane.getChildren().add(tile);
         } else {
             tilePane.getChildren().add(index, tile);
         }
+        Animator.fadeIn(tile, null);
     }
 
-    private void deleteSemester(Semester semester) {
+    private void deleteSemester(TileButton tile, Semester semester) {
+        // TODO: Convert tile to index
         MainPane.teacher.deleteSemester(semester);
+
+        Animator.fadeOut(tile, e -> tilePane.getChildren().remove(tile));
     }
 
     public static String getNumCoursesDisplay(int numCourses) {

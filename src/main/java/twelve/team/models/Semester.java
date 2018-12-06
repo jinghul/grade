@@ -83,6 +83,7 @@ public class Semester {
         }
 
         courses = Course.getCourses(semesterID, getName());
+        System.out.println(String.format("Semester %s has %d courses", semesterName, courses.size()));
         initialized = true;
     }
 

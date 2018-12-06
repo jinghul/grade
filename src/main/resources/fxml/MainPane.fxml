@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?import twelve.team.controllers.HomePane?>
 
-<GridPane fx:id="root" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1050.0" styleClass="pane" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
+<GridPane fx:id="root" opacity="0" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1050.0" styleClass="pane" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
    <columnConstraints>
       <ColumnConstraints hgrow="NEVER" minWidth="210.0" prefWidth="210.0" />
       <ColumnConstraints hgrow="SOMETIMES" />

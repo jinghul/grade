@@ -20,7 +20,7 @@
 }
 
 .button_alt, .tile {
--fx-font-size: 15;
+    -fx-font-size: 15;
     -fx-background-insets: 0;
     -fx-text-fill: #4747d1;
     -fx-background-color: #fff;
@@ -86,7 +86,7 @@
 }
 
 .tile .header {
-    -fx-font-size: 35;
+    -fx-font-size: 30;
     -fx-fill: #5c5cd6;
     -fx-font-family: "Segoe UI Semibold";
 }
@@ -101,7 +101,7 @@
     -fx-pref-height: 30;
     -fx-max-width: 30;
     -fx-max-height: 30;
-    -fx-background-color: #fff;
+    -fx-background-color: 'transparent';
 }
 
 .pane {

@@ -32,6 +32,10 @@ public class TileButton extends Button implements Initializable {
     }
 
     public void init(String title, String subtitle, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> editHandler, EventHandler<ActionEvent> deleteHandler) {
+
+        // TODO: Font sizing/ wrapping
+
+        System.out.println(String.format("Creating tile: %s %s", title, subtitle ));
         update(title, subtitle);
         setButtonClick(buttonHandler);
         setEditClick(editHandler);

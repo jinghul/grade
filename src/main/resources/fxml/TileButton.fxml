@@ -19,12 +19,12 @@
     <graphic>
         <VBox alignment="CENTER" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" spacing="5.0">
            <children>
-               <Text fx:id="txt_title" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Fall 2018">
+               <Text fx:id="txt_title" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Fall 2018" textAlignment="CENTER" wrappingWidth="150.0">
                    <font>
                        <Font size="15.0" />
                    </font>
                </Text>
-               <Text fx:id="txt_subtext" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subheader" text="5 Courses">
+               <Text fx:id="txt_subtitle" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subheader" text="5 Courses">
                    <VBox.margin>
                        <Insets bottom="10.0" />
                    </VBox.margin>

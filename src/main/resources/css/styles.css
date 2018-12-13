@@ -22,11 +22,15 @@
 .button_alt, .tile {
     -fx-font-size: 15;
     -fx-background-insets: 0;
+    -fx-cursor: "HAND";
+}
+
+.button_alt {
     -fx-text-fill: #4747d1;
     -fx-background-color: #fff;
     -fx-border-color: #4747d1;
-    -fx-cursor: "HAND";
 }
+
 .button_alt:hover {
     -fx-border-color: #355ece;
     -fx-text-fill: #355ece;
@@ -78,22 +82,21 @@
 .tile {
     -fx-pref-width: 185;
     -fx-pref-height: 185;
-    -fx-border-color: #5c5cd6;
 }
 
 .tile:hover, .tile:pressed {
-    -fx-effect: dropshadow( three-pass-box , #c2c2f0 ,10,0,0, 0 );
+    -fx-effect: dropshadow( three-pass-box , #000000 ,10,0,0, 0 );
 }
 
 .tile .header {
     -fx-font-size: 30;
-    -fx-fill: #5c5cd6;
+    -fx-fill: #fff;
     -fx-font-family: "Segoe UI Semibold";
 }
 
 .tile .subheader {
     -fx-font-size : 25;
-    -fx-fill: #5c5cd6;
+    -fx-fill: #fff;
 }
 
 .edit-button {

@@ -1,21 +1,27 @@
-.theme-main {
+.theme-main, .button_primary, .sidebar, .sidebar_button {
     -fx-background-color: #4747d1;
 }
 
+.button_alt, .tile, .pane, .scroll-pane, .tile-pane {
+    -fx-background-color: #fff;
+}
 
-.button_primary {
--fx-font-size: 15;
-    -fx-background-insets: 0;
-    -fx-border-radius: 0;
-    -fx-background-radius: 0;
-    -fx-background-color: #4747d1;
-    -fx-text-fill: #fff;
+.button_primary, .button_alt, .tile, .sidebar_button {
     -fx-cursor: "HAND";
 }
-.button_primary:hover {
-    -fx-background-color: #355ece;
+
+.header, .header-white, .edit-header, .subheader, .sidebar_button {
+    -fx-font-family: "Segoe UI Semilight";
 }
-.button_primary:pressed {
+
+.button_primary {
+    -fx-font-size: 15;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-text-fill: #fff;
+}
+.button_primary:hover, .button_primary:pressed {
     -fx-background-color: #355ece;
 }
 
@@ -23,56 +29,41 @@
     -fx-font-size: 15;
     -fx-background-insets: 0;
     -fx-text-fill: #4747d1;
-    -fx-background-color: #fff;
     -fx-border-color: #4747d1;
-    -fx-cursor: "HAND";
 }
-.button_alt:hover {
-    -fx-border-color: #355ece;
-    -fx-text-fill: #355ece;
-}
-.button_alt:pressed {
+
+.button_alt:hover, .button_alt:pressed {
     -fx-border-color: #355ece;
     -fx-text-fill: #355ece;
 }
 
-.sidebar {
-    -fx-background-color: #4747d1;
-}
 .sidebar_button {
     -fx-font-size: 20;
-    -fx-font-family: "Segoe UI Semilight";
     -fx-background-insets: 0;
-    -fx-background-color: #4747d1;
     -fx-text-fill: #fff;
     -fx-alignment: "BASELINE_LEFT";
     -fx-graphic-text-gap: 20;
     -fx-padding: 0 0 0 20;
-    -fx-cursor: "HAND";
 }
 
 .header {
     -fx-fill: #4747d1;
     -fx-font-size: 50;
-    -fx-font-family: "Segoe UI Semilight";
 }
 
 .header-white {
     -fx-fill: #fff;
     -fx-font-size: 60;
-    -fx-font-family: "Segoe UI Semilight";
 }
 
 .edit-header {
     -fx-fill: #fff;
     -fx-font-size: 40;
-    -fx-font-family: "Segoe UI Semilight";
 }
 
 .subheader {
     -fx-font-size: 35;
     -fx-fill: #4747d1;
-    -fx-font-family: "Segoe UI Semilight";
 }
 
 .tile {
@@ -104,12 +95,8 @@
     -fx-background-color: 'transparent';
 }
 
-.pane {
--fx-background-color: #fff;
-}
-
 .pane-header {
--fx-background-color: #c2c2f0;
+    -fx-background-color: #c2c2f0;
 }
 
 .scroll-pane > .viewport {
@@ -119,7 +106,6 @@
 .scroll-pane {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: #fff;
 }
 
 .scroll-pane:focused {
@@ -130,23 +116,19 @@
     -fx-background-insets: 0;
 }
 
-.tile-pane {
--fx-background-color: #fff;
-}
-
 .search-bar {
--fx-background-color: #fff;
--fx-background-radius: 5;
+    -fx-background-color: #fff;
+    -fx-background-radius: 5;
 }
 
 .search-bar Button {
--fx-background-color: #fff;
--fx-background-insets: 0;
+    -fx-background-color: #fff;
+    -fx-background-insets: 0;
 }
 
 .search-bar TextField {
--fx-background-color: #fff;
--fx-font-size: 15;
+    -fx-background-color: #fff;
+    -fx-font-size: 15;
     -fx-fill: #c2c2f0;
     -fx-font-family: "Segoe UI Semilight";
 }

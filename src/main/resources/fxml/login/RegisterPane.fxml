@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.*?>
+<GridPane opacity="0" fx:id="root" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.login.RegisterPane">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+   </rowConstraints>
+   <VBox alignment="CENTER" fillWidth="false" spacing="10.0" style="-fx-background-color: #fff;">
+      <padding>
+         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+      </padding>
+      <effect>
+         <DropShadow blurType="TWO_PASS_BOX"/>
+      </effect>
+      <Text fill="#4747d1" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" wrappingWidth="400.0">
+         <font>
+            <Font name="Segoe UI Semibold" size="40.0"/>
+         </font>
+         <VBox.margin>
+            <Insets/>
+         </VBox.margin>
+      </Text>
+      <Line endX="50.0" startX="-400.0" stroke="#4747d1">
+         <VBox.margin>
+            <Insets bottom="30.0"/>
+         </VBox.margin>
+      </Line>
+      <Text fx:id="txt_error" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Error." visible="false">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </Text>
+      <TextField fx:id="tf_name" prefWidth="250.0" promptText="Name">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </TextField>
+      <TextField fx:id="tf_username" prefWidth="250.0" promptText="Username">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </TextField>
+      <PasswordField fx:id="tf_password" prefWidth="250.0" promptText="Password">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </PasswordField>
+      <Button fx:id="btn_confirm" mnemonicParsing="false" prefWidth="250.0" styleClass="button_primary"
+              stylesheets="@../../css/styles.css" text="Confirm">
+         <font>
+            <Font size="15.0"/>
+         </font>
+         <VBox.margin>
+            <Insets top="40.0"/>
+         </VBox.margin>
+      </Button>
+      <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="250.0" styleClass="button_alt"
+              stylesheets="@../../css/styles.css" text="Return to Login">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </Button>
+   </VBox>
+</GridPane>

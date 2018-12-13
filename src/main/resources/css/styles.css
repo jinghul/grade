@@ -1,36 +1,209 @@
-.button_primary
-{
--fx-background-insets: 0;
--fx-background-color : #4747d1;
--fx-text-fill : #fff;
-}
-.button_primary:hover
-{
--fx-background-color : #355ECE;
-}
-.button_primary:pressed
-{
--fx-background-color : #355ECE;
+.theme-main {
+    -fx-background-color: #4747d1;
 }
 
-.button_alt
-{
--fx-background-insets: 0;
--fx-text-fill : #4747d1;
--fx-background-color :rgba(255,255,255,0);
--fx-border-color : #231439;
+
+.button_primary {
+-fx-font-size: 15;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: #4747d1;
+    -fx-text-fill: #fff;
+    -fx-cursor: "HAND";
 }
-.button_alt:hover
-{
--fx-border-color : #355ECE;
--fx-text-fill: #355ECE;
+.button_primary:hover {
+    -fx-background-color: #355ece;
 }
-.button_alt:pressed
-{
--fx-border-color : #355ECE;
--fx-text-fill: #355ECE;
+.button_primary:pressed {
+    -fx-background-color: #355ece;
+}
+
+.button_alt, .tile {
+    -fx-font-size: 15;
+    -fx-background-insets: 0;
+    -fx-text-fill: #4747d1;
+    -fx-background-color: #fff;
+    -fx-border-color: #4747d1;
+    -fx-cursor: "HAND";
+}
+.button_alt:hover {
+    -fx-border-color: #355ece;
+    -fx-text-fill: #355ece;
+}
+.button_alt:pressed {
+    -fx-border-color: #355ece;
+    -fx-text-fill: #355ece;
 }
 
 .sidebar {
--fx-background-color : #4747d1;
+    -fx-background-color: #4747d1;
+}
+.sidebar_button {
+    -fx-font-size: 20;
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-background-insets: 0;
+    -fx-background-color: #4747d1;
+    -fx-text-fill: #fff;
+    -fx-alignment: "BASELINE_LEFT";
+    -fx-graphic-text-gap: 20;
+    -fx-padding: 0 0 0 20;
+    -fx-cursor: "HAND";
+}
+
+.header {
+    -fx-fill: #4747d1;
+    -fx-font-size: 50;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+.header-white {
+    -fx-fill: #fff;
+    -fx-font-size: 60;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+.edit-header {
+    -fx-fill: #fff;
+    -fx-font-size: 40;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+.subheader {
+    -fx-font-size: 35;
+    -fx-fill: #4747d1;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+.tile {
+    -fx-pref-width: 185;
+    -fx-pref-height: 185;
+    -fx-border-color: #5c5cd6;
+}
+
+.tile:hover, .tile:pressed {
+    -fx-effect: dropshadow( three-pass-box , #c2c2f0 ,10,0,0, 0 );
+}
+
+.tile .header {
+    -fx-font-size: 30;
+    -fx-fill: #5c5cd6;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.tile .subheader {
+    -fx-font-size : 25;
+    -fx-fill: #5c5cd6;
+}
+
+.edit-button {
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-max-width: 30;
+    -fx-max-height: 30;
+    -fx-background-color: 'transparent';
+}
+
+.pane {
+-fx-background-color: #fff;
+}
+
+.pane-header {
+-fx-background-color: #c2c2f0;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: #fff;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
+
+.tile-pane {
+-fx-background-color: #fff;
+}
+
+.search-bar {
+-fx-background-color: #fff;
+-fx-background-radius: 5;
+}
+
+.search-bar Button {
+-fx-background-color: #fff;
+-fx-background-insets: 0;
+}
+
+.search-bar TextField {
+-fx-background-color: #fff;
+-fx-font-size: 15;
+    -fx-fill: #c2c2f0;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+
+.edit-text, .choice-box {
+-fx-font-size: 15;
+-fx-background-color: #fff;
+-fx-border-color: #4747d1;
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-cell-size: 20;
+    -fx-background-color: #2d75e8;
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+.table-view .cell {
+    -fx-cell-size: 30;
+    -fx-alignment: center-left;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgb(127, 172, 243);
+}
+.table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.table-view .increment-button,
+.table-view .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2em;
+}
+
+/* The main scrollbar **track** CSS class  */
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(#2d75e8, 80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: derive(#2d75e8, 90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
 }

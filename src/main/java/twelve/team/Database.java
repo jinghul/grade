@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 public class Database {
     /* Connection Config */
-    public static final String DATABASE_HOST = "jdbc:mysql://localhost/";
-    public static final String DATABASE_NAME = "gradesystem";
+    private static final String DATABASE_HOST = "jdbc:mysql://localhost/";
+    private static final String DATABASE_NAME = "gradesystem";
 
     /* Local Credentials */
     private static final String USERNAME = "root";
@@ -24,7 +24,7 @@ public class Database {
      */
     private Database() {
         initDB();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
+        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
     }
 
     public static void init() {
@@ -44,24 +44,22 @@ public class Database {
         return database;
     }
 
-
     private void initDB() {
-        String url = DATABASE_HOST;
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Connecting to MySQL server...");
-            connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
+            connection = DriverManager.getConnection(DATABASE_HOST, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
 
             // Check if the database exists on the server...
-            ResultSet  resultSet = connection.getMetaData().getCatalogs();
-            while (resultSet.next()) {
-                String databaseName = resultSet.getString(1);
-                if (databaseName.equals(DATABASE_NAME)) {
-                    System.out.println("\'" + DATABASE_NAME + "\' successfully found on server, connecting...\n");
-                    connection = DriverManager.getConnection(DATABASE_HOST + DATABASE_NAME, USERNAME, PASSWORD);
-                    return;
+            try (ResultSet resultSet = connection.getMetaData().getCatalogs()) {
+                while (resultSet.next()) {
+                    String databaseName = resultSet.getString(1);
+                    if (databaseName.equals(DATABASE_NAME)) {
+                        System.out.println("\'" + DATABASE_NAME + "\' successfully found on server, connecting...\n");
+                        connection = DriverManager.getConnection(DATABASE_HOST + DATABASE_NAME, USERNAME, PASSWORD);
+                        return;
+                    }
                 }
             }
 
@@ -75,18 +73,28 @@ public class Database {
             statement.execute(sql);
             
             sql = ("create table teacher(\n"
-                    + "teacherID varchar(20) NOT NULL,\n"
-                    + "password varchar(20) NOT NULL,\n"
+                    + "teacherID int NOT NULL AUTO_INCREMENT,\n"
+                    + "username varchar(32) NOT NULL,\n"
+                    + "password varchar(32) NOT NULL,\n"
                     + "teacherName varchar(20) NOT NULL,\n"
                     + "PRIMARY KEY (teacherID)\n"
                     + ");");
             statement.execute(sql);
+
+            // Make username and password case sensitive
+            sql = "ALTER TABLE teacher modify username varchar(32) NOT NULL COLLATE utf8mb4_bin";
+            statement.execute(sql);
+            sql = "ALTER TABLE teacher modify password varchar(32) NOT NULL COLLATE utf8mb4_bin";
+            statement.execute(sql);
             System.out.println("\tTable teacher created successfully...");
 
+
+
             sql = ("create table semester(\n"
-                    + "semesterID int NOT NULL,\n"
-                    + "teacherID varchar(20) NOT NULL,\n"
-                    + "semesterName varchar(20) NOT NULL,\n"
+                    + "semesterID int NOT NULL AUTO_INCREMENT,\n"
+                    + "teacherID int NOT NULL,\n"
+                    + "semesterName varchar(32) NOT NULL,\n"
+                    + "semesterYear int NOT NULL,\n"
                     + "PRIMARY KEY (semesterID),\n"
                     + "FOREIGN KEY (teacherID) references teacher(teacherID)\n"
                     + ");");
@@ -94,18 +102,22 @@ public class Database {
             System.out.println("\tTable semester created successfully...");
 
             sql = ("create table course (\n"
-                    + "courseID int NOT NULL,\n"
-                    + "courseName varchar(20) NOT NULL,\n"
+                    + "courseID int NOT NULL AUTO_INCREMENT,\n"
+                    + "courseName varchar(32) NOT NULL,\n"
+                    + "courseDescription TEXT,\n"
                     + "semesterID int NOT NULL,\n"
+                    + "teacherID int NOT NULL,\n"
                     + "PRIMARY KEY (courseID),\n"
+                    + "FOREIGN KEY (teacherID) references teacher(teacherID),\n"
                     + "FOREIGN KEY (semesterID) references semester(semesterID)\n"
                     + ");");
             statement.execute(sql);
             System.out.println("\tTable course created successfully...");
 
             sql = ("create table student (\n"
-                    + "studentID int NOT NULL,\n"
-                    + "studentName varchar(20) NOT NULL,\n"
+                    + "studentID int NOT NULL AUTO_INCREMENT,\n"
+                    + "universityID varchar(9) NOT NULL,\n"
+                    + "studentName varchar(32) NOT NULL,\n"
                     + "degree int NOT NULL,\n"
                     + "courseID int NOT NULL,\n"
                     + "PRIMARY KEY (studentID),\n"
@@ -115,8 +127,8 @@ public class Database {
             System.out.println("\tTable student created successfully...");
 
             sql = ("create table category(\n"
-                    + "categoryID int NOT NULL,\n"
-                    + "categoryName varchar(20) NOT NULL,\n"
+                    + "categoryID int NOT NULL AUTO_INCREMENT,\n"
+                    + "categoryName varchar(32) NOT NULL,\n"
                     + "courseID int NOT NULL,\n"
                     + "PRIMARY KEY (categoryID),\n"
                     + "FOREIGN KEY (courseID) \tREFERENCES course(courseID));");
@@ -124,11 +136,10 @@ public class Database {
             System.out.println("\tTable category created successfully...");
 
             sql = ("create table assignment(\n"
-                    + "assignmentID int NOT NULL,\n"
-                    + "assignmentName varchar(20) NOT NULL,\n"
-                    + "totalPoints float,\n"
-                    + "extraCredit float,\n"
-                    + "tag varchar(10),\n"
+                    + "assignmentID int NOT NULL AUTO_INCREMENT,\n"
+                    + "assignmentName varchar(50) NOT NULL,\n"
+                    + "totalPoints int NOT NULL,\n"
+                    + "extraCredit int,\n"
                     + "status bit default 0,\n"
                     + "categoryID int NOT NULL,\n"
                     + "PRIMARY KEY (assignmentID),\n"
@@ -167,20 +178,31 @@ public class Database {
             System.out.println("\tTable weights created successfully...");
             System.out.println("Database \'" + DATABASE_NAME + "\' successfully created.\n");
             connection = DriverManager.getConnection(DATABASE_HOST + DATABASE_NAME, USERNAME, PASSWORD);
+
+            // Close statement
+            statement.close();
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Database.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         } catch (Exception e) {
-            e.printStackTrace(); // DEBUG
+            e.printStackTrace();
         }
     }
     
-    public ResultSet getQuery(String query) {
+    public Statement getStatement() {
         try {
-            Statement statement = connection.createStatement();
-            return statement.executeQuery(query);
+            return connection.createStatement();
         } catch (SQLException e) {
-            e.printStackTrace(); // DEBUG
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public PreparedStatement prepareStatementWithKeyReturn(String query) {
+        try {
+            return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -189,25 +211,14 @@ public class Database {
         try {
             return connection.prepareStatement(query);
         } catch (SQLException e) {
-            e.printStackTrace(); // DEBUG
+            e.printStackTrace();
             return null;
-        }
-    }
-    
-    public boolean execute(String sql) {
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace(); // DEBUG
-            return false;
         }
     }
 
     private void close() {
         try {
-            System.out.println("Closing database server connection...");
+            System.out.println("\nClosing database server connection...");
             if (connection != null) {
                 connection.close();
             }

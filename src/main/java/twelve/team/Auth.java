@@ -7,19 +7,15 @@ import java.sql.SQLException;
 public class Auth {
     public static boolean authenticate(String teacherId, String password) {
         Database db = Database.getDatabase();
-        try {
-            PreparedStatement prpst = db.prepareStatement("select * from teacher where teacherID = ? and password = ?");
+        String query = "select * from teacher where username = ? and password = ?";
+        try (PreparedStatement prpst = db.prepareStatement(query)){
             prpst.setString(1, teacherId);
             prpst.setString(2, password);
-            ResultSet result = prpst.executeQuery();
-        
-            if (result.next()) {
-                return true;
-            } else {
-                return false;
+            try (ResultSet result = prpst.executeQuery()) {
+                return result.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // DEBUG
+            e.printStackTrace();
             return false;
         }
     }

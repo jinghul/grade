@@ -3,6 +3,7 @@ package twelve.team.models;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import twelve.team.Database;
 
@@ -12,89 +13,70 @@ import twelve.team.Database;
  * screen as a reference to CRUD semesters.
  */
 public class Teacher {
-    public static Database db;
-    
     /* Teacher Variables */
-    String name;
-    String teacherID;
-    ArrayList<Semester> semesters;
+    private int teacherID;
+    private String name;
+    private String username;
+    private ArrayList<Semester> semesters;
 
-    public Teacher(String teacherID) {
-        this.teacherID = teacherID;
+    public Teacher(String username) {
+        /* First fetch the teacher's name */
+        String query = "select * from teacher where username = '" + username + "'";
+
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            try (ResultSet result = statement.executeQuery(query)){
+                if (result.next()) {
+                    this.username = username;
+                    this.teacherID = result.getInt("teacherID");
+                    this.name = result.getString("teacherName").split(" ")[0];
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
-    public Teacher(String teacherID, String name) {
+    private Teacher(int teacherID, String username, String name) {
         this.teacherID = teacherID;
+        this.username = username;
         this.name = name;
     }
 
-    private boolean fetch(String teacherID) {
-        if (db == null) {
-            db = Database.getDatabase();
-        }
-        
-        try {
-            /* First fetch the teacher's name */
-            String query = "select * from teacher where teacherID = '" + teacherID + "'";
-            ResultSet result = db.getQuery(query);
-            
-            if (result.next()) {
-                this.name = result.getString("teacherName");
-            }
-
-            // TODO: Move to semester as static method fetch
-            
-            /* Fetch the existing semesters of the teacher */
-            query = "select * from semester where teacherID = '" + teacherID + "'";
-            result = db.getQuery(query);
-            
-            while (result.next()) {
-                Semester semester = new Semester(result.getString("semesterID"),
-                    result.getString("semesterName"));
-                semesters.add(semester);
-            }
-        } catch(SQLException e) {
-            e.printStackTrace(); // DEBUG
-            return false;
-        }
-
-        return false;
-    }
-    
-    public static Teacher create(String teacherId, String password, String name) {
-        try {
-            String query = "insert into teacher (username, password, name) values (?, ?, ?)";
-            PreparedStatement prpst = Database.getDatabase().prepareStatement(query);
-            prpst.setString(1, teacherId);
+    public static void create(String username, String password, String name) {
+        String query = "insert into teacher (username, password, teacherName) values (?, ?, ?)";
+        try (PreparedStatement prpst = Database.getDatabase().prepareStatement(query)) {
+            prpst.setString(1, username);
             prpst.setString(2, password);
             prpst.setString(3, name);
             prpst.executeUpdate();
-
-            return new Teacher(teacherId, name);
         } catch (SQLException e) {
-            e.printStackTrace(); // DEBUG
-            return null;
+            e.printStackTrace();
         }
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public ArrayList<Semester> getSemesters() {
         if (semesters == null) {
-            semesters = new ArrayList<Semester>();
-            fetch(teacherID);
+            semesters = Semester.getSemesters(teacherID);
         }
         
         return semesters;
     }
 
-    public boolean editSemester(String name) {
-        return false;
+    public void deleteSemester(int index) {
+        Semester.delete(semesters.remove(index));
     }
 
-    public boolean removeSemester(String name, long semesterId) {
-        return false;
+    public void deleteSemester(Semester semester) {
+        deleteSemester(semesters.indexOf(semester));
     }
 
-    public boolean addSemester(Semester semester) {
-        return false;
+    public Semester addSemester(String semesterName, int semesterYear) {
+        Semester semester = Semester.create(semesterName, semesterYear, teacherID);
+        semesters.add(semester);
+        return semester;
     }
 }

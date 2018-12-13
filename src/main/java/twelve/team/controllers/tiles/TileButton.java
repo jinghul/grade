@@ -31,12 +31,14 @@ public class TileButton extends Button implements Initializable {
         Loader.load(TILE_FXML_PATH, this);
     }
 
-    public void init(String title, String subtitle, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> editHandler, EventHandler<ActionEvent> deleteHandler) {
+    public void init(String title, String subtitle, EventHandler<ActionEvent> buttonHandler, EventHandler<ActionEvent> editHandler, EventHandler<ActionEvent> deleteHandler, String backgroundStyle) {
 
         // TODO: Font sizing/ wrapping
 
-        System.out.println(String.format("Creating tile: %s %s", title, subtitle ));
+        System.out.println(String.format("Creating tile: %s %s", title, subtitle));
+
         update(title, subtitle);
+        setBackgroundColor(backgroundStyle);
         setButtonClick(buttonHandler);
         setEditClick(editHandler);
         setDeleteClick(deleteHandler);
@@ -45,6 +47,13 @@ public class TileButton extends Button implements Initializable {
     public void update(String title, String subtitle) {
         setTitle(title);
         setSubtitle(subtitle);
+    }
+
+    public void setBackgroundColor(String backgroundStyle) {
+        StringBuilder style = new StringBuilder();
+        style.append("-fx-background-color: ");
+        style.append(backgroundStyle);
+        setStyle(style.toString());
     }
 
     public void setTitle(String title) {

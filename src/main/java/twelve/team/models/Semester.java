@@ -115,7 +115,7 @@ public class Semester {
     }
 
     public ArrayList<Course> getCourses() {
-        return null;
+        return courses;
     }
     
     public boolean editCourse(String courseID) {

@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class SemesterSelectionPane extends VBox implements Initializable {
     public static final String SELECTION_FXML_PATH = "semester/SemesterSelectionPane.fxml";
+    public static final String THEME_COLOR = "#c2c2f0";
 
     @FXML
     private TilePane tilePane;
@@ -41,11 +42,11 @@ public class SemesterSelectionPane extends VBox implements Initializable {
         }
 
         PlusButton plusButton = new PlusButton();
-        plusButton.setOnAction(e -> {
+        plusButton.init(e -> {
             // Add semester pane
             createSemester(new SemesterEditPane().load());
 
-        });
+        }, THEME_COLOR);
 
         tilePane.getChildren().add(plusButton);
     }
@@ -78,7 +79,7 @@ public class SemesterSelectionPane extends VBox implements Initializable {
                 e -> {
                     deleteSemester(tile, semester);
                     e.consume();
-                });
+                }, THEME_COLOR);
 
         tile.setOpacity(0);
         if (index == -1) {

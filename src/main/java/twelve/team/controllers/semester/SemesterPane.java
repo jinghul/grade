@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 public class SemesterPane extends VBox implements Initializable {
     public static final String SEMESTER_FXML_PATH = "semester/SemesterPane.fxml";
+    public static final String THEME_COLOR = "#c2c2f0";
 
     private Semester semester;
 
@@ -38,7 +39,7 @@ public class SemesterPane extends VBox implements Initializable {
                     },
                     e -> {
                         // Click on course delete button
-                    });
+                    }, THEME_COLOR);
         }
     }
 

@@ -42,11 +42,11 @@ public class SemesterSelectionPane extends VBox implements Initializable {
         }
 
         PlusButton plusButton = new PlusButton();
-        plusButton.setOnAction(e -> {
+        plusButton.init(e -> {
             // Add semester pane
             createSemester(new SemesterEditPane().load());
 
-        });
+        }, THEME_COLOR);
 
         tilePane.getChildren().add(plusButton);
     }

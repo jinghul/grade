@@ -12,7 +12,7 @@
    <children>
       <AnchorPane maxHeight="120.0" prefHeight="120.0" styleClass="pane-header">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header-white" text="Semesters" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header-white" text="Semesters" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" />
             <HBox alignment="CENTER" styleClass="search-bar" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="40.0">
                <children>
                   <TextField prefWidth="200.0" />
@@ -40,9 +40,9 @@
       </AnchorPane>
       <ScrollPane styleClass="scroll-pane" fitToWidth="true" pannable="true" prefHeight="480.0" prefWidth="838.0" VBox.vgrow="ALWAYS">
          <content>
-            <TilePane fx:id="tilePane" hgap="10.0" style="-fx-background-color: #fff;" styleClass="tile-pane" tileAlignment="TOP_LEFT" vgap="10.0">
+            <TilePane fx:id="tilePane" hgap="20.0" style="-fx-background-color: #fff;" styleClass="tile-pane" tileAlignment="TOP_LEFT" vgap="20.0">
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
                </padding>
                <children>
                </children>

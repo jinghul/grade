@@ -15,12 +15,14 @@ import twelve.team.Database;
 public class Teacher {
     /* Teacher Variables */
     private int teacherID;
-    private String name;
+    private String teacherName;
     private String username;
+
     private ArrayList<Semester> semesters;
+    private ArrayList<Course> courses;
 
     public Teacher(String username) {
-        /* First fetch the teacher's name */
+        /* First fetch the teacher's teacherName */
         String query = "select * from teacher where username = '" + username + "'";
 
         try (Statement statement = Database.getDatabase().getStatement()) {
@@ -28,7 +30,7 @@ public class Teacher {
                 if (result.next()) {
                     this.username = username;
                     this.teacherID = result.getInt("teacherID");
-                    this.name = result.getString("teacherName").split(" ")[0];
+                    this.teacherName = result.getString("teacherName").split(" ")[0];
                 }
             }
         } catch (SQLException e) {
@@ -36,10 +38,10 @@ public class Teacher {
         }
     }
     
-    private Teacher(int teacherID, String username, String name) {
+    private Teacher(int teacherID, String username, String teacherName) {
         this.teacherID = teacherID;
         this.username = username;
-        this.name = name;
+        this.teacherName = teacherName;
     }
 
     public static void create(String username, String password, String name) {
@@ -55,7 +57,7 @@ public class Teacher {
     }
 
     public String getName() {
-        return this.name;
+        return this.teacherName;
     }
 
     public ArrayList<Semester> getSemesters() {

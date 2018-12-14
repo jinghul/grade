@@ -14,12 +14,13 @@ import twelve.team.Database;
  */
 public class Semester {
     
-    private ArrayList<Course> courses;
     private int semesterID;
     private int teacherID;
     private String semesterName;
     private int year;
     private boolean initialized;
+
+    private ArrayList<Course> courses;
 
     private Semester(int semesterID, String name, int year, int teacherID) {
         this.semesterID = semesterID;
@@ -29,7 +30,7 @@ public class Semester {
     }
 
     public static ArrayList<Semester> getSemesters(int teacherID) {
-        String query = "select * from semester where teacherID = " + teacherID;
+        String query = String.format("select * from semester where teacherID = %d", teacherID);
         try (Statement statement = Database.getDatabase().getStatement()) {
             try (ResultSet result = statement.executeQuery(query)) {
                 ArrayList<Semester> semesters = new ArrayList<>();
@@ -68,15 +69,6 @@ public class Semester {
         }
     }
 
-    public static void delete(Semester semester) {
-        String query = "delete from semester where semesterID = " + semester.semesterID;
-        try (Statement statement = Database.getDatabase().getStatement()) {
-            statement.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void init() {
         if (initialized) {
             return;
@@ -87,11 +79,20 @@ public class Semester {
         initialized = true;
     }
 
-    public void update(String semesterName, int semesterYear) {
-        String update = "update semester " + "set semesterName = '" + semesterName
-                + "' semesterYear = " + semesterYear +
-                "where semesterID = " + semesterID;
+    public static void delete(Semester semester) {
+        String query = String.format("delete from semester where semesterID = %d", semester.semesterID);
         try (Statement statement = Database.getDatabase().getStatement()) {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(String semesterName, int semesterYear) {
+        String update = String.format("update semester set semesterName = '%s', semesterYear = %d where semesterId = %d", semesterName, semesterYear, semesterID);
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            this.semesterName = semesterName;
+            this.year = semesterYear;
             statement.executeUpdate(update);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,22 +112,38 @@ public class Semester {
     }
 
     public int getNumCourses() {
+        if (!initialized) {
+            return -1;
+        }
+
         return courses.size();
     }
 
     public ArrayList<Course> getCourses() {
+        if (!initialized) {
+            init();
+        }
         return courses;
     }
     
-    public boolean editCourse(String courseID) {
-        return false;
+    public void deleteCourse(Course course) {
+        if (!initialized) {
+            return;
+        }
+        deleteCourse(courses.indexOf(course));
     }
 
-    public boolean removeCourse(String courseID) {
-        return false;
+    public void deleteCourse(int index) {
+        if (!initialized) {
+            return;
+        }
+        Course.delete(courses.remove(index));
     }
 
-    public boolean addCourse(Course course) {
-        return false;
+    public Course addCourse(String courseDepartment, int courseNum, String courseSection, String courseDescription) {
+        Course course = Course.create(courseDepartment, courseNum, courseSection, courseDescription, semesterName, semesterID);
+        courses.add(course);
+        return course;
     }
+
 }

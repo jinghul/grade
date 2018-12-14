@@ -37,7 +37,7 @@
             <Label alignment="BASELINE_CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="306.0"
                    text="Blackjack" textFill="#2b2f52" textOverrun="WORD_ELLIPSIS">
                 <font>
-                    <Font name="Chalkboard SE Regular" size="36.0"/>
+                    <Font courseName="Chalkboard SE Regular" size="36.0"/>
                 </font>
             </Label>
             <GridPane GridPane.rowIndex="1">
@@ -115,7 +115,7 @@
                        AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0"
                        GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
-                        <Font name="Chalkboard" size="18.0"/>
+                        <Font courseName="Chalkboard" size="18.0"/>
                     </font>
                 </Label>
                 <ImageView fitHeight="68.0" fitWidth="91.0" layoutX="7.0" layoutY="77.0"

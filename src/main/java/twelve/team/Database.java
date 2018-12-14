@@ -103,12 +103,12 @@ public class Database {
 
             sql = ("create table course (\n"
                     + "courseID int NOT NULL AUTO_INCREMENT,\n"
-                    + "courseName varchar(32) NOT NULL,\n"
-                    + "courseDescription TEXT,\n"
+                    + "courseDepartment varchar(32) NOT NULL,\n"
+                    + "courseNum int NOT NULL,\n"
+                    + "courseSection varchar(32),\n"
+                    + "courseTimes TEXT,\n"
                     + "semesterID int NOT NULL,\n"
-                    + "teacherID int NOT NULL,\n"
                     + "PRIMARY KEY (courseID),\n"
-                    + "FOREIGN KEY (teacherID) references teacher(teacherID),\n"
                     + "FOREIGN KEY (semesterID) references semester(semesterID)\n"
                     + ");");
             statement.execute(sql);
@@ -119,6 +119,7 @@ public class Database {
                     + "universityID varchar(9) NOT NULL,\n"
                     + "studentName varchar(32) NOT NULL,\n"
                     + "degree int NOT NULL,\n"
+                    + "comment TEXT,\n"
                     + "courseID int NOT NULL,\n"
                     + "PRIMARY KEY (studentID),\n"
                     + "FOREIGN KEY (courseID) REFERENCES course(courseID)\n"
@@ -130,6 +131,7 @@ public class Database {
                     + "categoryID int NOT NULL AUTO_INCREMENT,\n"
                     + "categoryName varchar(32) NOT NULL,\n"
                     + "courseID int NOT NULL,\n"
+                    + "weight double default 0.0,\n"
                     + "PRIMARY KEY (categoryID),\n"
                     + "FOREIGN KEY (courseID) \tREFERENCES course(courseID));");
             statement.execute(sql);
@@ -139,8 +141,10 @@ public class Database {
                     + "assignmentID int NOT NULL AUTO_INCREMENT,\n"
                     + "assignmentName varchar(50) NOT NULL,\n"
                     + "totalPoints int NOT NULL,\n"
-                    + "extraCredit int,\n"
-                    + "status bit default 0,\n"
+                    + "comment TEXT,\n"
+                    + "optional BOOLEAN not NULL default 1,\n"
+                    + "extraCredit BOOLEAN not NULL default 0,\n"
+                    + "weight double not NULL default 0.0,\n"
                     + "categoryID int NOT NULL,\n"
                     + "PRIMARY KEY (assignmentID),\n"
                     + "FOREIGN KEY (categoryID) REFERENCES category(categoryID)\n"
@@ -151,31 +155,15 @@ public class Database {
             sql = ("create table grade (\n"
                     + "studentID int NOT NULL,\n"
                     + "assignmentID int NOT NULL,\n"
-                    + "grade int,\n"
+                    + "comment TEXT,\n"
+                    + "status bit default 0,\n"
+                    + "grade double default 0.0,\n"
                     + "foreign key (studentID) REFERENCES student(studentID),\n"
                     + "foreign key (assignmentID) REFERENCES assignment(assignmentID)\n"
                     + ");");
             statement.execute(sql);
             System.out.println("\tTable grade created successfully...");
 
-            sql = ("create table comment (\n"
-                    + "studentID int NOT NULL,\n"
-                    + "assignmentID int NOT NULL,\n"
-                    + "comment TEXT,\n"
-                    + "foreign key (studentID) REFERENCES student(studentID),\n"
-                    + "foreign key (assignmentID) REFERENCES assignment(assignmentID)\n"
-                    + ");");
-            statement.execute(sql);
-            System.out.println("\tTable comment created successfully...");
-
-            sql = ("CREATE TABLE weight (\n"
-                    + "categoryID int,\n"
-                    + "assignmentID int,\n"
-                    + "degree int NOT NULL,\n"
-                    + "weight float\n"
-                    + ");");
-            statement.execute(sql);
-            System.out.println("\tTable weights created successfully...");
             System.out.println("Database \'" + DATABASE_NAME + "\' successfully created.\n");
             connection = DriverManager.getConnection(DATABASE_HOST + DATABASE_NAME, USERNAME, PASSWORD);
 

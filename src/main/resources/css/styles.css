@@ -1,74 +1,105 @@
-.theme-main, .button_primary, .sidebar, .sidebar_button {
-    -fx-background-color: #4747d1;
+
+/* Main Theme */
+.background-main, .sidebar, .button-sidebar {
+    -fx-background-color: #4747D1;
 }
 
-.button_alt, .tile, .pane, .scroll-pane, .tile-pane {
+.border-main {
+    -fx-border-color: #4747D1;
+}
+
+.background-white, .button-alt, .search-bar, .pane, .scroll-pane, .tile-pane, .search-bar-text {
     -fx-background-color: #fff;
 }
 
-.button_primary, .button_alt, .tile, .sidebar_button {
-    -fx-cursor: "HAND";
+.text-main, .header-main {
+    -fx-fill: #4747D1;
 }
 
-.header, .header-white, .edit-header, .subheader, .sidebar_button {
+.text-white, .tile-header, .tile-subheader, .textbox {
+    -fx-fill: #fff;
+}
+
+.button-text-main {
+    -fx-text-fill: #4747D1;
+}
+
+.button-text-white, .button-sidebar, .button-primary {
+    -fx-text-fill: #fff;
+}
+
+.text-light {
+    -fx-font-family: "Segoe UI Light"
+}
+
+.text-semilight, .header, .header-white, .edit-header, .subheader, .button-sidebar, .search-bar-text {
     -fx-font-family: "Segoe UI Semilight";
 }
 
-.button_primary {
-    -fx-font-size: 15;
+.text-bold, .tile-header {
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+/* Buttons */
+
+.button-props, .button-primary, .button-alt, .tile, .button-sidebar {
+    -fx-cursor: "HAND";
     -fx-background-insets: 0;
+    -fx-font-size: 15;
+}
+
+.button-primary {
     -fx-background-radius: 0;
     -fx-border-radius: 0;
-    -fx-text-fill: #fff;
 }
-.button_primary:hover, .button_primary:pressed {
+
+.button-primary:hover {
     -fx-background-color: #355ece;
 }
 
-.button_alt, .tile {
-    -fx-font-size: 15;
-    -fx-background-insets: 0;
-    -fx-cursor: "HAND";
-}
-
-.button_alt {
-    -fx-text-fill: #4747d1;
-    -fx-border-color: #4747d1;
-}
-
-.button_alt:hover, .button_alt:pressed {
+.button-alt:hover {
     -fx-border-color: #355ece;
     -fx-text-fill: #355ece;
 }
 
-.sidebar_button {
+.button-sidebar {
     -fx-font-size: 20;
-    -fx-background-insets: 0;
-    -fx-text-fill: #fff;
     -fx-alignment: "BASELINE_LEFT";
     -fx-graphic-text-gap: 20;
     -fx-padding: 0 0 0 20;
 }
 
-.header {
-    -fx-fill: #4747d1;
-    -fx-font-size: 50;
-}
+/* Headings and Panes */
 
-.header-white {
-    -fx-fill: #fff;
+.header-lg {
     -fx-font-size: 60;
 }
 
-.edit-header {
-    -fx-fill: #fff;
+.header-md, .header-main {
+    -fx-font-size: 50;
+}
+
+.header-sm {
     -fx-font-size: 40;
 }
 
-.subheader {
+.subheader-lg {
     -fx-font-size: 35;
-    -fx-fill: #4747d1;
 }
+
+.subheader-sm, .tile-subheader {
+     -fx-font-size : 25;
+}
+
+.text-lg, .tile-header {
+    -fx-font-size: 30;
+}
+
+.text-sm, .search-bar-text, .textbox {
+    -fx-font-size : 15;
+}
+
+/* Tiles */
 
 .tile {
     -fx-pref-width: 185;
@@ -79,17 +110,6 @@
     -fx-effect: dropshadow( three-pass-box , #000000 ,10,0,0, 0 );
 }
 
-.tile .header {
-    -fx-font-size: 30;
-    -fx-fill: #fff;
-    -fx-font-family: "Segoe UI Semibold";
-}
-
-.tile .subheader {
-    -fx-font-size : 25;
-    -fx-fill: #fff;
-}
-
 .edit-button {
     -fx-pref-width: 30;
     -fx-pref-height: 30;
@@ -98,10 +118,7 @@
     -fx-background-color: 'transparent';
 }
 
-.pane-header {
-    -fx-background-color: #c2c2f0;
-}
-
+/* Scroll Pane Adjust */
 .scroll-pane > .viewport {
    -fx-background-color: transparent;
 }
@@ -119,29 +136,40 @@
     -fx-background-insets: 0;
 }
 
+/* Semester Selection */
+
+.background-sem-sel, .button-primary-sem-sel {
+    -fx-background-color: #957FEF;
+}
+
+.border-sem-sel, .button-alt-sem-sel {
+    -fx-border-color: #957FEF;
+}
+
 .search-bar {
-    -fx-background-color: #fff;
     -fx-background-radius: 5;
 }
 
-.search-bar Button {
-    -fx-background-color: #fff;
-    -fx-background-insets: 0;
-}
-
-.search-bar TextField {
-    -fx-background-color: #fff;
-    -fx-font-size: 15;
-    -fx-fill: #c2c2f0;
-    -fx-font-family: "Segoe UI Semilight";
+.button-alt-sem-sel {
+    -fx-text-fill: #957FEF;
 }
 
 
-.edit-text, .choice-box {
--fx-font-size: 15;
--fx-background-color: #fff;
--fx-border-color: #4747d1;
+/* Semester */
+
+.background-semester {
+    -fx-background-color: #B43E8F;
 }
+
+.border-semester {
+    -fx-border-color: #B43E8F;
+}
+
+.button-alt-semester {
+    -fx-text-fill: #B43E8F;
+}
+
+/* Tables */
 
 .table-view .column-header,
 .table-view .column-header-background .filler {

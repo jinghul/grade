@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import twelve.team.Loader;
+import twelve.team.Router;
 import twelve.team.controllers.MainPane;
 import twelve.team.controllers.tiles.PlusButton;
 import twelve.team.controllers.tiles.TileButton;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 
 public class SemesterSelectionPane extends VBox implements Initializable {
     public static final String SELECTION_FXML_PATH = "semester/SemesterSelectionPane.fxml";
-    public static final String THEME_COLOR = "#c2c2f0";
+    public static final String THEME_COLOR = "#957FEF";
 
     @FXML
     private TilePane tilePane;
@@ -64,12 +65,15 @@ public class SemesterSelectionPane extends VBox implements Initializable {
             return;
         }
 
+        // TODO: SORTING
+
         TileButton tile = new TileButton();
         tile.init(semester.getName(), getNumCoursesDisplay(semester.getNumCourses()),
                 e -> {
                     // Click on semester button
-                    new SemesterPane().load(semester);
-
+                    SemesterPane semesterPane = new SemesterPane();
+                    semesterPane.load(semester);
+                    Router.getRouter().addPane(semesterPane, false);
                 }, e -> {
                     // Click on semester edit button
                     Semester updatedSemester = new SemesterEditPane().load(semester);

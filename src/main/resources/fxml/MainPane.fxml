@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?import twelve.team.controllers.HomePane?>
 
-<GridPane fx:id="root" opacity="0" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1050.0" styleClass="pane" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
+<GridPane fx:id="root" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1050.0" styleClass="pane" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twelve.team.controllers.MainPane">
    <columnConstraints>
       <ColumnConstraints hgrow="NEVER" minWidth="210.0" prefWidth="210.0" />
       <ColumnConstraints hgrow="SOMETIMES" />
@@ -20,22 +20,24 @@
       <RowConstraints minHeight="600.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <AnchorPane minHeight="400.0" minWidth="210.0" prefWidth="210.0" styleClass="sidebar" stylesheets="@../css/styles.css">
+      <AnchorPane minHeight="400.0" minWidth="210.0" prefWidth="210.0" styleClass="sidebar">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello,">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="15.0" />
-                     </font>
+                     <styleClass>
+                        <String fx:value="text-bold" />
+                        <String fx:value="text-sm" />
+                     </styleClass>
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Text>
                   <Text fx:id="txt_name" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="30.0" />
-                     </font>
+                     <styleClass>
+                        <String fx:value="text-bold" />
+                        <String fx:value="text-lg" />
+                     </styleClass>
                      <VBox.margin>
                         <Insets bottom="40.0" />
                      </VBox.margin>
@@ -51,7 +53,7 @@
                               <Insets right="20.0" />
                            </padding>
                            <children>
-                              <Button fx:id="btn_home" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Home">
+                              <Button fx:id="btn_home" mnemonicParsing="false" styleClass="button-sidebar" text="Home">
                                  <graphic>
                                     <ImageView fitHeight="25.0" preserveRatio="true">
                                        <image>
@@ -63,7 +65,7 @@
                                     <Insets left="20.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btn_semester" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Semester">
+                              <Button fx:id="btn_semester" alignment="TOP_LEFT" mnemonicParsing="false" styleClass="button-sidebar" text="Semester">
                                  <graphic>
                                     <ImageView fitHeight="25.0" preserveRatio="true">
                                        <image>
@@ -75,7 +77,7 @@
                                     <Insets left="20.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btn_course" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Courses">
+                              <Button fx:id="btn_course" mnemonicParsing="false" styleClass="button-sidebar" text="Courses">
                                  <graphic>
                                     <ImageView fitHeight="25.0" preserveRatio="true">
                                        <image>
@@ -83,8 +85,11 @@
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Button>
-                              <Button fx:id="btn_grade" mnemonicParsing="false" prefHeight="40.0" styleClass="sidebar_button" text="Grade">
+                              <Button fx:id="btn_grade" mnemonicParsing="false" styleClass="button-sidebar" text="Grade">
                                  <graphic>
                                     <ImageView fitHeight="25.0" preserveRatio="true">
                                        <image>
@@ -92,6 +97,9 @@
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Button>
                            </children>
                         </VBox>
@@ -99,7 +107,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="btn_logout" mnemonicParsing="false" styleClass="sidebar_button" text="Log Out" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
+            <Button fx:id="btn_logout" mnemonicParsing="false" styleClass="button-sidebar" text="Log Out" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
                <graphic>
                   <ImageView fitHeight="25.0" preserveRatio="true">
                      <image>

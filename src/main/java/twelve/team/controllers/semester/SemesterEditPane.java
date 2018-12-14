@@ -1,9 +1,7 @@
 package twelve.team.controllers.semester;
 
-import com.sun.istack.internal.NotNull;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -14,10 +12,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import twelve.team.Loader;
-import twelve.team.Router;
 import twelve.team.controllers.MainPane;
 import twelve.team.models.Semester;
-import twelve.team.models.Teacher;
 
 public class SemesterEditPane extends AnchorPane {
     public static final String ICON_PATH = "/imgs/main_icon.png";
@@ -53,6 +49,7 @@ public class SemesterEditPane extends AnchorPane {
                 txt_error.setVisible(false);
             }
         });
+        tf_year.setOnAction(e -> save());
         btn_cancel.setOnAction(e -> exit());
         btn_save.setOnAction(e -> save());
     }
@@ -79,10 +76,12 @@ public class SemesterEditPane extends AnchorPane {
                 semester.update(semesterName, semesterYear);
             }
         }
+
         exit();
     }
 
     public Semester load(Semester semester) {
+        this.semester = semester;
         for (int i = 0; i < cb_name.getItems().size(); i++) {
             if (cb_name.getItems().get(i).toString().equals(semester.getSemesterName())) {
                 cb_name.getSelectionModel().select(i);

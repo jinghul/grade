@@ -2,7 +2,6 @@ package twelve.team;
 
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import twelve.team.controllers.HomePane;
 import twelve.team.controllers.MainPane;
 
 import java.util.Stack;
@@ -48,6 +47,10 @@ public class Router {
         return main;
     }
 
+    public boolean canGoBack() {
+        return !backStack.empty();
+    }
+
     public boolean goBack() {
         if (backStack.empty()) {
             return false;
@@ -56,6 +59,10 @@ public class Router {
             displayPane(backStack.pop());
             return true;
         }
+    }
+
+    public boolean canGoForward() {
+        return !forwardStack.empty();
     }
 
     public boolean goForward() {
@@ -69,9 +76,12 @@ public class Router {
     }
 
     public boolean addPane(Node pane, boolean fromSidebar) {
-        if (checkValidRequest(pane, fromSidebar)) {
-            if (current != null && !fromSidebar) {
+        if (current != null && checkValidRequest(pane)) {
+            if (!fromSidebar) {
                 backStack.push(current);
+                forwardStack.clear();
+            } else {
+                clearStacks();
             }
 
             displayPane(pane);
@@ -99,7 +109,7 @@ public class Router {
         forwardStack.clear();
     }
 
-    private boolean checkValidRequest(Node request, boolean fromSidebar) {
-        return (fromSidebar && !(current.getClass().isInstance(request))) || (!fromSidebar && request != current);
+    private boolean checkValidRequest(Node request) {
+        return !current.getClass().isInstance(request);
     }
 }

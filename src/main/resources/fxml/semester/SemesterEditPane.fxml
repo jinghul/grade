@@ -14,25 +14,45 @@
 
 <fx:root prefHeight="400.0" prefWidth="400.0" stylesheets="@../../css/styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="87.0" prefWidth="400.0" styleClass="theme-main" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="87.0" prefWidth="400.0" styleClass="background-sem-sel" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-              <Text fx:id="txt_title" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="edit-header" text="Semester" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" />
+              <Text fx:id="txt_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Semester" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0">
+               <styleClass>
+                  <String fx:value="text-white" />
+                  <String fx:value="header-md" />
+               </styleClass></Text>
          </children>
       </AnchorPane>
       <VBox alignment="CENTER" fillWidth="false" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #fff;" stylesheets="@../../css/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="87.0">
           <children>
-              <Text fx:id="txt_error" fill="#fc0808" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter a valid year." visible="false">
+              <Text fx:id="txt_error" fill="#fc0808" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-sm" text="Please enter a valid year." visible="false">
                   <font>
                       <Font size="15.0" />
                   </font>
               </Text>
-            <ChoiceBox fx:id="cb_name" prefWidth="200.0" styleClass="edit-text" />
-            <TextField fx:id="tf_year" prefWidth="200.0" promptText="year" styleClass="edit-text">
+            <ChoiceBox fx:id="cb_name" prefWidth="200.0">
+               <styleClass>
+                  <String fx:value="button-alt-sem-sel" />
+                  <String fx:value="button-alt" />
+               </styleClass></ChoiceBox>
+            <TextField fx:id="tf_year" prefWidth="200.0" promptText="year">
                <VBox.margin>
                   <Insets bottom="30.0" />
-               </VBox.margin></TextField>
-            <Button fx:id="btn_save" mnemonicParsing="false" prefWidth="200.0" styleClass="button_primary" text="Save" />
-            <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="200.0" styleClass="button_alt" text="Cancel" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="border-sem-sel" />
+                  <String fx:value="textbox" />
+               </styleClass></TextField>
+            <Button fx:id="btn_save" mnemonicParsing="false" prefWidth="200.0" text="Save">
+               <styleClass>
+                  <String fx:value="button-primary" />
+                  <String fx:value="background-sem-sel" />
+               </styleClass></Button>
+            <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="200.0" text="Cancel">
+               <styleClass>
+                  <String fx:value="button-alt-sem-sel" />
+                  <String fx:value="button-alt" />
+               </styleClass></Button>
           </children>
       </VBox>
    </children>

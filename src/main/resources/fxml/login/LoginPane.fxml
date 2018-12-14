@@ -21,7 +21,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
    <children>
-       <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #4747d1;">
+       <VBox alignment="CENTER" fillWidth="false" styleClass="background-main">
           <children>
               <ImageView fitHeight="77.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                   <VBox.margin>
@@ -36,12 +36,12 @@
               </ImageView>
               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="An Inuitive Grading System">
                   <font>
-                      <Font name="Segoe UI Light" size="25.0" />
+                      <Font size="25.0" />
                   </font>
               </Text>
           </children>
        </VBox>
-       <VBox alignment="CENTER" fillWidth="false" spacing="10.0" style="-fx-background-color: #fff;" GridPane.columnIndex="1">
+       <VBox alignment="CENTER" fillWidth="false" spacing="10.0" styleClass="background-white" GridPane.columnIndex="1">
           <children>
               <ImageView fitHeight="77.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
                   <viewport>
@@ -54,42 +54,35 @@
                      <Image url="@../../imgs/main_icon.png" />
                  </image>
               </ImageView>
-              <Text fill="#4747d1" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #4747d1;" text="Grader" textAlignment="CENTER" wrappingWidth="393.6341857910156">
-                  <font>
-                      <Font name="Segoe UI Semibold" size="60.0" />
-                  </font>
+              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Grader" textAlignment="CENTER" wrappingWidth="393.6341857910156">
                   <VBox.margin>
                       <Insets bottom="70.0" />
                   </VBox.margin>
+               <styleClass>
+                  <String fx:value="text-main" />
+                  <String fx:value="header-lg" />
+               </styleClass>
               </Text>
-              <Text fx:id="txt_error" fill="#fc0808" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect username or password." visible="false">
-                  <font>
-                      <Font size="15.0" />
-                  </font>
+              <Text fx:id="txt_error" fill="#fc0808" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-sm" text="Incorrect username or password." visible="false">
               </Text>
-              <TextField fx:id="tf_username" prefWidth="250.0" promptText="username">
-                  <font>
-                      <Font size="15.0" />
-                  </font>
+              <TextField fx:id="tf_username" prefWidth="250.0" promptText="username" styleClass="textbox">
               </TextField>
-              <PasswordField fx:id="tf_password" prefWidth="250.0" promptText="password">
+              <PasswordField fx:id="tf_password" prefWidth="250.0" promptText="password" styleClass="textbox">
                   <VBox.margin>
                       <Insets bottom="20.0" />
                   </VBox.margin>
-                  <font>
-                      <Font size="15.0" />
-                  </font>
               </PasswordField>
-              <Button fx:id="btn_login" contentDisplay="RIGHT" mnemonicParsing="false" prefWidth="250.0" styleClass="button_primary" text="Login" textAlignment="CENTER" textFill="WHITE">
-                  <font>
-                      <Font size="15.0" />
-                  </font>
-              </Button>
-              <Button fx:id="btn_register" contentDisplay="RIGHT" mnemonicParsing="false" prefWidth="250.0" styleClass="button_alt" text="Register" textAlignment="CENTER" textFill="#0f3fffba">
-                  <font>
-                      <Font size="15.0" />
-                  </font>
-              </Button>
+              <Button fx:id="btn_login" contentDisplay="RIGHT" mnemonicParsing="false" prefWidth="250.0" text="Login" textAlignment="CENTER">
+               <styleClass>
+                  <String fx:value="button-primary" />
+                  <String fx:value="background-main" />
+               </styleClass></Button>
+              <Button fx:id="btn_register" contentDisplay="RIGHT" mnemonicParsing="false" prefWidth="250.0" text="Register" textAlignment="CENTER">
+               <styleClass>
+                  <String fx:value="button-alt" />
+                  <String fx:value="border-main" />
+                  <String fx:value="button-text-main" />
+               </styleClass></Button>
           </children>
        </VBox>
    </children>

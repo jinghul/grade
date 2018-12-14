@@ -13,15 +13,11 @@ public class Grade implements Commentable {
         this.grade = grade;
     }
 
-    public static void create(int assignmentID, int studentID, double grade) {
+    public static void create(int assignmentID, int studentID, double grade, boolean graded) {
 
     }
 
-    public static void create(int assignmentID, int studentID) {
-
-    }
-
-    public void updateGrade
+    public void update()
 
 
 

@@ -102,7 +102,7 @@
             <id>jacoco</id>
             <activation>
                 <property>
-                    <name>env.TRAVIS</name>
+                    <courseName>env.TRAVIS</courseName>
                 </property>
             </activation>
             <build>
@@ -140,7 +140,7 @@
             <id>travis</id>
             <activation>
                 <property>
-                    <name>env.TRAVIS</name>
+                    <courseName>env.TRAVIS</courseName>
                 </property>
             </activation>
             <build>

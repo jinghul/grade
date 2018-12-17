@@ -47,18 +47,20 @@ public class CategoryWeight extends RecursiveTreeObject<CategoryWeight> {
     }
 
     public void setWeightUG(double weightUG) {
-        if (isCategory) {
-            MainPane.teacher.getCurrentCourse().recalculateWeights((Category) weightable, weightUG, 0);
-        } else {
-            weightable.setWeightUG(weightUG);
-        }
+        weightable.setWeightUG(weightUG);
+//        if (isCategory) {
+//            MainPane.teacher.getCurrentCourse().recalculateWeights((Category) weightable, weightUG, 0);
+//        } else {
+//            weightable.setWeightUG(weightUG);
+//        }
     }
     public void setWeightGR(double weightGR) {
-        if (isCategory) {
-            MainPane.teacher.getCurrentCourse().recalculateWeights((Category) weightable, weightGR, 1);
-        } else {
-            weightable.setWeightGR(weightGR);
-        }
+        weightable.setWeightGR(weightGR);
+//        if (isCategory) {
+//            MainPane.teacher.getCurrentCourse().recalculateWeights((Category) weightable, weightGR, 1);
+//        } else {
+//            weightable.setWeightGR(weightGR);
+//        }
     }
 
     public Category getCategory() {

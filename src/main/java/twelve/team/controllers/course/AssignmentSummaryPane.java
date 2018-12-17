@@ -10,23 +10,22 @@ import twelve.team.Router;
 import twelve.team.models.Assignment;
 import twelve.team.models.Course;
 import twelve.team.models.Section;
-import twelve.team.models.Student;
 import twelve.team.utils.Animator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class StudentSummaryPane extends VBox implements Initializable {
-    public static final String STUDENT_PANE_FXML = "course/StudentSummaryPage.fxml";
+public class AssignmentSummaryPane extends VBox implements Initializable {
+    public static final String ASSIGNMENT_PANE_FXML = "course/AssignmentSummaryPage.fxml";
 
     @FXML
-    private AssignmentPane assignment_pane;
+    private StudentPane student_pane;
 
     @FXML
     private Button btn_back;
 
-    public StudentSummaryPane() {
-        Loader.load(STUDENT_PANE_FXML, this);
+    public AssignmentSummaryPane() {
+        Loader.load(ASSIGNMENT_PANE_FXML, this);
         if(Router.getRouter().canGoBack()) {
             btn_back.setVisible(true);
             btn_back.setOnAction(e -> {
@@ -37,8 +36,12 @@ public class StudentSummaryPane extends VBox implements Initializable {
         }
     }
 
-    public void load(Course course, Student student) {
-        assignment_pane.load(course, student);
+    public void load(Section section, Assignment assignment) {
+        student_pane.load(section, assignment);
+    }
+
+    public void load(Course course, Assignment assignment) {
+        student_pane.load(course, assignment);
     }
 
     @Override

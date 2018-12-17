@@ -7,7 +7,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -15,8 +14,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import twelve.team.controllers.course.AssignmentPane?>
+<?import twelve.team.controllers.course.StudentPane?>
 
 <fx:root minHeight="600.0" minWidth="600.0" prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #fff;" styleClass="pane" stylesheets="@../../css/styles.css" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -36,11 +38,11 @@
         </AnchorPane>
       <HBox prefHeight="480.0" prefWidth="840.0" VBox.vgrow="ALWAYS">
          <children>
-              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="540.0" prefWidth="710.0" styleClass="scroll-pane" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
+            <StackPane HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </HBox.margin>
-               <content>
+               <children>
                   <Accordion fx:id="accordion_course" styleClass="course-accordion">
                      <panes>
                         <TitledPane fx:id="pane_description" animated="false" prefWidth="640.0" text="Course Description">
@@ -98,7 +100,8 @@
                                     <JFXTreeTableView id="syllabus-table" fx:id="table_syllabus" editable="true" layoutX="41.0" layoutY="-162.0" maxWidth="5000.0" prefHeight="325.0" showRoot="false" sortMode="ONLY_FIRST_LEVEL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                        <columnResizePolicy>
                                           <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy></JFXTreeTableView>
+                                       </columnResizePolicy>
+                                    </JFXTreeTableView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -108,8 +111,10 @@
                         </TitledPane>
                      </panes>
                   </Accordion>
-               </content>
-              </ScrollPane>
+                  <StudentPane fx:id="student_pane" />
+                  <AssignmentPane fx:id="assignment_pane" />
+               </children>
+            </StackPane>
             <VBox alignment="TOP_CENTER" prefWidth="200.0" styleClass="background-white">
                <children>
                   <HBox alignment="TOP_CENTER">

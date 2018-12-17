@@ -25,13 +25,16 @@ public class SectionPane extends VBox implements Initializable, EventHandler<Act
     private StackPane pane_stack;
 
     @FXML
+    private StudentPane student_pane;
+
+    @FXML
+    private AssignmentPane assignment_pane;
+
+    @FXML
     private Text txt_sectionName;
 
     @FXML
-    private JFXButton btn_gradebook, btn_students, btn_assignments, btn_back;
-
-    @FXML
-    private AnchorPane pane_student, pane_gradebook, pane_assignments;
+    private JFXButton btn_students, btn_assignments, btn_back;
 
     private Course course;
     private Section section;
@@ -43,14 +46,14 @@ public class SectionPane extends VBox implements Initializable, EventHandler<Act
     }
 
     public void load(Course course, Section section) {
-        current = pane_student;
+        current = student_pane;
+        student_pane.load(section);
 
         this.course = course;
         this.section = section;
 
         txt_sectionName.setText(section.getNameWithCourse());
 
-        btn_gradebook.setOnAction(this);
         btn_students.setOnAction(this);
         btn_assignments.setOnAction(this);
 
@@ -74,12 +77,20 @@ public class SectionPane extends VBox implements Initializable, EventHandler<Act
     @Override
     public void handle(ActionEvent event) {
         event.consume();
-        if (event.getSource() == btn_gradebook) {
-
-        } else if (event.getSource() == btn_assignments) {
-
+        if (event.getSource() == btn_assignments) {
+            if (current == assignment_pane) {
+                return;
+            }
+            current = assignment_pane;
+            assignment_pane.toFront();
+            assignment_pane.load(course, section);
         } else if (event.getSource() == btn_students) {
-
+            if (current == student_pane) {
+                return;
+            }
+            current = student_pane;
+            student_pane.toFront();
+            student_pane.load(section);
         }
     }
 }

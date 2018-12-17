@@ -1,18 +1,104 @@
 package twelve.team.models.table;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import twelve.team.models.Assignment;
-import twelve.team.models.Category;
-import twelve.team.models.Course;
+import twelve.team.models.*;
 
 public class AssignmentModel {
 
     private Assignment assignment;
     private Category category;
+    private Grade grade;
 
+    private SimpleDoubleProperty gradeScore;
     private SimpleStringProperty assignmentName;
+    private SimpleDoubleProperty totalPoints;
+    private SimpleBooleanProperty extracredit;
+    private SimpleStringProperty comment;
 
-    public AssignmentModel(Assignment assignment, Category category, boolean average) {
+    public AssignmentModel(double gradeScore, String assignmentName, double totalPoints, boolean extracredit, String comment) {
+        this.gradeScore = new SimpleDoubleProperty(gradeScore);
+        this.assignmentName = new SimpleStringProperty(assignment.getName());
+        this.totalPoints = new SimpleDoubleProperty(assignment.getTotalPoints());
+        this.extracredit = new SimpleBooleanProperty(assignment.isExtracredit());
+        this.comment = new SimpleStringProperty(assignment.getComment());
+    }
 
+    public SimpleDoubleProperty getGradeScore() {
+        return gradeScore;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public SimpleStringProperty getAssignmentName() {
+        return assignmentName;
+    }
+
+    public SimpleDoubleProperty getTotalPoints() {
+        return totalPoints;
+    }
+
+    public SimpleBooleanProperty getExtracredit() {
+        return extracredit;
+    }
+
+    public SimpleStringProperty getComment() {
+        return comment;
+    }
+
+    public AssignmentModel(Assignment assignment, Category category, Course course) {
+        double average = 0;
+        int count = 0;
+        for (Section section : course.getSections()) {
+            for (Grade grade : section.getGrades(assignment)) {
+                average += grade.getGrade();
+                count += 1;
+            }
+        }
+
+        average = average / count;
+        this.gradeScore = new SimpleDoubleProperty(average);
+        this.category = category;
+        this.assignment = assignment;
+        this.assignmentName = new SimpleStringProperty(assignment.getName());
+        this.totalPoints = new SimpleDoubleProperty(assignment.getTotalPoints());
+        this.extracredit = new SimpleBooleanProperty(assignment.isExtracredit());
+        this.comment = new SimpleStringProperty(assignment.getComment());
+    }
+
+    public AssignmentModel(Assignment assignment, Category category, Section section) {
+        double average = 0;
+        int count = 0;
+        for (Grade grade : section.getGrades(assignment)) {
+            average += grade.getGrade();
+        }
+        average = average / count;
+
+        this.gradeScore = new SimpleDoubleProperty(average);
+        this.category = category;
+        this.assignment = assignment;
+        this.assignmentName = new SimpleStringProperty(assignment.getName());
+        this.totalPoints = new SimpleDoubleProperty(assignment.getTotalPoints());
+        this.extracredit = new SimpleBooleanProperty(assignment.isExtracredit());
+        this.comment = new SimpleStringProperty(assignment.getComment());
+    }
+
+    public AssignmentModel(Assignment assignment, Category category, Student student) {
+        grade = assignment.getGrade(student);
+        this.gradeScore = new SimpleDoubleProperty(grade.getGrade());
+        this.category = category;
+        this.assignment = assignment;
+        this.assignmentName = new SimpleStringProperty(assignment.getName());
+        this.totalPoints = new SimpleDoubleProperty(assignment.getTotalPoints());
+        this.extracredit = new SimpleBooleanProperty(assignment.isExtracredit());
+        this.comment = new SimpleStringProperty(assignment.getComment());
     }
 }

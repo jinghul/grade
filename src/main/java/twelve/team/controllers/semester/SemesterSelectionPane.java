@@ -25,7 +25,7 @@ public class SemesterSelectionPane extends VBox implements Initializable {
     private TilePane tilePane;
 
     @FXML
-    private Button backButton;
+    private Button btn_back;
 
     public SemesterSelectionPane() {
         Loader.load(SEMESTER_SELECTION_PANE_FXML, this);
@@ -42,6 +42,15 @@ public class SemesterSelectionPane extends VBox implements Initializable {
 
         for (int i = 0; i < semesters.size(); i++) {
             addSemester(semesters.get(i), -1);
+        }
+
+        if(Router.getRouter().canGoBack()) {
+            btn_back.setVisible(true);
+            btn_back.setOnAction(e -> {
+                Router.getRouter().goBack();
+            });
+        } else {
+            btn_back.setVisible(false);
         }
 
         PlusButton plusButton = new PlusButton();

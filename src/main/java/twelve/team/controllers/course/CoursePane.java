@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
@@ -35,6 +36,12 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
     private Accordion accordion_course;
 
     @FXML
+    private AssignmentPane assignment_pane;
+
+    @FXML
+    private StudentPane student_pane;
+
+    @FXML
     private TitledPane pane_description, pane_syllabus;
 
     @FXML
@@ -49,6 +56,7 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
     private Semester semester;
     private Course course;
     private int degree;
+    private Node current;
 
     public CoursePane() {
         Loader.load(COURSE_FXML_PATH, this);
@@ -60,6 +68,8 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
 
     public void load(Semester semester, Course course) {
         MainPane.teacher.setCurrentCourse(course);
+
+        current = accordion_course;
 
         this.semester = semester;
         this.course = course;
@@ -222,9 +232,17 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
                 Router.getRouter().addPane(sectionSelectionPane, false);
             });
         } else if (event.getSource() == btn_assignments) {
-
+            if (current == assignment_pane) {
+                return;
+            }
+            assignment_pane.toFront();
+            assignment_pane.load(course);
         } else if (event.getSource() == btn_students) {
-
+            if (current == student_pane) {
+                return;
+            }
+            student_pane.toFront();
+            student_pane.load(course);
         }
     }
 }

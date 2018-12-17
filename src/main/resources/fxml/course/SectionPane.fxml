@@ -9,6 +9,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import twelve.team.controllers.course.AssignmentPane?>
+<?import twelve.team.controllers.course.StudentPane?>
 
 <fx:root minHeight="600.0" minWidth="600.0" prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #fff;" styleClass="pane" stylesheets="@../../css/styles.css" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -35,6 +37,10 @@
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" />
                </padding>
+               <children>
+                  <AssignmentPane fx:id="assignment_pane" />
+                  <StudentPane fx:id="student_pane" />
+               </children>
             </StackPane>
                 <VBox alignment="TOP_CENTER" prefWidth="200.0" styleClass="background-white">
                     <children>
@@ -42,13 +48,6 @@
                             <children>
                                 <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
                                     <children>
-                                        <JFXButton fx:id="btn_gradebook" alignment="CENTER" buttonType="RAISED" prefWidth="150.0" text="Gradebook">
-                                            <styleClass>
-                                                <String fx:value="button-sidebar" />
-                                                <String fx:value="button-primary" />
-                                                <String fx:value="background-section" />
-                                            </styleClass>
-                                        </JFXButton>
                                         <JFXButton fx:id="btn_students" alignment="CENTER" buttonType="RAISED" prefWidth="150.0" text="Students">
                                             <styleClass>
                                                 <String fx:value="button-sidebar" />

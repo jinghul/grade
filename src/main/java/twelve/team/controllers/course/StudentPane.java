@@ -9,14 +9,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import twelve.team.Loader;
+import twelve.team.Router;
 import twelve.team.controllers.MainPane;
 import twelve.team.models.Assignment;
 import twelve.team.models.Course;
 import twelve.team.models.Section;
 import twelve.team.models.Student;
+import twelve.team.models.table.AssignmentModel;
 import twelve.team.models.table.StudentModel;
 
 import java.net.URL;
@@ -49,6 +52,7 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
     }
 
     public void load(Section section) {
+        reset();
         ArrayList<TreeItem<StudentModel>> studentModels = new ArrayList<>();
         for (Student student : section.getStudents()) {
             TreeItem<StudentModel> studentModel = new TreeItem<>(new StudentModel(student, section, assignment));
@@ -58,6 +62,7 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
     }
 
     public void load(Course course) {
+        reset();
         ArrayList<TreeItem<StudentModel>> studentModels = new ArrayList<>();
         for (Section section : course.getSections()) {
             for (Student student : section.getStudents()) {
@@ -68,13 +73,25 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
         loadTable(studentModels);
     }
 
+    private void reset() {
+        this.students =null;
+        this.section = null;
+        this.course =null;
+        this.assignment =null;
+        if (table_students.getRoot() != null) {
+            table_students.getRoot().getChildren().clear();
+        }
+    }
+
     public void load(Course course, Assignment assignment) {
+        reset();
         this.assignment = assignment;
         this.course = course;
         load(course);
     }
 
     public void load(Section section, Assignment assignment) {
+        reset();
         this.assignment = assignment;
         this.section = section;
         load(section);
@@ -170,6 +187,20 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
             comments.setCellValueFactory(param -> param.getValue().getValue().getSectionCode());
             columns.add(0, sections);
         }
+
+        table_students.setRowFactory( tv -> {
+            TableRow<StudentModel> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    StudentModel rowData = row.getItem();
+                    StudentSummaryPane studentSummaryPane = new StudentSummaryPane();
+                    if (section != null) {
+                        studentSummaryPane.load(course, rowData.getStudent());
+                    }
+                }
+            });
+            return row ;
+        });
 
 
         final TreeItem<StudentModel> root = new TreeItem<>(new StudentModel("Name", "ID", "Degree", "Comment", "Grade"));

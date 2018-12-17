@@ -2,6 +2,7 @@ package twelve.team;
 
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import twelve.team.controllers.MainPane;
 
 import java.util.Stack;
@@ -11,17 +12,17 @@ public class Router {
     private static final int DEFAULT_COL = 1;
 
     private MainPane main;
+    private StackPane stackPane;
     private Node current;
-    private Stack<Node> backStack;
-    private Stack<Node> forwardStack;
+    private Stack<String> backStack;
 
     private static Router router;
 
     private Router(MainPane main) {
         this.main = main;
+        stackPane = (StackPane) main.getRoot().getChildren().get(DEFAULT_COL);
         current = null;
         backStack = new Stack<>();
-        forwardStack = new Stack<>();
     }
 
     public static Router create(MainPane main) {
@@ -35,16 +36,10 @@ public class Router {
         return router;
     }
 
-    public MainPane getMainPane() {
-        return main;
-    }
+    public StackPane getStackPane() { return stackPane; }
 
     public static Router getRouter() {
         return router;
-    }
-
-    public MainPane getMain() {
-        return main;
     }
 
     public boolean canGoBack() {
@@ -55,22 +50,8 @@ public class Router {
         if (backStack.empty()) {
             return false;
         } else {
-            forwardStack.push(current);
-            displayPane(backStack.pop());
-            return true;
-        }
-    }
-
-    public boolean canGoForward() {
-        return !forwardStack.empty();
-    }
-
-    public boolean goForward() {
-        if (forwardStack.empty()) {
-            return false;
-        } else {
-            backStack.push(current);
-            displayPane(forwardStack.pop());
+            backStack.pop();
+            stackPane.getChildren().remove(stackPane.getChildren().size() - 1);
             return true;
         }
     }
@@ -78,9 +59,9 @@ public class Router {
     public boolean addPane(Node pane, boolean fromSidebar) {
         if (current != null && checkValidRequest(pane)) {
             if (!fromSidebar) {
-                backStack.push(current);
-                forwardStack.clear();
+                backStack.push(current.getClass().getName());
             } else {
+                stackPane.getChildren().clear();
                 clearStacks();
             }
 
@@ -93,20 +74,16 @@ public class Router {
     }
 
     private void displayPane(Node pane) {
-        GridPane.setConstraints(pane, DEFAULT_COL, DEFAULT_ROW);
-        System.out.println(main.getRoot().getChildren().toString());
-        main.getRoot().getChildren().remove(DEFAULT_COL);
-        main.getRoot().getChildren().add(pane);
+        stackPane.getChildren().add(pane);
+        main.getRoot().requestFocus();
         current = pane;
 
         System.out.println("Displaying pane: " + pane.getClass().getName());
         System.out.println("Current backstack: " + backStack.toString());
-        System.out.println("Current forwardstack: " + forwardStack.toString() + "\n");
     }
 
     public void clearStacks() {
         backStack.clear();
-        forwardStack.clear();
     }
 
     private boolean checkValidRequest(Node request) {

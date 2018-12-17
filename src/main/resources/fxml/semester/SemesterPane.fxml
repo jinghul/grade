@@ -52,7 +52,7 @@
                 </HBox>
             </children>
         </AnchorPane>
-        <ScrollPane fitToWidth="true" pannable="true" prefHeight="480.0" prefWidth="838.0" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+        <ScrollPane fitToWidth="true" pannable="true" prefHeight="480.0" prefWidth="840.0" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
             <content>
                 <TilePane fx:id="tilePane" hgap="20.0" styleClass="tile-pane" tileAlignment="TOP_LEFT" vgap="20.0">
                     <padding>

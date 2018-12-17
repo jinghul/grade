@@ -1,48 +1,79 @@
-
 /* Main Theme */
-.background-main, .sidebar, .button-sidebar {
-    -fx-background-color: #4747D1;
+.background-main,
+.sidebar {
+    -fx-background-color: #4747d1;
 }
 
 .border-main {
-    -fx-border-color: #4747D1;
+    -fx-border-color: #4747d1;
 }
 
-.background-white, .button-alt, .search-bar, .pane, .scroll-pane, .tile-pane, .search-bar-text {
+.background-main-light {
+    -fx-background-color: #d6d6f5;
+}
+
+.background-white,
+.button-alt,
+.search-bar,
+.pane,
+.scroll-pane,
+.tile-pane,
+.search-bar-text {
     -fx-background-color: #fff;
 }
 
-.text-main, .header-main {
-    -fx-fill: #4747D1;
+.text-main,
+.header-main {
+    -fx-fill: #4747d1;
 }
 
-.text-white, .tile-header, .tile-subheader, .textbox {
+.text-white,
+.tile-header,
+.tile-subheader,
+.textbox {
     -fx-fill: #fff;
 }
 
 .button-text-main {
-    -fx-text-fill: #4747D1;
+    -fx-text-fill: #4747d1;
 }
 
-.button-text-white, .button-sidebar, .button-primary {
+.button-text-white,
+.button-sidebar,
+.button-primary {
     -fx-text-fill: #fff;
 }
 
 .text-light {
-    -fx-font-family: "Segoe UI Light"
+    -fx-font-family: "Segoe UI Light";
 }
 
-.text-semilight, .header, .header-white, .edit-header, .subheader, .button-sidebar, .search-bar-text {
+.text-semilight,
+.header,
+.header-white,
+.edit-header,
+.subheader,
+.search-bar-text,
+.dialog-pane > *.label.content {
     -fx-font-family: "Segoe UI Semilight";
 }
 
-.text-bold, .tile-header {
+.text-bold,
+.tile-header {
     -fx-font-family: "Segoe UI Semibold";
 }
 
 /* Buttons */
 
-.button-props, .button-primary, .button-alt, .tile, .button-sidebar {
+.button-sidebar:hover {
+    -fx-background-color: #657ED4;
+}
+
+.button-props,
+.button-sidebar,
+.button-primary,
+.button-alt,
+.tile {
     -fx-cursor: "HAND";
     -fx-background-insets: 0;
     -fx-font-size: 15;
@@ -57,25 +88,26 @@
     -fx-background-color: #355ece;
 }
 
+.button-red {
+-fx-background-color: #FF331F;
+}
+
 .button-alt:hover {
-    -fx-border-color: #355ece;
     -fx-text-fill: #355ece;
 }
 
-.button-sidebar {
-    -fx-font-size: 20;
-    -fx-alignment: "BASELINE_LEFT";
-    -fx-graphic-text-gap: 20;
-    -fx-padding: 0 0 0 20;
-}
-
 /* Headings and Panes */
+
+.header-xlg {
+    -fx-font-size: 80;
+}
 
 .header-lg {
     -fx-font-size: 60;
 }
 
-.header-md, .header-main {
+.header-md,
+.header-main {
     -fx-font-size: 50;
 }
 
@@ -87,27 +119,50 @@
     -fx-font-size: 35;
 }
 
-.subheader-sm, .tile-subheader {
-     -fx-font-size : 25;
+.subheader-sm,
+.tile-subheader {
+    -fx-font-size: 25;
 }
 
-.text-lg, .tile-header {
+.text-lg,
+.tile-header {
     -fx-font-size: 30;
 }
 
-.text-sm, .search-bar-text, .textbox {
-    -fx-font-size : 15;
+.text-md,
+.button-sidebar {
+    -fx-font-size: 20;
+}
+
+.text-sm,
+.search-bar-text,
+.textbox,
+.dialog-pane > *.label.content {
+    -fx-font-size: 15;
+}
+
+/* Alert Box */
+
+.dialog-pane > *.label.content {
+    -fx-padding: 20 10 0 10;
+    -fx-text-wrap: true;
+}
+
+.dialog-pane:header *.header-panel *.label {
+    -fx-font-size: 30;
+    -fx-text-fill: #fff;
 }
 
 /* Tiles */
 
 .tile {
-    -fx-pref-width: 185;
     -fx-pref-height: 185;
+    -fx-min-width: 185;
 }
 
-.tile:hover, .tile:pressed {
-    -fx-effect: dropshadow( three-pass-box , #000000 ,10,0,0, 0 );
+.tile:hover,
+.tile:pressed {
+    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
 }
 
 .edit-button {
@@ -115,12 +170,12 @@
     -fx-pref-height: 30;
     -fx-max-width: 30;
     -fx-max-height: 30;
-    -fx-background-color: 'transparent';
+    -fx-background-color: "transparent";
 }
 
 /* Scroll Pane Adjust */
 .scroll-pane > .viewport {
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .scroll-pane {
@@ -136,14 +191,29 @@
     -fx-background-insets: 0;
 }
 
-/* Semester Selection */
-
-.background-sem-sel, .button-primary-sem-sel {
-    -fx-background-color: #957FEF;
+.scroll-pane > .scroll-bar:horizontal > .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius: 2em;
 }
 
-.border-sem-sel, .button-alt-sem-sel {
-    -fx-border-color: #957FEF;
+.scroll-pane > .scroll-bar:vertical > .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius: 2em;
+}
+
+/* Semester Selection */
+
+.background-sem-sel,
+.button-primary-sem-sel {
+    -fx-background-color: #957fef;
+}
+
+.border-sem-sel {
+    -fx-border-color: #957fef;
 }
 
 .search-bar {
@@ -151,72 +221,68 @@
 }
 
 .button-alt-sem-sel {
-    -fx-text-fill: #957FEF;
+    -fx-text-fill: #957fef;
 }
-
 
 /* Semester */
 
 .background-semester {
-    -fx-background-color: #B43E8F;
+    -fx-background-color: #b43e8f;
 }
 
 .border-semester {
-    -fx-border-color: #B43E8F;
+    -fx-border-color: #b43e8f;
 }
 
 .button-alt-semester {
-    -fx-text-fill: #B43E8F;
+    -fx-text-fill: #b43e8f;
 }
 
-/* Tables */
+/* Course */
 
-.table-view .column-header,
-.table-view .column-header-background .filler {
-    -fx-cell-size: 20;
-    -fx-background-color: #2d75e8;
-}
-.table-view .column-header .label {
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-alignment: CENTER_LEFT;
-}
-.table-view .cell {
-    -fx-cell-size: 30;
-    -fx-alignment: center-left;
-    -fx-text-fill: #000000;
-    -fx-alignment: CENTER_LEFT;
+.background-gray {
+-fx-background-color: #D3D3D3;
 }
 
-.table-row-cell:selected {
-    -fx-background-color: rgb(127, 172, 243);
-}
-.table-row-cell:selected .text {
-    -fx-fill: white;
+.background-course {
+    -fx-background-color: #9b2915;
 }
 
-/* scroll bar starts here */
-
-/* The increment and decrement button CSS class of scrollbar */
-.table-view .increment-button,
-.table-view .decrement-button {
-    -fx-background-color: transparent;
-    -fx-background-radius: 2em;
+.border-course {
+-fx-border-color: #9b2915;
 }
 
-/* The main scrollbar **track** CSS class  */
-.table-view .scroll-bar:horizontal .track,
-.table-view .scroll-bar:vertical .track {
-    -fx-background-color: transparent;
-    -fx-border-color: derive(#2d75e8, 80%);
-    -fx-background-radius: 2em;
-    -fx-border-radius: 2em;
+.text-course {
+-fx-fill: #9b2915;
 }
 
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
-.table-view .scroll-bar:horizontal .thumb,
-.table-view .scroll-bar:vertical .thumb {
-    -fx-background-color: derive(#2d75e8, 90%);
-    -fx-background-insets: 2, 0, 0;
-    -fx-background-radius: 2em;
+.button-text-course {
+    -fx-text-fill: #9b2915;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #9b2915;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.course-accordion > .titled-pane {
+    -fx-background-color: #fff;
+    -fx-text-fill: #fff;
+    -fx-font-size: 20;
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: #fff;
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+
+.titled-pane:collapsed > .title > .arrow-button .arrow {
+    -fx-rotate: -45;
+}
+
+.sidebar-button-course {
+    -fx-border-color: #9b2915;
 }

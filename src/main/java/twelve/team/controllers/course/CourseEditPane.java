@@ -1,12 +1,10 @@
 package twelve.team.controllers.course;
 
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,16 +13,18 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import twelve.team.Loader;
-import twelve.team.controllers.MainPane;
 import twelve.team.models.Course;
 import twelve.team.models.Semester;
 import twelve.team.utils.StringUtil;
 
 public class CourseEditPane extends AnchorPane {
     public static final String ICON_PATH = "/imgs/main_icon.png";
-    public static final String EDIT_SEMESTER_FXML_PATH = "course/CourseEditPane.fxml";
+    public static final String COURSE_EDIT_PANE_FXML = "course/CourseEditPane.fxml";
     public static final String EMPTY_FIELD_ERROR = "Please enter the required fields.";
     public static final String COURSE_NUM_ERROR = "Please enter a valid course number.";
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private Text txt_title;
@@ -53,8 +53,11 @@ public class CourseEditPane extends AnchorPane {
     private Course course;
     private Semester semester;
 
+    // TODO: Imports
+
     public CourseEditPane() {
-        Loader.load(EDIT_SEMESTER_FXML_PATH, this);
+        Loader.load(COURSE_EDIT_PANE_FXML, this);
+        Platform.runLater( () -> root.requestFocus() );
         InvalidationListener invalidationListener = observable -> {
             if (txt_error.isVisible()) {
                 txt_error.setVisible(false);
@@ -91,7 +94,6 @@ public class CourseEditPane extends AnchorPane {
 
         if (course == null) {
             course = semester.addCourse(tf_dept.getText(), courseNum, tf_section.getText(), tf_description.getText());
-            course.init();
         } else {
             course.update(tf_dept.getText(), courseNum, tf_section.getText(), tf_description.getText());
         }
@@ -103,8 +105,8 @@ public class CourseEditPane extends AnchorPane {
         this.course = course;
         tf_dept.setText(course.getCourseDepartment());
         tf_course_num.setText(String.valueOf(course.getCourseNumber()));
-        if (course.getCourseSection() != null) {
-            tf_section.setText(course.getCourseSection());
+        if (course.getCourseCode() != null) {
+            tf_section.setText(course.getCourseCode());
         }
         if (course.getCourseDescription() != null) {
             tf_description.setText(course.getCourseDescription());

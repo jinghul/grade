@@ -19,7 +19,7 @@ public class Teacher {
     private String username;
 
     private ArrayList<Semester> semesters;
-    private ArrayList<Course> courses;
+    private Course currentCourse;
 
     public Teacher(String username) {
         /* First fetch the teacher's teacherName */
@@ -60,12 +60,44 @@ public class Teacher {
         return this.teacherName;
     }
 
+    public Course getCurrentCourse() {
+        return currentCourse;
+    }
+
+    public void setCurrentCourse(Course course) {
+        this.currentCourse = course;
+    }
+
     public ArrayList<Semester> getSemesters() {
         if (semesters == null) {
             semesters = Semester.getSemesters(teacherID);
         }
         
         return semesters;
+    }
+
+    public boolean checkSemesterExists(String semesterName, int year) {
+        boolean found = false;
+        for (Semester semester : semesters) {
+            if (semester.getSemesterName().equals(semesterName) && semester.getYear() == year) {
+                found = true;
+                break;
+            }
+        }
+
+        return found;
+    }
+
+    public ArrayList<Semester> findSemester(String semesterName, int year) {
+        ArrayList<Semester> results = new ArrayList<>();
+        for (Semester semester : semesters) {
+            String compareTo = semester.getSemesterName();
+            if (compareTo.contains(semesterName) || compareTo.contains(String.valueOf(year))) {
+                results.add(semester);
+            }
+        }
+
+        return results;
     }
 
     public void deleteSemester(int index) {

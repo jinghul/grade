@@ -6,7 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
-public class Animator {
+public final class Animator {
 
     private static final int DEFAULT_FADE_TIME = 300;
 

@@ -1,5 +1,6 @@
 package twelve.team.controllers.semester;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -19,6 +20,12 @@ public class SemesterEditPane extends AnchorPane {
     public static final String ICON_PATH = "/imgs/main_icon.png";
     public static final String EDIT_SEMESTER_FXML_PATH = "semester/SemesterEditPane.fxml";
     private static final String[] SEMESTER_LIST = {"Fall", "Spring", "Summer 1", "Summer 2"};
+
+    private static final String SEMESTER_EXISTS_ERROR = "Semester already exists.";
+    private static final String YEAR_FORMAT_ERROR = "Please enter a valid year.";
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private Text txt_title;
@@ -42,8 +49,10 @@ public class SemesterEditPane extends AnchorPane {
 
     public SemesterEditPane() {
         Loader.load(EDIT_SEMESTER_FXML_PATH, this);
+        Platform.runLater( () -> root.requestFocus() );
 
         cb_name.setItems(FXCollections.observableArrayList(SEMESTER_LIST));
+        cb_name.getSelectionModel().select(0);
         tf_year.textProperty().addListener(e -> {
             if (txt_error.isVisible()) {
                 txt_error.setVisible(false);
@@ -64,13 +73,19 @@ public class SemesterEditPane extends AnchorPane {
         try {
              semesterYear = Integer.valueOf(tf_year.getText());
         } catch (NumberFormatException e) {
+            txt_error.setText(YEAR_FORMAT_ERROR);
             txt_error.setVisible(true);
             return;
         }
 
         if (semester == null) {
-            semester = MainPane.teacher.addSemester(semesterName, semesterYear);
-            semester.init();
+            if (!MainPane.teacher.checkSemesterExists(semesterName, semesterYear)) {
+                semester = MainPane.teacher.addSemester(semesterName, semesterYear);
+            } else {
+                txt_error.setText(SEMESTER_EXISTS_ERROR);
+                txt_error.setVisible(true);
+                return;
+            }
         } else {
             if (!(semesterName + " " + semesterYear).equals(semester.getName())) {
                 semester.update(semesterName, semesterYear);

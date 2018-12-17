@@ -2,19 +2,21 @@ package twelve.team.controllers.semester;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import twelve.team.Loader;
 import twelve.team.Router;
 import twelve.team.controllers.MainPane;
-import twelve.team.controllers.tiles.PlusButton;
-import twelve.team.controllers.tiles.TileButton;
+import twelve.team.controllers.common.PlusButton;
+import twelve.team.controllers.common.TileButton;
 import twelve.team.models.Semester;
-import twelve.team.models.Teacher;
 import twelve.team.utils.Animator;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SemesterSelectionPane extends VBox implements Initializable {
@@ -38,7 +40,6 @@ public class SemesterSelectionPane extends VBox implements Initializable {
         semesters = MainPane.teacher.getSemesters();
 
         for (int i = 0; i < semesters.size(); i++) {
-            semesters.get(i).init();
             addSemester(semesters.get(i), -1);
         }
 
@@ -73,19 +74,24 @@ public class SemesterSelectionPane extends VBox implements Initializable {
                     // Click on semester button
                     SemesterPane semesterPane = new SemesterPane();
                     semesterPane.load(semester);
-                    Router.getRouter().addPane(semesterPane, false);
+                    Animator.fadeOut(this, ev -> {
+                        Router.getRouter().addPane(semesterPane, false);
+                    });
                 }, e -> {
                     // Click on semester edit button
+                    e.consume();
                     Semester updatedSemester = new SemesterEditPane().load(semester);
                     tile.update(updatedSemester.getName(), getNumCoursesDisplay(updatedSemester.getNumCourses()));
-                    e.consume();
                 },
                 e -> {
-                    deleteSemester(tile, semester);
                     e.consume();
+                    twelve.team.utils.Dialog.showAlertDialog("Delete Semester", String.format("Are you sure you want to delete Semester: %s?", semester.getName()), item -> {
+                        if (item) {
+                            deleteSemester(tile, semester);
+                        }
+                    });
                 }, THEME_COLOR);
 
-        tile.setOpacity(0);
         if (index == -1) {
             tilePane.getChildren().add(tile);
         } else {

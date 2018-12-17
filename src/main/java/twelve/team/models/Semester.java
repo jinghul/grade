@@ -18,7 +18,6 @@ public class Semester {
     private int teacherID;
     private String semesterName;
     private int year;
-    private boolean initialized;
 
     private ArrayList<Course> courses;
 
@@ -27,6 +26,8 @@ public class Semester {
         this.semesterName = name;
         this.year = year;
         this.teacherID = teacherID;
+        courses = Course.getCourses(semesterID, getName());
+        System.out.println(String.format("Semester %s has %d courses", semesterName, courses.size()));
     }
 
     public static ArrayList<Semester> getSemesters(int teacherID) {
@@ -69,19 +70,14 @@ public class Semester {
         }
     }
 
-    public void init() {
-        if (initialized) {
-            return;
-        }
-
-        courses = Course.getCourses(semesterID, getName());
-        System.out.println(String.format("Semester %s has %d courses", semesterName, courses.size()));
-        initialized = true;
-    }
-
     public static void delete(Semester semester) {
         String query = String.format("delete from semester where semesterID = %d", semester.semesterID);
         try (Statement statement = Database.getDatabase().getStatement()) {
+
+            for (Course course : semester.getCourses()) {
+                Course.delete(course);
+            }
+
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,6 +88,9 @@ public class Semester {
         String update = String.format("update semester set semesterName = '%s', semesterYear = %d where semesterId = %d", semesterName, semesterYear, semesterID);
         try (Statement statement = Database.getDatabase().getStatement()) {
             this.semesterName = semesterName;
+
+            courses.forEach(course -> course.setSemesterName(semesterName));
+
             this.year = semesterYear;
             statement.executeUpdate(update);
         } catch (SQLException e) {
@@ -112,31 +111,18 @@ public class Semester {
     }
 
     public int getNumCourses() {
-        if (!initialized) {
-            return -1;
-        }
-
         return courses.size();
     }
 
     public ArrayList<Course> getCourses() {
-        if (!initialized) {
-            init();
-        }
         return courses;
     }
     
     public void deleteCourse(Course course) {
-        if (!initialized) {
-            return;
-        }
         deleteCourse(courses.indexOf(course));
     }
 
     public void deleteCourse(int index) {
-        if (!initialized) {
-            return;
-        }
         Course.delete(courses.remove(index));
     }
 

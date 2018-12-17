@@ -1,6 +1,7 @@
 package twelve.team.models;
 
 import twelve.team.Database;
+import twelve.team.controllers.MainPane;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,48 +10,73 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Student implements Gradable, Commentable{
+public class Student implements Commentable{
 
-    private Course course;
-
+    private int sectionID;
     private int studentID;
-    private String studentName;
-    private String univerityID;
-    private int degree; // Undergraduate = 0, Graduate = 1
-    private String studentComment;
-
-    private HashMap<Category, ArrayList<Grade>> grades;
-    private boolean initialized;
-
-    public Student() {
-        this.courseID = courseID;
-        this.courseDepartment = courseDepartment;
-        this.courseNum = courseNum;
-        this.courseSection = courseSection;
-
-        this.courseDescription = courseDescription;
-
-        this.semesterID = semesterID;
-        this.semesterName = semesterName;
+    public int getStudentID() {
+        return studentID;
     }
 
-    public static ArrayList<Course> getCourses(int semesterID, String semesterName) {
-        String query = String.format("select * from course where semesterID = ", semesterID);
+    private String studentName;
+    public String getStudentName() {
+        return studentName;
+    }
+
+    private String universityID;
+    public String getUniversityID() {
+        return universityID;
+    }
+
+    private int degree; // Undergraduate = 0, Graduate = 1
+    public int getDegree() {
+        return degree;
+    }
+
+    private String comment;
+    @Override
+    public String getComment() {
+        return comment;
+    }
+
+    @Override
+    public void editComment(String comment) {
+        String update = String.format("update student set comment = '%s' where studentID = %d", comment, studentID);
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            this.comment = comment;
+            statement.executeUpdate(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    HashMap<Category, ArrayList<Grade>> grades;
+
+    public Student(int studentID, String studentName, String universityID, int degree, String comment, int sectionID) {
+        this.studentID = studentID;
+        this.studentName = studentName;
+        this.universityID = universityID;
+        this.degree = degree;
+        this.comment = comment;
+        this.sectionID = sectionID;
+    }
+
+    public static ArrayList<Student> getStudents(int sectionID) {
+        String query = String.format("select * from student where sectionID = %d", sectionID);
 
         try (Statement statement = Database.getDatabase().getStatement()) {
             try (ResultSet result = statement.executeQuery(query)) {
-                ArrayList<Course> courses = new ArrayList<>();
+                ArrayList<Student> students = new ArrayList<>();
                 while (result.next()) {
-                    courses.add(new Course(result.getInt("courseID"),
-                            result.getString("courseDepartment"),
-                            result.getInt("courseNum"),
-                            result.getString("courseSection"),
-                            result.getString("courseDescription"),
-                            semesterName,
-                            semesterID));
+                    students.add(new Student(result.getInt("studentID"),
+                            result.getString("studentName"),
+                            result.getString("universityID"),
+                            result.getInt("degree"),
+                            result.getString("comment"),
+                            sectionID));
                 }
 
-                return courses;
+                return students;
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -58,19 +84,19 @@ public class Student implements Gradable, Commentable{
         }
     }
 
-    public static Course create(String courseDepartment, int courseNum, String courseSection, String courseDescription, String semesterName, int semesterID) {
-        String query = "insert into course (courseDepartment, courseNum, courseSection, courseDescription, semesterID) values (?, ?, ?, ?, ?)";
+    public static Student create(String studentName, String universityID, int degree, String comment, int sectionID) {
+        String query = "insert into student (studentName, universityID, degree, comment, sectionID) values (?, ?, ?, ?, ?)";
         try (PreparedStatement prpst = Database.getDatabase().prepareStatementWithKeyReturn(query)) {
-            prpst.setString(1, courseDepartment);
-            prpst.setInt(2, courseNum);
-            prpst.setString(3, courseSection);
-            prpst.setString(4, courseDescription);
-            prpst.setInt(5, semesterID);
+            prpst.setString(1, studentName);
+            prpst.setString(2, universityID);
+            prpst.setInt(3, degree);
+            prpst.setString(4, comment);
+            prpst.setInt(5, sectionID);
             prpst.executeUpdate();
 
             try (ResultSet key = prpst.getGeneratedKeys()) {
                 if (key.next()) {
-                    return new Course(key.getInt(1), courseDepartment, courseNum, courseSection, courseDescription, semesterName, semesterID);
+                    return new Student(key.getInt(1), studentName, universityID, degree, comment, sectionID);
                 } else {
                     return null;
                 }
@@ -81,19 +107,8 @@ public class Student implements Gradable, Commentable{
         }
     }
 
-    public void init() {
-        if (initialized) {
-            return;
-        }
-
-        students = Student.getStudents(courseID, getName());
-        categories = Category.getCategories(courseID);
-        System.out.println(String.format("Course %s has %d students", getName(), students.size()));
-        initialized = true;
-    }
-
-    public static void delete(Course course) {
-        String query = String.format("delete from course where courseID = %d", course.courseID);
+    public static void delete(Student student) {
+        String query = String.format("delete from student where studentID = %d", student.studentID);
         try (Statement statement = Database.getDatabase().getStatement()) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
@@ -101,61 +116,115 @@ public class Student implements Gradable, Commentable{
         }
     }
 
-    public void update(String courseDepartment, int courseNum, String courseSection, String courseDescription) {
-        String update = String.format("update course set courseDepartment = '%s', courseNum = %d, courseSection = %s, " +
-                "courseDescription = '%s' where courseId = %d", courseDepartment, courseNum, courseSection, courseDescription, courseID);
+    public static void clear(ArrayList<Student> students) {
+        if (students.size() == 0) {
+            return;
+        }
+
+        ArrayList<String> ids = new ArrayList<>();
+        for (int i = 0; i < students.size(); i++) {
+            ids.add(String.valueOf(students.get(i).getStudentID()));
+        }
+
+        Grade.clearStudents(ids);
+        String query = String.format("delete from student where studentID in (%s)", String.join(",", ids));
         try (Statement statement = Database.getDatabase().getStatement()) {
-            this.courseDepartment = courseDepartment;
-            this.courseNum = courseNum;
-            this.courseSection = courseSection;
-            this.courseDescription = courseDescription;
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(String studentName, String universityID, int degree, String comment) {
+        String update = String.format("update student set studentName = '%s', universityID = '%s', degree = %d, " +
+                "comment = '%s' where studentID = %d", studentName, universityID, degree, comment, studentID);
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            this.studentName = studentName;
+            this.universityID = universityID;
+            this.degree = degree;
+            this.comment = comment;
             statement.executeUpdate(update);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public String getName() {
-        if (courseSection != null) {
-            return String.format("%s%d %s", courseDepartment, courseNum, courseSection);
+    public void move(int sectionID) {
+        String update = String.format("update student set sectionID = %d where studentID = %d", sectionID, studentID);
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            this.sectionID = sectionID;
+            statement.executeUpdate(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return String.format("%s%d", courseDepartment, courseNum);
     }
 
-    public String getNameWithSemester() {
-        return String.format("%s | %s", getName(), semesterName);
+    public Grade getGrade(Assignment assignment) {
+        String query = String.format("select * from grade where assignmentID = %d AND studentID = %d", assignment.getAssignmentID(), getStudentID());
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            try (ResultSet result = statement.executeQuery(query)) {
+                if (result.next()) {
+                    return new Grade(assignment, this, result.getDouble("grade"), result.getString("comment"), result.getBoolean("graded"));
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public String getCourseDescription() {
-        return courseDescription;
+    public HashMap<Category, ArrayList<Grade>> getGrades() {
+        grades = new HashMap<>();
+        for (Category category : MainPane.teacher.getCurrentCourse().getCategories()) {
+            grades.put(category, category.getGrades(this));
+        }
+
+        return grades;
     }
 
-    public int getNumStudents() {
-        return students.size();
-    }
-
-    @Override
-    public String getComment() {
-        return null;
-    }
-
-    @Override
-    public void editComment(String comment) {
-
-    }
-
-    @Override
-    public ArrayList<Grade> getGrades() {
-        return null;
-    }
-
-    @Override
     public double getAverage() {
-        return 0;
+        if (grades == null) grades = getGrades();
+
+        // TODO: Optional
+
+        double average = 0;
+        for (Category category : grades.keySet()) {
+            double categoryWeight = degree == 0 ? category.getWeightUG() : category.getWeightGR();
+            for (Grade grade : grades.get(category)) {
+                if (!grade.isGraded()) {
+                    continue;
+                }
+
+                Assignment assignment = grade.getAssignment();
+                double assignmentWeight = degree == 0 ? assignment.getWeightUG() : assignment.getWeightGR();
+                double gradePercentage = grade.getGrade() < 0 ? (assignment.getTotalPoints() + grade.getGrade()) / assignment.getTotalPoints()
+                        : grade.getGrade() / assignment.getTotalPoints();
+                average += categoryWeight * assignmentWeight * gradePercentage;
+            }
+        }
+
+        return average;
     }
 
-    @Override
-    public HashMap<String, String> getStatistics() {
-        return null;
+    public double getAverage(Category category) {
+        if (grades == null) grades = getGrades();
+
+        double average = 0;
+        double categoryWeight = degree == 0 ? category.getWeightUG() : category.getWeightGR();
+        for (Grade grade : grades.get(category)) {
+            if (!grade.isGraded()) {
+                continue;
+            }
+
+            Assignment assignment = grade.getAssignment();
+            double assignmentWeight = degree == 0 ? assignment.getWeightUG() : assignment.getWeightGR();
+            double gradePercentage = grade.getGrade() < 0 ? (assignment.getTotalPoints() + grade.getGrade()) / assignment.getTotalPoints()
+                    : grade.getGrade() / assignment.getTotalPoints();
+            average += categoryWeight * assignmentWeight * gradePercentage;
+        }
+
+        return average;
     }
 }

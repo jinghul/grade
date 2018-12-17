@@ -28,19 +28,7 @@ public class MainPane implements Initializable, EventHandler<ActionEvent> {
     private Text txt_name;
 
     @FXML
-    private Button btn_home;
-
-    @FXML
-    private Button btn_semester;
-
-    @FXML
-    private Button btn_course;
-
-    @FXML
-    private Button btn_grade;
-
-    @FXML
-    private Button btn_logout;
+    private Button btn_home, btn_semester, btn_course, btn_grade, btn_logout;
 
     public static Teacher teacher;
 

@@ -1,5 +1,8 @@
 package twelve.team.controllers.login;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -7,16 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import twelve.team.Auth;
 import twelve.team.Loader;
 import twelve.team.controllers.MainPane;
-import twelve.team.utils.Animator;
-import twelve.team.Auth;
 import twelve.team.models.Teacher;
+import twelve.team.utils.Animator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,19 +31,19 @@ public class LoginPane implements Initializable, EventHandler<ActionEvent>, Chan
     private GridPane root;
 
     @FXML
-    private TextField tf_username;
+    private JFXTextField tf_username;
 
     @FXML
-    private PasswordField tf_password;
+    private JFXPasswordField tf_password;
 
     @FXML
     private Text txt_error;
 
     @FXML
-    private Button btn_login;
+    private JFXButton btn_login;
 
     @FXML
-    private Button btn_register;
+    private JFXButton btn_register;
 
     public static void load() {
         Loader.loadToScene(LOGIN_FXML_PATH);

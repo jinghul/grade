@@ -88,8 +88,6 @@ public class Database {
             statement.execute(sql);
             System.out.println("\tTable teacher created successfully...");
 
-
-
             sql = ("create table semester(\n"
                     + "semesterID int NOT NULL AUTO_INCREMENT,\n"
                     + "teacherID int NOT NULL,\n"
@@ -104,9 +102,10 @@ public class Database {
             sql = ("create table course (\n"
                     + "courseID int NOT NULL AUTO_INCREMENT,\n"
                     + "courseDepartment varchar(32) NOT NULL,\n"
-                    + "courseNum int NOT NULL,\n"
-                    + "courseSection varchar(32),\n"
-                    + "courseTimes TEXT,\n"
+                    + "courseNumber int NOT NULL,\n"
+                    + "courseCode varchar(32),\n"
+                    + "courseName varchar(255),\n"
+                    + "courseDescription TEXT,\n"
                     + "semesterID int NOT NULL,\n"
                     + "PRIMARY KEY (courseID),\n"
                     + "FOREIGN KEY (semesterID) references semester(semesterID)\n"
@@ -114,37 +113,57 @@ public class Database {
             statement.execute(sql);
             System.out.println("\tTable course created successfully...");
 
+            sql = ("create table section (\n"
+                    + "sectionID int NOT NULL AUTO_INCREMENT,\n"
+                    + "sectionCode varchar(32),\n"
+                    + "courseID int NOT NULL,\n"
+                    + "PRIMARY KEY (sectionID),\n"
+                    + "FOREIGN KEY (courseID) references course(courseID)\n"
+                    + ");");
+            statement.execute(sql);
+            System.out.println("\tTable section created successfully...");
+
             sql = ("create table student (\n"
                     + "studentID int NOT NULL AUTO_INCREMENT,\n"
-                    + "universityID varchar(9) NOT NULL,\n"
+                    + "universityID varchar(10) NOT NULL,\n"
                     + "studentName varchar(32) NOT NULL,\n"
                     + "degree int NOT NULL,\n"
                     + "comment TEXT,\n"
-                    + "courseID int NOT NULL,\n"
+                    + "sectionID int NOT NULL,\n"
                     + "PRIMARY KEY (studentID),\n"
-                    + "FOREIGN KEY (courseID) REFERENCES course(courseID)\n"
+                    + "FOREIGN KEY (sectionID) REFERENCES section(sectionID)\n"
                     + ");");
             statement.execute(sql);
             System.out.println("\tTable student created successfully...");
 
+            // TODO: Custom weights
+
             sql = ("create table category(\n"
                     + "categoryID int NOT NULL AUTO_INCREMENT,\n"
+                    + "place int NOT NULL,\n"
                     + "categoryName varchar(32) NOT NULL,\n"
+                    + "weightUG double not NULL default 0.0,\n"
+                    + "weightGR double not NULL default 0.0,\n"
+                    + "isDefault BOOLEAN not NULL default 0,\n"
                     + "courseID int NOT NULL,\n"
-                    + "weight double default 0.0,\n"
                     + "PRIMARY KEY (categoryID),\n"
-                    + "FOREIGN KEY (courseID) \tREFERENCES course(courseID));");
+                    + "FOREIGN KEY (courseID) REFERENCES course(courseID)\n"
+                    + ");");
             statement.execute(sql);
             System.out.println("\tTable category created successfully...");
 
             sql = ("create table assignment(\n"
                     + "assignmentID int NOT NULL AUTO_INCREMENT,\n"
+                    + "place int NOT NULL,\n"
                     + "assignmentName varchar(50) NOT NULL,\n"
-                    + "totalPoints int NOT NULL,\n"
+                    + "totalPoints double NOT NULL,\n"
                     + "comment TEXT,\n"
-                    + "optional BOOLEAN not NULL default 1,\n"
+                    + "optional BOOLEAN not NULL default 0,\n"
                     + "extraCredit BOOLEAN not NULL default 0,\n"
-                    + "weight double not NULL default 0.0,\n"
+                    + "weightUG double not NULL default 0.0,\n"
+                    + "weightGR double not NULL default 0.0,\n"
+                    + "startDate DATE,\n"
+                    + "endDate DATE,\n"
                     + "categoryID int NOT NULL,\n"
                     + "PRIMARY KEY (assignmentID),\n"
                     + "FOREIGN KEY (categoryID) REFERENCES category(categoryID)\n"
@@ -156,8 +175,8 @@ public class Database {
                     + "studentID int NOT NULL,\n"
                     + "assignmentID int NOT NULL,\n"
                     + "comment TEXT,\n"
-                    + "status bit default 0,\n"
-                    + "grade double default 0.0,\n"
+                    + "graded BOOLEAN not NULL default 0,\n"
+                    + "grade int NOT NULL default 0,\n"
                     + "foreign key (studentID) REFERENCES student(studentID),\n"
                     + "foreign key (assignmentID) REFERENCES assignment(assignmentID)\n"
                     + ");");

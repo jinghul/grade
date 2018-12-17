@@ -2,20 +2,25 @@ package twelve.team.controllers.semester;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import twelve.team.Loader;
+import twelve.team.Router;
 import twelve.team.controllers.course.CourseEditPane;
+import twelve.team.controllers.common.PlusButton;
+import twelve.team.controllers.common.TileButton;
 import twelve.team.controllers.course.CoursePane;
-import twelve.team.controllers.tiles.PlusButton;
-import twelve.team.controllers.tiles.TileButton;
 import twelve.team.models.Course;
 import twelve.team.models.Semester;
 import twelve.team.utils.Animator;
+import twelve.team.utils.Dialog;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SemesterPane extends VBox implements Initializable {
@@ -42,7 +47,6 @@ public class SemesterPane extends VBox implements Initializable {
         courses = semester.getCourses();
 
         for (int i = 0; i < courses.size(); i++) {
-            courses.get(i).init();
             addCourse(courses.get(i), -1);
         }
 
@@ -73,21 +77,28 @@ public class SemesterPane extends VBox implements Initializable {
         // TODO: SORTING
 
         TileButton tile = new TileButton();
-        tile.init(course.getName(), getNumStudentsDisplay(course.getNumStudents()),
+        tile.init(course.getName(), getNumSectionsDisplay(course.getNumSections()),
                 e -> {
                     // Click on course button
-//                    CoursePane coursePane = new CoursePane().load(course);
+                    CoursePane coursePane = new CoursePane();
+                    coursePane.load(semester, course);
+                    Animator.fadeOut(this, ev -> {
+                        Router.getRouter().addPane(coursePane, false);
+                    });
 
                 }, e -> {
                     // Click on course edit button
-                    Course updatedCourse = new CourseEditPane().load(semester, course);
-                    tile.update(updatedCourse.getName(), getNumStudentsDisplay(updatedCourse.getNumStudents()));
                     e.consume();
+                    Course updatedCourse = new CourseEditPane().load(semester, course);
+                    tile.update(updatedCourse.getName(), getNumSectionsDisplay(updatedCourse.getNumSections()));
                 },
                 e -> {
                     // Click on course delete button
-                    deleteCourse(tile, course);
                     e.consume();
+                    Dialog.showAlertDialog("Delete Course", "Are you sure you want to delete course: %s?".format(course.getName()), ev -> {
+                        deleteCourse(tile, course);
+                    });
+
                 }, THEME_COLOR);
 
         tile.setOpacity(0);
@@ -99,8 +110,8 @@ public class SemesterPane extends VBox implements Initializable {
         Animator.fadeIn(tile, null);
     }
 
-    private String getNumStudentsDisplay(int numStudents) {
-        return String.format("%d students", numStudents);
+    private String getNumSectionsDisplay(int numSections) {
+        return String.format("%d sections", numSections);
     }
 
     private void deleteCourse(TileButton tile, Course course) {

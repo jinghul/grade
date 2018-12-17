@@ -1,4 +1,4 @@
-package twelve.team.controllers.tiles;
+package twelve.team.controllers.common;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,10 +24,9 @@ public class PlusButton extends Button implements Initializable {
     }
 
     public void setBackgroundColor(String backgroundStyle) {
-        StringBuilder style = new StringBuilder();
-        style.append("-fx-background-color: ");
-        style.append(backgroundStyle);
-        setStyle(style.toString());
+        String style = "-fx-background-color: " +
+                backgroundStyle;
+        setStyle(style);
     }
 
     @Override

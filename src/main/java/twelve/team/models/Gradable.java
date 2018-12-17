@@ -1,10 +1,8 @@
 package twelve.team.models;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface Gradable {
-    ArrayList<Grade> getGrades();
+    HashMap getGrades();
     double getAverage();
-    HashMap<String, String> getStatistics();
 }

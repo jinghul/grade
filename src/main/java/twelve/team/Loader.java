@@ -1,6 +1,5 @@
 package twelve.team;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -37,7 +36,6 @@ public class Loader {
 //        TODO: Replace this on production
 
 //        MainPane.load(new Teacher("jing"));
-
         stage.getIcons().add(new Image(ICON_PATH));
         stage.show();
     }

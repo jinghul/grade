@@ -22,11 +22,11 @@
                         <String fx:value="text-white" />
                         <String fx:value="header-sm" />
                     </styleClass></Text>
-            <JFXButton fx:id="btn_import" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="10.0" layoutX="310.0" layoutY="57.0" styleClass="button-alt" text="Import" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="30.0">
-               <graphic>
-                  <FontAwesomeIconView glyphName="MAIL_REPLY" size="15" />
-               </graphic>
-            </JFXButton>
+                <JFXButton fx:id="btn_import" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="10.0" layoutX="310.0" layoutY="57.0" styleClass="button-alt" text="Import" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="30.0">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="MAIL_REPLY" size="15" />
+                    </graphic>
+                </JFXButton>
             </children>
         </AnchorPane>
         <VBox alignment="CENTER" fillWidth="false" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #fff;" stylesheets="@../../css/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="87.0">
@@ -36,18 +36,18 @@
                         <Font size="15.0" />
                     </font>
                 </Text>
-            <HBox fillHeight="false" spacing="10.0">
-               <children>
-                  <JFXTextField fx:id="tf_dept" focusColor="#b43e8f" prefWidth="60.0" promptText="Dept*" styleClass="textbox" />
-                  <JFXTextField fx:id="tf_course_num" focusColor="#b43e8f" promptText="Course Number*" styleClass="textbox" />
-                  <JFXTextField fx:id="tf_section" focusColor="#b43e8f" prefWidth="50.0" promptText="Code" styleClass="textbox" />
-               </children>
-            </HBox>
-            <JFXTextArea fx:id="tf_description" focusColor="#b43e8f" prefHeight="150.0" prefWidth="300.0" promptText="Description" styleClass="textbox">
-               <VBox.margin>
-                  <Insets bottom="20.0" top="10.0" />
-               </VBox.margin>
-            </JFXTextArea>
+                <HBox fillHeight="false" spacing="10.0">
+                    <children>
+                        <JFXTextField fx:id="tf_dept" focusColor="#b43e8f" prefWidth="60.0" promptText="Dept*" styleClass="textbox" />
+                        <JFXTextField fx:id="tf_course_num" focusColor="#b43e8f" promptText="Course Number*" styleClass="textbox" />
+                        <JFXTextField fx:id="tf_section" focusColor="#b43e8f" prefWidth="50.0" promptText="Code" styleClass="textbox" />
+                    </children>
+                </HBox>
+                <JFXTextArea fx:id="tf_description" focusColor="#b43e8f" prefHeight="150.0" prefWidth="300.0" promptText="Description" styleClass="textbox">
+                    <VBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                    </VBox.margin>
+                </JFXTextArea>
                 <Button fx:id="btn_save" mnemonicParsing="false" prefWidth="200.0" text="Save">
                     <styleClass>
                         <String fx:value="button-primary" />

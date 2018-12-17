@@ -1,5 +1,8 @@
 package twelve.team.controllers.login;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,7 +22,6 @@ import twelve.team.Database;
 import twelve.team.utils.StringUtil;
 import twelve.team.models.Teacher;
 
-import javax.xml.crypto.Data;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,19 +38,19 @@ public class RegisterPane implements Initializable, EventHandler<ActionEvent>, C
     private GridPane root;
 
     @FXML
-    private TextField tf_name;
+    private JFXTextField tf_name;
 
     @FXML
-    private TextField tf_username;
+    private JFXTextField tf_username;
 
     @FXML
-    private PasswordField tf_password;
+    private JFXPasswordField tf_password;
 
     @FXML
-    private Button btn_confirm;
+    private JFXButton btn_confirm;
 
     @FXML
-    private Button btn_cancel;
+    private JFXButton btn_cancel;
 
     @FXML
     private Text txt_error;
@@ -130,6 +132,8 @@ public class RegisterPane implements Initializable, EventHandler<ActionEvent>, C
         txt_error.setFill(Paint.valueOf("#4747d1"));
         txt_error.setText(CREATION_SUCCESS);
         txt_error.setVisible(true);
+
+        // TODO: Direct to home and onboarding
 
         // Disable confirm
         btn_confirm.setDisable(true);

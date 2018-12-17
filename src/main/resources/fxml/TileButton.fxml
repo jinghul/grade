@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root styleClass="tile" stylesheets="@../css/styles.css" type="javafx.scene.control.Button" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root styleClass="tile" stylesheets="@../css/styles.css" type="javafx.scene.control.Button" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
-        <VBox alignment="CENTER" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" spacing="5.0">
+        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="5.0">
            <children>
-               <Text fx:id="txt_title" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tile-header" text="Fall 2018" textAlignment="CENTER" wrappingWidth="150.0">
+               <Text fx:id="txt_title" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tile-header" text=" EXTENDED TEXT HERE OK" textAlignment="CENTER">
                    <font>
                        <Font size="15.0" />
                    </font>
@@ -29,7 +24,7 @@
                        <Insets bottom="10.0" />
                    </VBox.margin>
                </Text>
-               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                   <children>
                       <Button fx:id="btn_edit" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="edit-button">
                           <graphic>

@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import twelve.team.Loader;
+import twelve.team.Router;
 import twelve.team.models.*;
 import twelve.team.utils.Animator;
 
@@ -27,7 +28,7 @@ public class SectionPane extends VBox implements Initializable, EventHandler<Act
     private Text txt_sectionName;
 
     @FXML
-    private JFXButton btn_gradebook, btn_students, btn_assignments;
+    private JFXButton btn_gradebook, btn_students, btn_assignments, btn_back;
 
     @FXML
     private AnchorPane pane_student, pane_gradebook, pane_assignments;
@@ -54,6 +55,15 @@ public class SectionPane extends VBox implements Initializable, EventHandler<Act
         btn_assignments.setOnAction(this);
 
         txt_sectionName.setText(course.getName());
+
+        if(Router.getRouter().canGoBack()) {
+            btn_back.setVisible(true);
+            btn_back.setOnAction(e -> {
+                Router.getRouter().goBack();
+            });
+        } else {
+            btn_back.setVisible(false);
+        }
     }
 
     @Override

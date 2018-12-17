@@ -44,7 +44,7 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
     private JFXToggleButton toggle_degree;
 
     @FXML
-    private JFXButton btn_gradebook, btn_sections, btn_students, btn_assignments, btn_addAssignment, btn_addCategory;
+    private JFXButton btn_gradebook, btn_sections, btn_students, btn_assignments, btn_addAssignment, btn_addCategory, btn_back;
 
     private Semester semester;
     private Course course;
@@ -52,6 +52,10 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
 
     public CoursePane() {
         Loader.load(COURSE_FXML_PATH, this);
+    }
+
+    public void reset() {
+        table_syllabus.refresh();
     }
 
     public void load(Semester semester, Course course) {
@@ -64,6 +68,15 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
         btn_sections.setOnAction(this);
         btn_students.setOnAction(this);
         btn_assignments.setOnAction(this);
+
+        if(Router.getRouter().canGoBack()) {
+            btn_back.setVisible(true);
+            btn_back.setOnAction(e -> {
+                Router.getRouter().goBack();
+            });
+        } else {
+            btn_back.setVisible(false);
+        }
 
         // Load the corresponding data.
         course.load();

@@ -3,6 +3,7 @@ package twelve.team.controllers.semester;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -33,6 +34,9 @@ public class SemesterPane extends VBox implements Initializable {
     @FXML
     private TilePane tilePane;
 
+    @FXML
+    private Button btn_back;
+
 
     private Semester semester;
     ArrayList<Course> courses;
@@ -48,6 +52,15 @@ public class SemesterPane extends VBox implements Initializable {
 
         for (int i = 0; i < courses.size(); i++) {
             addCourse(courses.get(i), -1);
+        }
+
+        if(Router.getRouter().canGoBack()) {
+            btn_back.setVisible(true);
+            btn_back.setOnAction(e -> {
+                Router.getRouter().goBack();
+            });
+        } else {
+            btn_back.setVisible(false);
         }
 
         PlusButton plusButton = new PlusButton();

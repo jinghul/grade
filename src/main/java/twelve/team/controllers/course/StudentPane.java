@@ -9,13 +9,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import twelve.team.Loader;
 import twelve.team.controllers.MainPane;
-import twelve.team.models.*;
+import twelve.team.models.Assignment;
+import twelve.team.models.Course;
+import twelve.team.models.Section;
+import twelve.team.models.Student;
 import twelve.team.models.table.StudentModel;
 
 import java.net.URL;

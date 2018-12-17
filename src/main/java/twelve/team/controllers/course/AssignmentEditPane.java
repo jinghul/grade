@@ -123,13 +123,17 @@ public class AssignmentEditPane extends AnchorPane {
             return;
         }
 
-        category = course.getCategories().get(cb_category.getSelectionModel().getSelectedIndex());
+        Category newCategory = course.getCategories().get(cb_category.getSelectionModel().getSelectedIndex());
         if (assignment == null) {
             assignment = category.addAssignment(tf_name.getText(), totalPoints, cb_optional.isSelected(), cb_extracredit.isSelected(), weightUG, weightGR,
                     java.sql.Date.valueOf(dp_start.getValue()), java.sql.Date.valueOf(dp_end.getValue()), comment);
         } else {
             assignment.update(tf_name.getText(), totalPoints, cb_optional.isSelected(), cb_extracredit.isSelected(), weightUG, weightGR,
                     java.sql.Date.valueOf(dp_start.getValue()), java.sql.Date.valueOf(dp_end.getValue()), comment, assignment.getIndex());
+        }
+        if (newCategory != category) {
+            category.moveAssignment(newCategory, assignment);
+            category = newCategory;
         }
 
         exit();

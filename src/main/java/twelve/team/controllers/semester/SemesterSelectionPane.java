@@ -2,6 +2,7 @@ package twelve.team.controllers.semester;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import twelve.team.Loader;
@@ -22,6 +23,9 @@ public class SemesterSelectionPane extends VBox implements Initializable {
 
     @FXML
     private TilePane tilePane;
+
+    @FXML
+    private Button backButton;
 
     public SemesterSelectionPane() {
         Loader.load(SEMESTER_SELECTION_PANE_FXML, this);
@@ -48,6 +52,11 @@ public class SemesterSelectionPane extends VBox implements Initializable {
         }, THEME_COLOR);
 
         tilePane.getChildren().add(plusButton);
+    }
+
+    public void reset() {
+        tilePane.getChildren().clear();
+        load();
     }
 
     private void createSemester(Semester semester) {

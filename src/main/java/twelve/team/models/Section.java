@@ -92,7 +92,7 @@ public class Section {
     }
 
     public String getNameWithCourse() {
-        return String.format("%d | %s", sectionID, courseName);
+        return String.format("%s | %s", sectionCode, courseName);
     }
 
     public ArrayList<Student> getStudents() {

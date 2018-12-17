@@ -38,13 +38,19 @@ public class DefaultCategory extends Category {
     }
 
     @Override
-    public boolean isDefault() {
-        return true;
+    public void changeWeight(double newWeight, int degree) {
+        double oldWeight = degree == 0 ? this.getWeightUG() : this.getWeightGR();
+        double change = newWeight / oldWeight;
+
+        super.changeWeight(newWeight, degree);
+
+        for (Assignment assignment : super.getAssignments()) {
+            assignment.changeWeight(degree == 0 ? change * assignment.getWeightUG() : change * assignment.getWeightGR(), degree);
+        }
     }
 
     @Override
-    public void moveAssignment(Category category, Assignment assignment) {
-        super.moveAssignment(category, assignment);
-        MainPane.teacher.getCurrentCourse().deleteCategory(this.getIndex());
+    public boolean isDefault() {
+        return true;
     }
 }

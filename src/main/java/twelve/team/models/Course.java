@@ -118,7 +118,7 @@ public class Course {
     }
 
     public void update(String courseDepartment, int courseNum, String courseSection, String courseDescription) {
-        String update = String.format("update course set courseDepartment = '%s', courseNumber = %d, courseCode = %s, " +
+        String update = String.format("update course set courseDepartment = '%s', courseNumber = %d, courseCode = '%s', " +
                 "courseDescription = '%s' where courseId = %d", courseDepartment, courseNum, courseSection, courseDescription, courseID);
         try (Statement statement = Database.getDatabase().getStatement()) {
             this.courseDepartment = courseDepartment;
@@ -195,19 +195,27 @@ public class Course {
         return newCategory;
     }
 
-    public void recalculateWeights(Category category, double newWeight, int degree) {
+    public void recalculateWeights(Category category, int degree) {
         if (categories.size() < 1) {
             return;
         }
 
-        double difference = (degree == 0) ? newWeight - category.getWeightUG() : newWeight - category.getWeightGR();
+        double weightSum = 0;
+        for (Category category1 : categories) {
+            weightSum += (degree == 0) ? category.getWeightUG() : category.getWeightGR();
+        }
+
+        if (weightSum <= 1) {
+            return;
+        }
+
+        double difference = weightSum - 1;
         double update = -1 * difference / (categories.size() - 1);
         for (int i = 0; i < categories.size(); i++) {
             if (i != category.getIndex()) {
                 categories.get(i).changeWeight((degree == 0) ? category.getWeightUG() + update : category.getWeightGR() + update, degree);
             }
         }
-        category.changeWeight(newWeight, degree);
     }
 
     public void shiftCategory(Category category, int newIndex) {
@@ -231,8 +239,7 @@ public class Course {
         return newSection;
     }
 
-    public void deleteSection(int sectionID) {
-        Section.delete(sections.get(sectionID));
-        sections.remove(sectionID);
+    public void deleteSection(Section section) {
+        Section.delete(sections.remove(sections.indexOf(section)));
     }
 }

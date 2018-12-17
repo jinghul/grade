@@ -1,10 +1,7 @@
-package twelve.team.models.graphic;
+package twelve.team.models.table;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import sun.applet.Main;
-import twelve.team.controllers.MainPane;
 import twelve.team.models.Category;
 import twelve.team.models.Weightable;
 

@@ -69,10 +69,18 @@ public class Assignment implements Commentable, Gradable, Weightable {
 
             try (ResultSet key = prpst.getGeneratedKeys()) {
                 if (key.next()) {
-                    return new Assignment(key.getInt(1), assignmentName, totalPoints,
+                    Assignment assignment = new Assignment(key.getInt(1), assignmentName, totalPoints,
                             optional, extracredit, weightUG,
                             weightGR, startDate, endDate,
                             comment, index, categoryID);
+
+                    for (Section section : MainPane.teacher.getCurrentCourse().getSections()) {
+                        for (Student student : section.getStudents()) {
+                            Grade.create(assignment, student, 0, "", false);
+                        }
+                    }
+
+                    return assignment;
                 } else {
                     return null;
                 }

@@ -96,6 +96,29 @@ public class Grade implements Commentable {
         }
     }
 
+    public void setGraded(boolean graded) {
+        String update = String.format("update grade set graded = %b where studentID = %d AND assignmentID = %d",
+                graded, student.getStudentID(), assignment.getAssignmentID());
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            this.graded = graded;
+            statement.executeUpdate(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateGrade(double grade, boolean graded) {
+        String update = String.format("update grade set grade = %f, graded = %b where studentID = %d AND assignmentID = %d",
+                grade, graded, student.getStudentID(), assignment.getAssignmentID());
+        try (Statement statement = Database.getDatabase().getStatement()) {
+            this.grade = grade;
+            this.graded = graded;
+            statement.executeUpdate(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public Assignment getAssignment()
     {

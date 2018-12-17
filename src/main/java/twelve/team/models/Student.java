@@ -1,5 +1,6 @@
 package twelve.team.models;
 
+import javafx.beans.property.SimpleStringProperty;
 import twelve.team.Database;
 import twelve.team.controllers.MainPane;
 
@@ -96,7 +97,14 @@ public class Student implements Commentable{
 
             try (ResultSet key = prpst.getGeneratedKeys()) {
                 if (key.next()) {
-                    return new Student(key.getInt(1), studentName, universityID, degree, comment, sectionID);
+                    Student student = new Student(key.getInt(1), studentName, universityID, degree, comment, sectionID);
+                    for (Category category : MainPane.teacher.getCurrentCourse().getCategories()) {
+                        for (Assignment assignment : category.getAssignments()) {
+                            Grade.create(assignment, student, 0, "", false);
+                        }
+                    }
+
+                    return student;
                 } else {
                     return null;
                 }
@@ -186,8 +194,6 @@ public class Student implements Commentable{
 
     public double getAverage() {
         if (grades == null) grades = getGrades();
-
-        // TODO: Optional
 
         double average = 0;
         for (Category category : grades.keySet()) {

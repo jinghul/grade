@@ -72,7 +72,7 @@
               </Text>
             <JFXTextField fx:id="tf_username" labelFloat="true" prefWidth="250.0" promptText="username" styleClass="textbox">
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="20.0" />
                </VBox.margin>
             </JFXTextField>
             <JFXPasswordField fx:id="tf_password" labelFloat="true" prefWidth="250.0" promptText="password" styleClass="textbox">

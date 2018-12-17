@@ -11,9 +11,9 @@
 
 <fx:root fx:id="root" prefHeight="450.0" prefWidth="400.0" stylesheets="@../../css/styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane prefHeight="87.0" prefWidth="400.0" styleClass="background-course" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="87.0" prefWidth="400.0" styleClass="background-section" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Text fx:id="txt_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0">
+                <Text fx:id="txt_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Section" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0">
                     <styleClass>
                         <String fx:value="text-white" />
                         <String fx:value="header-sm" />
@@ -27,29 +27,19 @@
                         <Font size="15.0" />
                     </font>
                 </Text>
-                  <JFXTextField fx:id="tf_name" focusColor="#9b2915" labelFloat="true" prefWidth="200.0" promptText="Name" styleClass="textbox">
+                  <JFXTextField fx:id="tf_sectionCode" focusColor="#bdede0" labelFloat="true" prefWidth="200.0" promptText="Section Code" styleClass="textbox">
                <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="tf_ugweight" focusColor="#9b2915" labelFloat="true" prefWidth="200.0" promptText="Undergraduate Weight" styleClass="textbox">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="tf_grweight" focusColor="#9b2915" labelFloat="true" prefWidth="200.0" promptText="Gradudate Weight" styleClass="textbox">
-               <VBox.margin>
-                  <Insets bottom="30.0" />
+                  <Insets bottom="80.0" />
                </VBox.margin>
             </JFXTextField>
                 <Button fx:id="btn_save" mnemonicParsing="false" prefWidth="200.0" text="Save">
                     <styleClass>
                         <String fx:value="button-primary" />
-                        <String fx:value="background-course" />
+                        <String fx:value="background-section" />
                     </styleClass></Button>
                 <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="200.0" text="Cancel">
                     <styleClass>
-                        <String fx:value="button-text-course" />
+                        <String fx:value="button-text-section" />
                         <String fx:value="button-alt" />
                     </styleClass></Button>
             </children>

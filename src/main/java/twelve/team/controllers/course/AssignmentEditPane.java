@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,9 +27,13 @@ public class AssignmentEditPane extends AnchorPane {
     public static final String EMPTY_FIELD_ERROR = "Please enter the required fields.";
     public static final String DATE_ERROR = "Please enter a valid time span.";
     private static final String POINTS_FORMAT_ERROR = "Please enter a valid number for points or decimal for weights.";
+    private static final String WEIGHT_FORMAT_ERROR = "Please enter a number less than or equal to '1.0' for a weight.";
 
     @FXML
     private AnchorPane root;
+
+    @FXML
+    private StackPane pane_stack;
 
     @FXML
     private Text txt_error;
@@ -73,7 +78,7 @@ public class AssignmentEditPane extends AnchorPane {
 
 
         btn_comment.setOnAction(e -> {
-           twelve.team.utils.Dialog.showCommentDialog(assignment == null ? "Assignment" : assignment.getName(), comment, item -> {
+           twelve.team.utils.Dialog.showCommentDialog(assignment == null ? "Assignment" : assignment.getName(), comment, pane_stack, item -> {
                this.comment = item;
            });
         });
@@ -99,19 +104,26 @@ public class AssignmentEditPane extends AnchorPane {
             totalPoints = Integer.valueOf(tf_totalpoints.getText());
             weightUG = Double.valueOf(tf_ugweight.getText());
             weightGR = Double.valueOf(tf_grweight.getText());
+
+            if (weightUG > 1 || weightGR > 1) {
+                txt_error.setText(WEIGHT_FORMAT_ERROR);
+                txt_error.setVisible(true);
+                return;
+            }
+
         } catch (NumberFormatException e) {
             txt_error.setText(POINTS_FORMAT_ERROR);
             txt_error.setVisible(true);
             return;
         }
 
-        if (dp_start.getValue().compareTo(dp_end.getValue()) == 1) {
+        if (dp_start.getValue() == null || dp_end.getValue() == null || dp_start.getValue().isAfter(dp_end.getValue())) {
             txt_error.setText(DATE_ERROR);
             txt_error.setVisible(true);
             return;
         }
 
-        Category category = course.getCategories().get(cb_category.getSelectionModel().getSelectedIndex());
+        category = course.getCategories().get(cb_category.getSelectionModel().getSelectedIndex());
         if (assignment == null) {
             assignment = category.addAssignment(tf_name.getText(), totalPoints, cb_optional.isSelected(), cb_extracredit.isSelected(), weightUG, weightGR,
                     java.sql.Date.valueOf(dp_start.getValue()), java.sql.Date.valueOf(dp_end.getValue()), comment);

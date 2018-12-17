@@ -30,7 +30,7 @@ public class Category implements Weightable {
     }
 
     public static Category create(String categoryName, double weightGR, double weightUG, int index, int courseID) {
-        String query = "insert into category (categoryName, weightGR, weightUG, place, courseID) values (?, ?, ?, ?, ?, ?)";
+        String query = "insert into category (categoryName, weightGR, weightUG, place, courseID) values (?, ?, ?, ?, ?)";
         try (PreparedStatement prpst = Database.getDatabase().prepareStatementWithKeyReturn(query)) {
             prpst.setString(1, categoryName);
             prpst.setDouble(2, weightGR);
@@ -192,7 +192,7 @@ public class Category implements Weightable {
         }
     }
 
-    public void update(String categoryName, double weightGR, double weightUG, int index) {
+    public void update(String categoryName, double weightUG, double weightGR, int index) {
         String update = String.format("update category set categoryName = '%s', weightGR = %f, weightUG = %f, place = %d" +
                 "where categoryID = %d", categoryName, weightGR, weightUG, index, categoryID);
         try (Statement statement = Database.getDatabase().getStatement()) {
@@ -203,6 +203,29 @@ public class Category implements Weightable {
             statement.executeUpdate(update);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void recalculateWeights(Assignment assignment, int degree) {
+        if (assignments.size() < 1) {
+            return;
+        }
+
+        double weightSum = 0;
+        for (Assignment assignment1 : assignments) {
+            weightSum += (degree == 0) ? assignment.getWeightUG() : assignment.getWeightGR();
+        }
+
+        if (weightSum <= 1) {
+            return;
+        }
+
+        double difference = weightSum - 1;
+        double update = -1 * difference / (assignments.size() - 1);
+        for (int i = 0; i < assignments.size(); i++) {
+            if (i != assignment.getIndex()) {
+                assignments.get(i).changeWeight((degree == 0) ? assignment.getWeightUG() + update : assignment.getWeightGR() + update, degree);
+            }
         }
     }
 

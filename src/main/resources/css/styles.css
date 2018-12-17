@@ -270,6 +270,11 @@
     -fx-background-color: #fff;
     -fx-text-fill: #fff;
     -fx-font-size: 20;
+    -fx-padding: 0 0 0.5em 0;
+}
+
+.tree-table-cell {
+        -fx-alignment: center;
 }
 
 .titled-pane > .title > .arrow-button .arrow {
@@ -285,4 +290,20 @@
 
 .sidebar-button-course {
     -fx-border-color: #9b2915;
+}
+
+.background-section {
+-fx-background-color: #BDEDE0;
+}
+
+.border-section {
+-fx-border-color: #BDEDE0;
+}
+
+.text-section {
+-fx-fill: #BDEDE0;
+}
+
+.button-text-section {
+-fx-text-fill: #BDEDE0;
 }

@@ -1,33 +1,38 @@
 package twelve.team.controllers.course;
 
 import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import twelve.team.Loader;
+import twelve.team.Router;
 import twelve.team.controllers.MainPane;
-import twelve.team.models.Assignment;
-import twelve.team.models.Category;
-import twelve.team.models.Course;
-import twelve.team.models.Semester;
-import twelve.team.models.graphic.CategoryWeight;
+import twelve.team.models.*;
+import twelve.team.models.table.CategoryWeight;
 import twelve.team.utils.Animator;
+import twelve.team.utils.Dialog;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class CoursePane extends VBox implements Initializable {
+public class CoursePane extends VBox implements Initializable, EventHandler<ActionEvent> {
     public static final String COURSE_FXML_PATH = "course/CoursePane.fxml";
     public static final String THEME_COLOR = "#9b2915";
 
     @FXML
     private Text txt_description, txt_courseName;
+
+    @FXML
+    private Accordion accordion_course;
 
     @FXML
     private TitledPane pane_description, pane_syllabus;
@@ -55,6 +60,11 @@ public class CoursePane extends VBox implements Initializable {
         this.semester = semester;
         this.course = course;
 
+        btn_gradebook.setOnAction(this);
+        btn_sections.setOnAction(this);
+        btn_students.setOnAction(this);
+        btn_assignments.setOnAction(this);
+
         // Load the corresponding data.
         course.load();
 
@@ -64,12 +74,16 @@ public class CoursePane extends VBox implements Initializable {
         degree = 0; // Undergraduate
         toggle_degree.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                degree = degree == 0 ? 1 : 0;
-                toggle_degree.setText(degree == 0 ? "Undergraduate" : "Graduate");
+                degree = 1;
+                toggle_degree.setText("Graduate");
+            } else {
+                degree = 0;
+                toggle_degree.setText("Undergraduate");
             }
+            table_syllabus.refresh();
         });
 
-        pane_syllabus.setExpanded(true);
+        accordion_course.setExpandedPane(pane_syllabus);
 
         JFXTreeTableColumn<CategoryWeight, String> name = new JFXTreeTableColumn<>("Name");
         name.setPrefWidth(200);
@@ -82,7 +96,7 @@ public class CoursePane extends VBox implements Initializable {
         });
 
         JFXTreeTableColumn<CategoryWeight, String> weight = new JFXTreeTableColumn<>("Weight");
-        name.setPrefWidth(100);
+        weight.setPrefWidth(100);
         weight.setCellValueFactory(param -> {
             CategoryWeight categoryWeight = param.getValue().getValue();
             return degree == 0 ? categoryWeight.getWeightUG() : categoryWeight.getWeightGR();
@@ -130,9 +144,28 @@ public class CoursePane extends VBox implements Initializable {
 
         btn_addAssignment.setOnAction(e -> {
             HashMap<Category, Assignment> result = new AssignmentEditPane().load(course);
+
+            if (result == null) {
+                return;
+            }
+
             result.keySet().forEach(category -> {
+                Assignment assignment = result.get(category);
+
+                Dialog.promptWeightRecalc(res -> {
+                    if (res) {
+                        category.recalculateWeights(assignment, 0);
+                        category.recalculateWeights(assignment, 1);
+                    }
+                });
+
+                if (category.isDefault()) {
+                    table_syllabus.getRoot().getChildren().add(new TreeItem<>(new CategoryWeight(result.get(category), false)));
+                    return;
+                }
+
                 for (TreeItem<CategoryWeight> categoryWeightItem : table_syllabus.getRoot().getChildren()) {
-                    if (categoryWeightItem.getValue().getCategory().equals(category)) {
+                    if (categoryWeightItem.getValue().getCategory() != null && categoryWeightItem.getValue().getCategory().equals(category)) {
                         categoryWeightItem.getChildren().add(new TreeItem<>(new CategoryWeight(result.get(category), false)));
                         return;
                     }
@@ -142,11 +175,43 @@ public class CoursePane extends VBox implements Initializable {
 
         btn_addCategory.setOnAction(e -> {
             Category result = new CategoryEditPane().load(course);
+
+            if (result == null) {
+                return;
+            }
+
+            Dialog.promptWeightRecalc(res -> {
+                if (res) {
+                    course.recalculateWeights(result, 0);
+                    course.recalculateWeights(result, 1);
+                }
+            });
+
+
+            table_syllabus.getRoot().getChildren().add(new TreeItem<>(new CategoryWeight(result, true)));
         });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Animator.fadeIn(this, null);
+    }
+
+    @Override
+    public void handle(ActionEvent event) {
+        event.consume();
+        if (event.getSource() == btn_gradebook) {
+
+        } else if (event.getSource() == btn_sections) {
+            SectionSelectionPane sectionSelectionPane = new SectionSelectionPane();
+            sectionSelectionPane.load(course);
+            Animator.fadeOut(this, ev -> {
+                Router.getRouter().addPane(sectionSelectionPane, false);
+            });
+        } else if (event.getSource() == btn_assignments) {
+
+        } else if (event.getSource() == btn_students) {
+
+        }
     }
 }

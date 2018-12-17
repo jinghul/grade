@@ -95,7 +95,7 @@ public class SemesterPane extends VBox implements Initializable {
                 e -> {
                     // Click on course delete button
                     e.consume();
-                    Dialog.showAlertDialog("Delete Course", "Are you sure you want to delete course: %s?".format(course.getName()), ev -> {
+                    Dialog.showAlertDialog("Delete Course", String.format("Are you sure you want to delete course: %s?", course.getName()), ev -> {
                         deleteCourse(tile, course);
                     });
 

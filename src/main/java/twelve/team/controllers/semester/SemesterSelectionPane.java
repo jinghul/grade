@@ -2,8 +2,6 @@ package twelve.team.controllers.semester;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import twelve.team.Loader;
@@ -16,18 +14,17 @@ import twelve.team.utils.Animator;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SemesterSelectionPane extends VBox implements Initializable {
-    public static final String SELECTION_FXML_PATH = "semester/SemesterSelectionPane.fxml";
+    public static final String SEMESTER_SELECTION_PANE_FXML = "semester/SemesterSelectionPane.fxml";
     public static final String THEME_COLOR = "#957FEF";
 
     @FXML
     private TilePane tilePane;
 
     public SemesterSelectionPane() {
-        Loader.load(SELECTION_FXML_PATH, this);
+        Loader.load(SEMESTER_SELECTION_PANE_FXML, this);
     }
     ArrayList<Semester> semesters;
 

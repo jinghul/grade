@@ -50,19 +50,19 @@
                <VBox.margin>
                   <Insets bottom="20.0" top="40.0" />
                </VBox.margin></Text>
-            <JFXTextField fx:id="tf_name" prefWidth="250.0" promptText="First Name" styleClass="textbox">
+            <JFXTextField fx:id="tf_name" labelFloat="true" prefWidth="250.0" promptText="First Name" styleClass="textbox">
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="15.0" />
                </VBox.margin></JFXTextField>
-            <JFXTextField fx:id="tf_last" prefWidth="250.0" promptText="Last Name" styleClass="textbox">
+            <JFXTextField fx:id="tf_last" labelFloat="true" prefWidth="250.0" promptText="Last Name" styleClass="textbox">
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="15.0" />
                </VBox.margin></JFXTextField>
-            <JFXTextField fx:id="tf_username" prefWidth="250.0" promptText="Username" styleClass="textbox">
+            <JFXTextField fx:id="tf_username" labelFloat="true" prefWidth="250.0" promptText="Username" styleClass="textbox">
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="15.0" />
                </VBox.margin></JFXTextField>
-            <JFXPasswordField fx:id="tf_password" prefWidth="250.0" promptText="Password" styleClass="textbox">
+            <JFXPasswordField fx:id="tf_password" labelFloat="true" prefWidth="250.0" promptText="Password" styleClass="textbox">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin></JFXPasswordField>

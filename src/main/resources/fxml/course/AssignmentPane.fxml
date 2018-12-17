@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="710.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXTreeTableView fx:id="table_students" layoutY="70.0" prefHeight="400.0" prefWidth="710.0" showRoot="false" sortMode="ONLY_FIRST_LEVEL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy></JFXTreeTableView>
+      <HBox alignment="CENTER_RIGHT" layoutX="6.0" prefHeight="50.0" prefWidth="200.0" spacing="20.0" styleClass="background-white" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXTextField fx:id="tf_search" focusColor="#bdede0" prefHeight="25.0" prefWidth="200.0" styleClass="textbox">
+               <HBox.margin>
+                  <Insets bottom="5.0" />
+               </HBox.margin>
+            </JFXTextField>
+            <JFXButton fx:id="btn_addStudent" alignment="CENTER" focusTraversable="false" graphicTextGap="10.0" prefHeight="50.0" prefWidth="170.0" stylesheets="@../../css/styles.css" text="Add Student">
+               <styleClass>
+                  <String fx:value="text-sm" />
+                  <String fx:value="button-props" />
+                  <String fx:value="background-white" />
+               </styleClass>
+               <graphic>
+                  <FontAwesomeIconView glyphName="USER_PLUS" size="20" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

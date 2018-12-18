@@ -12,21 +12,21 @@ public class AssignmentModel {
     private Category category;
     private Grade grade;
 
-    private SimpleDoubleProperty gradeScore;
+    private SimpleStringProperty gradeScore;
     private SimpleStringProperty assignmentName;
     private SimpleDoubleProperty totalPoints;
     private SimpleBooleanProperty extracredit;
     private SimpleStringProperty comment;
 
     public AssignmentModel(double gradeScore, String assignmentName, double totalPoints, boolean extracredit, String comment) {
-        this.gradeScore = new SimpleDoubleProperty(gradeScore);
-        this.assignmentName = new SimpleStringProperty(assignment.getName());
-        this.totalPoints = new SimpleDoubleProperty(assignment.getTotalPoints());
-        this.extracredit = new SimpleBooleanProperty(assignment.isExtracredit());
-        this.comment = new SimpleStringProperty(assignment.getComment());
+        this.gradeScore = new SimpleStringProperty(String.valueOf(gradeScore));
+        this.assignmentName = new SimpleStringProperty(assignmentName);
+        this.totalPoints = new SimpleDoubleProperty(totalPoints);
+        this.extracredit = new SimpleBooleanProperty(extracredit);
+        this.comment = new SimpleStringProperty(comment);
     }
 
-    public SimpleDoubleProperty getGradeScore() {
+    public SimpleStringProperty getGradeScore() {
         return gradeScore;
     }
 
@@ -65,7 +65,7 @@ public class AssignmentModel {
         }
 
         average = average / count;
-        this.gradeScore = new SimpleDoubleProperty(average);
+        this.gradeScore = new SimpleStringProperty(String.valueOf(average));
         this.category = category;
         this.assignment = assignment;
         this.assignmentName = new SimpleStringProperty(assignment.getName());
@@ -79,10 +79,11 @@ public class AssignmentModel {
         int count = 0;
         for (Grade grade : section.getGrades(assignment)) {
             average += grade.getGrade();
+            count += 1;
         }
         average = average / count;
 
-        this.gradeScore = new SimpleDoubleProperty(average);
+        this.gradeScore = new SimpleStringProperty(String.valueOf(average));
         this.category = category;
         this.assignment = assignment;
         this.assignmentName = new SimpleStringProperty(assignment.getName());
@@ -91,9 +92,16 @@ public class AssignmentModel {
         this.comment = new SimpleStringProperty(assignment.getComment());
     }
 
+    public void setGrade(double grade) {
+        if (this.grade != null) {
+            this.grade.updateGrade(grade, true);
+        }
+        this.gradeScore = new SimpleStringProperty(String.valueOf(grade));
+    }
+
     public AssignmentModel(Assignment assignment, Category category, Student student) {
         grade = assignment.getGrade(student);
-        this.gradeScore = new SimpleDoubleProperty(grade.getGrade());
+        this.gradeScore = new SimpleStringProperty(String.valueOf(grade.getGrade()));
         this.category = category;
         this.assignment = assignment;
         this.assignmentName = new SimpleStringProperty(assignment.getName());

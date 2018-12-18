@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import twelve.team.controllers.MainPane;
+import twelve.team.controllers.course.StudentPane;
 
 import java.util.Stack;
 
@@ -14,7 +15,7 @@ public class Router {
     private MainPane main;
     private StackPane stackPane;
     private Node current;
-    private Stack<String> backStack;
+    private Stack<Node> backStack;
 
     private static Router router;
 
@@ -43,27 +44,29 @@ public class Router {
     }
 
     public boolean canGoBack() {
-        return !backStack.empty();
+        return true;
     }
 
-    public boolean goBack() {
+    public void goBack() {
         if (backStack.empty()) {
-            return false;
-        } else {
-            backStack.pop();
-            stackPane.getChildren().remove(stackPane.getChildren().size() - 1);
-            return true;
+            return;
         }
+
+        Node pane = backStack.pop();
+        stackPane.getChildren().remove(current);
+        stackPane.getChildren().remove(stackPane.getChildren().size()-1);
+
+        stackPane.getChildren().add(stackPane.getChildren().size(), pane);
     }
 
     public boolean addPane(Node pane, boolean fromSidebar) {
         if (current != null && checkValidRequest(pane)) {
-            if (!fromSidebar) {
-                backStack.push(current.getClass().getName());
-            } else {
-                stackPane.getChildren().clear();
+            if (fromSidebar) {
                 clearStacks();
+                stackPane.getChildren().clear();
             }
+
+            backStack.push(current);
 
             displayPane(pane);
 

@@ -111,8 +111,8 @@
                         </TitledPane>
                      </panes>
                   </Accordion>
-                  <StudentPane fx:id="student_pane" />
-                  <AssignmentPane fx:id="assignment_pane" />
+                  <StudentPane fx:id="student_pane" prefWidth="710.0" />
+                  <AssignmentPane fx:id="assignment_pane" prefWidth="710.0" />
                </children>
             </StackPane>
             <VBox alignment="TOP_CENTER" prefWidth="200.0" styleClass="background-white">

@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AssignmentSummaryPane extends VBox implements Initializable {
-    public static final String ASSIGNMENT_PANE_FXML = "course/AssignmentSummaryPage.fxml";
+    public static final String ASSIGNMENT_PANE_FXML = "course/AssignmentSummaryPane.fxml";
 
     @FXML
     private StudentPane student_pane;

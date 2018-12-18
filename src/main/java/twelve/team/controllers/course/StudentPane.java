@@ -52,7 +52,6 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
     }
 
     public void load(Section section) {
-        reset();
         ArrayList<TreeItem<StudentModel>> studentModels = new ArrayList<>();
         for (Student student : section.getStudents()) {
             TreeItem<StudentModel> studentModel = new TreeItem<>(new StudentModel(student, section, assignment));
@@ -62,7 +61,6 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
     }
 
     public void load(Course course) {
-        reset();
         ArrayList<TreeItem<StudentModel>> studentModels = new ArrayList<>();
         for (Section section : course.getSections()) {
             for (Student student : section.getStudents()) {
@@ -126,41 +124,9 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
         comments.setCellValueFactory(param -> param.getValue().getValue().getComment());
         columns.add(comments);
 
-        table_students.setRowFactory(
-                (Callback<TableView<StudentModel>, TableRow<StudentModel>>) tableView -> {
-                    final TableRow<StudentModel> row = new TableRow<>();
-                    final ContextMenu rowMenu = new ContextMenu();
-                    StudentModel studentModel = row.getItem();
-                    MenuItem editItem = new MenuItem("Edit");
-                    editItem.setOnAction(e -> {
-                        HashMap<Section, Student> result;
-                        if (section == null) {
-                            result = (new StudentEditPane()).load(course, studentModel.getSection(), studentModel.getStudent());
-                            for (Section section : result.keySet()) {
-                                Student student = result.get(section);
-                                row.setItem(new StudentModel(student, section, assignment));
-                            }
-                        } else {
-                            result = new StudentEditPane().load(MainPane.teacher.getCurrentCourse(), section, studentModel.getStudent());
-                            for (Section section: result.keySet()) {
-                                if (section != this.section) {
-                                    row.setItem(null);
-                                }
-                            }
-                        }
-                    });
-                    MenuItem removeItem = new MenuItem("Delete");
-                    removeItem.setOnAction(event -> table_students.getRoot().getChildren().remove(row.getItem()));
-                    rowMenu.getItems().addAll(editItem, removeItem);
-
-                    row.contextMenuProperty().bind(
-                            Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                                    .then(rowMenu)
-                                    .otherwise((ContextMenu)null));
-                    return row;
-                });
-
+        System.out.println("ASSIGNMENT NULL ? " + String.valueOf(assignment == null));
         if (assignment != null) {
+            table_students.setEditable(true);
             grade.setCellFactory(param -> new TextFieldTreeTableCell<>());
             grade.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
             grade.setOnEditCommit(event -> {
@@ -173,34 +139,36 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
                     return;
                 }
             });
+
             comments.setCellFactory(param -> new TextFieldTreeTableCell<>());
             comments.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
             comments.setOnEditCommit(event -> {
                 final StudentModel studentModel = event.getRowValue().getValue();
                 studentModel.setComment(event.getNewValue());
             });
-        }
 
-        if (section == null) {
             JFXTreeTableColumn<StudentModel, String> sections = new JFXTreeTableColumn<>("Section");
-            comments.setPrefWidth(200);
-            comments.setCellValueFactory(param -> param.getValue().getValue().getSectionCode());
+            sections.setPrefWidth(200);
+            sections.setCellValueFactory(param -> param.getValue().getValue().getSectionCode());
             columns.add(0, sections);
         }
 
-        table_students.setRowFactory( tv -> {
-            TableRow<StudentModel> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    StudentModel rowData = row.getItem();
-                    StudentSummaryPane studentSummaryPane = new StudentSummaryPane();
-                    if (section != null) {
-                        studentSummaryPane.load(course, rowData.getStudent());
+        if (assignment == null) {
+            table_students.setRowFactory( tv -> {
+                TreeTableRow<StudentModel> row = new TreeTableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 3 && (! row.isEmpty()) ) {
+                        StudentModel rowData = row.getItem();
+                        StudentSummaryPane studentSummaryPane = new StudentSummaryPane();
+                        if (section != null) {
+                            studentSummaryPane.load(course, rowData.getStudent());
+                        }
+                        Router.getRouter().addPane(studentSummaryPane, false);
                     }
-                }
+                });
+                return row ;
             });
-            return row ;
-        });
+        }
 
 
         final TreeItem<StudentModel> root = new TreeItem<>(new StudentModel("Name", "ID", "Degree", "Comment", "Grade"));
@@ -221,11 +189,7 @@ public class StudentPane extends AnchorPane implements Initializable, EventHandl
     @Override
     public void handle(ActionEvent event) {
         HashMap<Section, Student> result;
-        if (section == null) {
-            result = (new StudentEditPane()).load(course);
-        } else {
-            result = new StudentEditPane().load(MainPane.teacher.getCurrentCourse());
-        }
+        result = new StudentEditPane().load(MainPane.teacher.getCurrentCourse());
 
         if (result == null) {
             return;

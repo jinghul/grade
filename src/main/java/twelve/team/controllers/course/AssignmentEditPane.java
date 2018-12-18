@@ -125,6 +125,7 @@ public class AssignmentEditPane extends AnchorPane {
 
         Category newCategory = course.getCategories().get(cb_category.getSelectionModel().getSelectedIndex());
         if (assignment == null) {
+            category = newCategory;
             assignment = category.addAssignment(tf_name.getText(), totalPoints, cb_optional.isSelected(), cb_extracredit.isSelected(), weightUG, weightGR,
                     java.sql.Date.valueOf(dp_start.getValue()), java.sql.Date.valueOf(dp_end.getValue()), comment);
         } else {

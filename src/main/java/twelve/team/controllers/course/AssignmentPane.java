@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class AssignmentPane extends AnchorPane implements Initializable, EventHandler<ActionEvent> {
-    public static final String ASSIGNMENT_FXML_PATH = "course/StudentPane.fxml";
+    public static final String ASSIGNMENT_FXML_PATH = "course/AssignmentPane.fxml";
 
     @FXML
     private AnchorPane root;
@@ -50,7 +50,7 @@ public class AssignmentPane extends AnchorPane implements Initializable, EventHa
     }
 
     private void reset() {
-        course =null;
+        course = null;
         section = null;
         student = null;
         if (table_assignments.getRoot() != null) {
@@ -60,6 +60,7 @@ public class AssignmentPane extends AnchorPane implements Initializable, EventHa
 
     public void load(Course course, Student student) {
         this.student = student;
+        this.course = course;
         ArrayList<TreeItem<AssignmentModel>> assignmentModels = new ArrayList<>();
         for (Category category : course.getCategories()) {
             for (Assignment assignment : category.getAssignments()) {
@@ -86,6 +87,7 @@ public class AssignmentPane extends AnchorPane implements Initializable, EventHa
     }
 
     public void load(Course course) {
+        this.course = course;
         ArrayList<TreeItem<AssignmentModel>> assignmentModels = new ArrayList<>();
         for (Category category : course.getCategories()) {
             for (Assignment assignment : category.getAssignments()) {
@@ -98,108 +100,70 @@ public class AssignmentPane extends AnchorPane implements Initializable, EventHa
 
     private void loadTable(ArrayList<TreeItem<AssignmentModel>> assignmentModels) {
 
-        ArrayList<JFXTreeTableColumn> columns = new ArrayList<>();
-
         JFXTreeTableColumn<AssignmentModel, String> name = new JFXTreeTableColumn<>("Name");
         name.setPrefWidth(200);
         name.setCellValueFactory(param -> param.getValue().getValue().getAssignmentName());
-        columns.add(name);
 
-        JFXTreeTableColumn<AssignmentModel, Number> grade = new JFXTreeTableColumn<>("Grade");
+        JFXTreeTableColumn<AssignmentModel, String> grade = new JFXTreeTableColumn<>("Grade");
         grade.setPrefWidth(200);
         grade.setCellValueFactory(param -> param.getValue().getValue().getGradeScore());
-        columns.add(grade);
+
+        System.out.println("STUDENT NULL ? " + String.valueOf(student == null));
+        if (student != null) {
+            table_assignments.setEditable(true);
+            grade.setCellFactory(param -> new TextFieldTreeTableCell<>());
+            grade.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
+            grade.setOnEditCommit(event -> {
+                final AssignmentModel assignmentModel = event.getRowValue().getValue();
+                double newGrade;
+                try {
+                    newGrade = Double.valueOf(event.getNewValue());
+                    assignmentModel.setGrade(newGrade);
+                } catch(NumberFormatException e) {
+                    return;
+                }
+            });
+        }
 
         JFXTreeTableColumn<AssignmentModel, Number> totalPoints = new JFXTreeTableColumn<>("TotalPoints");
         totalPoints.setPrefWidth(200);
         totalPoints.setCellValueFactory(param -> param.getValue().getValue().getTotalPoints());
-        columns.add(totalPoints);
 
         JFXTreeTableColumn<AssignmentModel, Boolean> extracredit = new JFXTreeTableColumn<>("Extracredit");
         extracredit.setPrefWidth(200);
         extracredit.setCellValueFactory(param -> param.getValue().getValue().getExtracredit());
-        columns.add(extracredit);
 
         JFXTreeTableColumn<AssignmentModel, String> comments = new JFXTreeTableColumn<>("Comment");
         comments.setPrefWidth(200);
         comments.setCellValueFactory(param -> param.getValue().getValue().getComment());
-        columns.add(comments);
 
-        table_assignments.setRowFactory(
-            (Callback<TableView<AssignmentModel>, TableRow<AssignmentModel>>) tableView -> {
-                final TableRow<AssignmentModel> row = new TableRow<>();
-                final ContextMenu rowMenu = new ContextMenu();
-                AssignmentModel assignmentModel = row.getItem();
-                MenuItem editItem = new MenuItem("Edit");
-                editItem.setOnAction(e -> {
-                    HashMap<Category, Assignment> result;
-                    result = (new AssignmentEditPane()).load(course, assignmentModel.getCategory(), assignmentModel.getAssignment());
-                    for (Category category : result.keySet()) {
-                        Assignment assignment = result.get(section);
-                        if (student != null) {
-                            row.setItem(new AssignmentModel(assignment, category, student));
-                        } else if (section != null) {
-                            row.setItem(new AssignmentModel(assignment, category,section));
-                        } else {
-                            row.setItem(new AssignmentModel(assignment, category, course));
-                        }
-                    }
-                });
-                MenuItem removeItem = new MenuItem("Delete");
-                removeItem.setOnAction(event -> table_assignments.getRoot().getChildren().remove(row.getItem()));
-                rowMenu.getItems().addAll(editItem, removeItem);
-
-                row.contextMenuProperty().bind(
-                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                        .then(rowMenu)
-                        .otherwise((ContextMenu)null));
-                return row;
-            });
-
-        table_assignments.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                if(mouseEvent.getClickCount() == 2)
-                {
-                    TreeItem<AssignmentModel> item = (TreeItem<AssignmentModel>) table_assignments.getSelectionModel().getSelectedItem();
-                    // Click on semester button
-                    AssignmentSummaryPane assignmentSummaryPane = new AssignmentSummaryPane();
-                    if (section != null) {
-                        assignmentSummaryPane.load(section, item.getValue().getAssignment());
-                    } else {
-                        assignmentSummaryPane.load(course, item.getValue().getAssignment());
-                    }
-
-                    Router.getRouter().addPane(assignmentSummaryPane, false);
-                }
-            }
-        });
-
-        table_assignments.setRowFactory( tv -> {
-            TableRow<AssignmentModel> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    AssignmentModel rowData = row.getItem();
-                    AssignmentSummaryPane assignmentSummaryPane = new AssignmentSummaryPane();
-                    if (section != null) {
-                        assignmentSummaryPane.load(section, rowData.getAssignment());
-                    } else {
-                        assignmentSummaryPane.load(course, rowData.getAssignment());
-                    }
-
-                    Router.getRouter().addPane(assignmentSummaryPane, false);
-                }
-            });
-            return row ;
-        });
-
-        final TreeItem<AssignmentModel> root = new TreeItem<>(new AssignmentModel(0, "ID", 0, false, "Grade"));
-        root.getChildren().addAll(assignmentModels);
+        final TreeItem<AssignmentModel> root = new TreeItem<>(new AssignmentModel(0, "ID", 0, false, "comment"));
+        final boolean b = root.getChildren().addAll(assignmentModels);
 
         table_assignments.setRoot(root);
-        table_assignments.getColumns().setAll(columns);
+        table_assignments.getColumns().setAll(name, grade, totalPoints, extracredit, comments);
+
+        if (student == null) {
+            table_assignments.setRowFactory( tv -> {
+                TreeTableRow<AssignmentModel> row = new TreeTableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 3 && (! row.isEmpty()) ) {
+                        AssignmentModel rowData = row.getItem();
+                        AssignmentSummaryPane assignmentSummaryPane = new AssignmentSummaryPane();
+                        if (section != null) {
+                            assignmentSummaryPane.load(section, rowData.getAssignment());
+                        } else {
+                            assignmentSummaryPane.load(course, rowData.getAssignment());
+                        }
+
+                        Router.getRouter().addPane(assignmentSummaryPane, false);
+                    }
+                });
+                return row ;
+            });
+        }
+
+
         table_assignments.setShowRoot(false);
         btn_addAssignment.setOnAction(this);
     }

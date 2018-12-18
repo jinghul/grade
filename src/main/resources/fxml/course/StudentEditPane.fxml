@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
@@ -21,11 +19,12 @@
     <children>
         <AnchorPane prefHeight="87.0" prefWidth="400.0" styleClass="background-course" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Text fx:id="txt_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Assignment" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0">
+                <Text fx:id="txt_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Student" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0">
                     <styleClass>
                         <String fx:value="text-white" />
                         <String fx:value="header-sm" />
-                    </styleClass></Text>
+                    </styleClass>
+            </Text>
             <JFXButton fx:id="btn_comment" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="10.0" layoutX="296.0" layoutY="39.0" styleClass="button-alt" text="Comment" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="30.0">
                <graphic>
                   <FontAwesomeIconView glyphName="COMMENT_ALT" size="15" />
@@ -40,23 +39,14 @@
                         <Font size="15.0" />
                     </font>
                 </Text>
-            <StackPane fx:id="pane_stack" prefHeight="150.0" prefWidth="400.0">
+            <StackPane fx:id="pane_stack" prefHeight="200.0" prefWidth="400.0">
                <children>
-                  <FlowPane alignment="CENTER_LEFT" columnHalignment="CENTER" hgap="40.0" prefHeight="200.0" prefWidth="450.0" vgap="20.0">
+                  <FlowPane alignment="CENTER_LEFT" columnHalignment="CENTER" hgap="40.0" prefHeight="212.0" prefWidth="400.0" vgap="20.0">
                      <children>
                               <JFXTextField fx:id="tf_name" focusColor="#9b2915" prefWidth="150.0" promptText="Name" styleClass="textbox" />
-                        <ChoiceBox fx:id="cb_category" prefWidth="150.0" style="-fx-border-color: #4d4d4d;" styleClass="button-alt" />
-                        <JFXTextField fx:id="tf_totalpoints" focusColor="#9b2915" prefWidth="100.0" promptText="Total Points" styleClass="textbox" />
-                        <JFXCheckBox fx:id="cb_optional" checkedColor="#9b2915" text="Optional">
-                           <FlowPane.margin>
-                              <Insets />
-                           </FlowPane.margin>
-                        </JFXCheckBox>
-                        <JFXCheckBox fx:id="cb_extracredit" checkedColor="#9b2915" text="Extracredit" />
-                        <JFXDatePicker fx:id="dp_start" defaultColor="#9b2915" prefWidth="150.0" promptText="Start Date" styleClass="textbox" />
-                        <JFXDatePicker fx:id="dp_end" defaultColor="#9b2915" prefWidth="150.0" promptText="End Date" styleClass="textbox" />
-                        <JFXTextField fx:id="tf_ugweight" focusColor="#9b2915" prefWidth="100.0" promptText="UG Weight" styleClass="textbox" />
-                        <JFXTextField fx:id="tf_grweight" focusColor="#9b2915" prefWidth="100.0" promptText="GR Weight" styleClass="textbox" />
+                        <JFXTextField fx:id="tf_universityID" focusColor="#9b2915" prefWidth="100.0" promptText="UniversityID" styleClass="textbox" />
+                        <ChoiceBox fx:id="cb_degree" prefWidth="150.0" />
+                        <ChoiceBox fx:id="cb_section" prefWidth="150.0" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
@@ -69,12 +59,14 @@
                     <styleClass>
                         <String fx:value="button-primary" />
                         <String fx:value="background-course" />
-                    </styleClass></Button>
+                    </styleClass>
+            </Button>
                 <Button fx:id="btn_cancel" mnemonicParsing="false" prefWidth="200.0" text="Cancel">
                     <styleClass>
                         <String fx:value="button-text-course" />
                         <String fx:value="button-alt" />
-                    </styleClass></Button>
+                    </styleClass>
+            </Button>
             </children>
         </VBox>
     </children>

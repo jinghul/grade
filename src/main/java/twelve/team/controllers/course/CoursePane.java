@@ -70,6 +70,7 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
         MainPane.teacher.setCurrentCourse(course);
 
         current = accordion_course;
+        accordion_course.toFront();
 
         this.semester = semester;
         this.course = course;
@@ -179,6 +180,10 @@ public class CoursePane extends VBox implements Initializable, EventHandler<Acti
                     if (res) {
                         category.recalculateWeights(assignment, 0);
                         category.recalculateWeights(assignment, 1);
+                        for (TreeItem<CategoryWeight> item : table_syllabus.getRoot().getChildren()) {
+                            item.getValue().refresh();
+                        }
+                        table_syllabus.refresh();
                     }
                 });
 

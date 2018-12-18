@@ -89,6 +89,7 @@ public class StudentEditPane extends AnchorPane {
 
         Section newSection = course.getSections().get(cb_section.getSelectionModel().getSelectedIndex());
         if (student == null) {
+            section = newSection;
             student = section.addStudent(tf_name.getText(), tf_universityID.getText(), cb_degree.getSelectionModel().getSelectedIndex(), "");
         } else {
             student.update(tf_name.getText(), tf_universityID.getText(), cb_degree.getSelectionModel().getSelectedIndex(), "");

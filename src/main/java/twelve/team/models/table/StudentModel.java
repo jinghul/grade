@@ -44,11 +44,6 @@ public class StudentModel {
         return isGraded;
     }
 
-    public void setIsGraded(boolean graded) {
-        isGraded = new SimpleBooleanProperty(graded);
-        grade.setGraded(graded);
-    }
-
     private SimpleStringProperty sectionCode;
     public SimpleStringProperty getSectionCode() {
         return sectionCode;

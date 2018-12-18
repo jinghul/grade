@@ -38,6 +38,12 @@ public class CategoryWeight extends RecursiveTreeObject<CategoryWeight> {
         return weightGR;
     }
 
+    public void refresh() {
+        this.name = new SimpleStringProperty(weightable.getName());
+        this.weightUG = new SimpleStringProperty(String.valueOf(weightable.getWeightUG()));
+        this.weightGR = new SimpleStringProperty(String.valueOf(weightable.getWeightGR()));
+    }
+
     public void setName(String name) {
         this.name = new SimpleStringProperty(name);
         weightable.setName(name);
